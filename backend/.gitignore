@@ -1,0 +1,60 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Cython debug symbols
+cython_debug/
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+.virtual_env/
+.virtualenv/
+
+# IDE / Editor directories and files
+.vscode/
+.idea/
+
+# PyCharm
+*.iml
+*.ipr
+*.iws
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pytest
+.cache/
+
+# mypy
+.mypy_cache/
+
+# coverage reports
+.coverage
+*.cover
+*.coverage
+*.hypothesis/
+
+# pyre type checker
+.pyre/
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# misc
+*.log
+*.pot
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db

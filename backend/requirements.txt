@@ -1,0 +1,26 @@
+# FastAPI Framework
+fastapi
+uvicorn[standard]
+
+# Database
+sqlalchemy[asyncio]
+asyncpg
+psycopg2-binary
+geoalchemy2
+
+# Pydantic
+pydantic
+pydantic-settings
+
+# Excel Processing
+openpyxl
+pandas
+
+# File Upload
+python-multipart
+
+# Environment Variables
+python-dotenv
+
+# Database Migrations (optional for now)
+alembic

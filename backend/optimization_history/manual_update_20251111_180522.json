@@ -1,0 +1,1097 @@
+{
+  "clusters": [
+    {
+      "name": "Viralimalai",
+      "total_milk": 292,
+      "vehicles": [
+        {
+          "id": "droppable-0-0",
+          "type": "C1",
+          "farmers": [
+            {
+              "id": "Thuvarankurichi-v1-f0",
+              "name": "Ponnusamy",
+              "milk_liters": 38,
+              "lat": 10.46354924718671,
+              "lng": 78.37546055844534
+            },
+            {
+              "id": "Thuvarankurichi-v0-f3",
+              "name": "Karuppusamy",
+              "milk_liters": 32,
+              "lat": 10.393220211297827,
+              "lng": 78.20935269679953
+            },
+            {
+              "id": "Thuvarankurichi-v0-f2",
+              "name": "Nadarajan",
+              "milk_liters": 44,
+              "lat": 10.425768255100131,
+              "lng": 78.39148875047665
+            },
+            {
+              "id": "Thuvarankurichi-v0-f1",
+              "name": "Muthusamy",
+              "milk_liters": 40,
+              "lat": 10.130136251046284,
+              "lng": 78.18758441985372
+            },
+            {
+              "id": "Thuvarankurichi-v0-f0",
+              "name": "Senthilkumar",
+              "milk_liters": 33,
+              "lat": 10.476025861822674,
+              "lng": 78.11924719043807
+            },
+            {
+              "id": "Viralimalai-v0-f0",
+              "name": "Ganesan",
+              "milk_liters": 41,
+              "lat": 10.120870587261857,
+              "lng": 78.15821905851533
+            },
+            {
+              "id": "Viralimalai-v0-f1",
+              "name": "Perumal",
+              "milk_liters": 35,
+              "lat": 10.31447882630815,
+              "lng": 78.28125559622316
+            },
+            {
+              "id": "Viralimalai-v0-f2",
+              "name": "Gopalakrishnan",
+              "milk_liters": 32,
+              "lat": 10.169036778662115,
+              "lng": 78.03447273127017
+            },
+            {
+              "id": "Viralimalai-v0-f3",
+              "name": "Kumarasamy",
+              "milk_liters": 33,
+              "lat": 10.199692111670991,
+              "lng": 78.29765780713288
+            },
+            {
+              "id": "Viralimalai-v0-f4",
+              "name": "Sivaraj",
+              "milk_liters": 19,
+              "lat": 10.065336637005329,
+              "lng": 78.00427298134774
+            },
+            {
+              "id": "Viralimalai-v0-f5",
+              "name": "Mariappan",
+              "milk_liters": 18,
+              "lat": 10.191161528837377,
+              "lng": 78.36316531014654
+            },
+            {
+              "id": "Viralimalai-v0-f6",
+              "name": "Kalimuthu",
+              "milk_liters": 26,
+              "lat": 10.372724259034825,
+              "lng": 78.32664696129653
+            },
+            {
+              "id": "Viralimalai-v0-f7",
+              "name": "Muthuraman",
+              "milk_liters": 21,
+              "lat": 10.49128072764402,
+              "lng": 78.40258756714387
+            }
+          ],
+          "total_milk": 412,
+          "distance": 33,
+          "travel_time": 97,
+          "utilization": 60
+        },
+        {
+          "id": "droppable-0-1",
+          "type": "C6",
+          "farmers": [
+            {
+              "id": "Viralimalai-v1-f0",
+              "name": "Ramasamy",
+              "milk_liters": 46,
+              "lat": 10.212686799866836,
+              "lng": 78.18530984431796
+            },
+            {
+              "id": "Viralimalai-v1-f1",
+              "name": "Venkatasamy",
+              "milk_liters": 10,
+              "lat": 10.233643433728519,
+              "lng": 78.24021433605346
+            },
+            {
+              "id": "Viralimalai-v1-f2",
+              "name": "Ramu",
+              "milk_liters": 44,
+              "lat": 10.39609567219811,
+              "lng": 78.23078125293945
+            },
+            {
+              "id": "Viralimalai-v1-f3",
+              "name": "Arumugham",
+              "milk_liters": 46,
+              "lat": 10.128658684567835,
+              "lng": 78.41134411285046
+            }
+          ],
+          "total_milk": 146,
+          "distance": 49,
+          "travel_time": 169,
+          "utilization": 19
+        }
+      ]
+    },
+    {
+      "name": "Thuvarankurichi",
+      "total_milk": 5880,
+      "vehicles": [
+        {
+          "id": "droppable-1-0",
+          "type": "C2",
+          "farmers": [],
+          "total_milk": 0,
+          "distance": 56,
+          "travel_time": 112,
+          "utilization": 35
+        },
+        {
+          "id": "droppable-1-1",
+          "type": "C6",
+          "farmers": [
+            {
+              "id": "Thuvarankurichi-v1-f1",
+              "name": "Nalliah",
+              "milk_liters": 36,
+              "lat": 10.459525272584255,
+              "lng": 78.1143780080441
+            },
+            {
+              "id": "Thuvarankurichi-v1-f2",
+              "name": "Manickam",
+              "milk_liters": 46,
+              "lat": 10.47111225896235,
+              "lng": 78.48739935136693
+            },
+            {
+              "id": "Thuvarankurichi-v1-f3",
+              "name": "Thirumalai",
+              "milk_liters": 34,
+              "lat": 10.112398635877625,
+              "lng": 78.34401228654517
+            },
+            {
+              "id": "Thuvarankurichi-v1-f4",
+              "name": "Veeramani",
+              "milk_liters": 13,
+              "lat": 10.496357051551024,
+              "lng": 78.40889237060999
+            }
+          ],
+          "total_milk": 129,
+          "distance": 22,
+          "travel_time": 118,
+          "utilization": 87
+        },
+        {
+          "id": "droppable-1-2",
+          "type": "C4",
+          "farmers": [
+            {
+              "id": "Thuvarankurichi-v2-f0",
+              "name": "Murugan",
+              "milk_liters": 16,
+              "lat": 10.10557029633532,
+              "lng": 78.19851605295015
+            },
+            {
+              "id": "Thuvarankurichi-v2-f1",
+              "name": "Vellaiyappan",
+              "milk_liters": 34,
+              "lat": 10.434389743436295,
+              "lng": 78.29379458298338
+            },
+            {
+              "id": "Thuvarankurichi-v2-f2",
+              "name": "Kothandaraman",
+              "milk_liters": 27,
+              "lat": 10.23520148927501,
+              "lng": 78.47299260556979
+            },
+            {
+              "id": "Thuvarankurichi-v2-f3",
+              "name": "Anbalagan",
+              "milk_liters": 22,
+              "lat": 10.38851370212366,
+              "lng": 78.01293243149881
+            },
+            {
+              "id": "Thuvarankurichi-v2-f4",
+              "name": "Karunanidhi",
+              "milk_liters": 15,
+              "lat": 10.272184270244496,
+              "lng": 78.23364084827624
+            },
+            {
+              "id": "Thuvarankurichi-v2-f5",
+              "name": "Karthikeyan",
+              "milk_liters": 43,
+              "lat": 10.1402635413875,
+              "lng": 78.4119076660525
+            },
+            {
+              "id": "Thuvarankurichi-v2-f6",
+              "name": "Rajadurai",
+              "milk_liters": 44,
+              "lat": 10.139781762529436,
+              "lng": 78.23987245178814
+            },
+            {
+              "id": "Thuvarankurichi-v2-f7",
+              "name": "Veerapandi",
+              "milk_liters": 19,
+              "lat": 10.24413181882045,
+              "lng": 78.2687061167649
+            }
+          ],
+          "total_milk": 220,
+          "distance": 44,
+          "travel_time": 157,
+          "utilization": 66
+        }
+      ]
+    },
+    {
+      "name": "Ponnamaravathi Bus stand",
+      "total_milk": 4840,
+      "vehicles": [
+        {
+          "id": "droppable-2-0",
+          "type": "C2",
+          "farmers": [
+            {
+              "id": "Ponnamaravathi Bus stand-v0-f0",
+              "name": "Subash",
+              "milk_liters": 16,
+              "lat": 10.164215755289508,
+              "lng": 78.44269556551829
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v0-f1",
+              "name": "Dhanapal",
+              "milk_liters": 33,
+              "lat": 10.25268401016683,
+              "lng": 78.43340770855195
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v0-f2",
+              "name": "Suthan",
+              "milk_liters": 38,
+              "lat": 10.472528080768186,
+              "lng": 78.33027491091475
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v0-f3",
+              "name": "Vasu",
+              "milk_liters": 37,
+              "lat": 10.140194482913351,
+              "lng": 78.08027826430414
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v0-f4",
+              "name": "Shanmugam",
+              "milk_liters": 49,
+              "lat": 10.463951081815487,
+              "lng": 78.00077210482193
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v0-f5",
+              "name": "Murali",
+              "milk_liters": 48,
+              "lat": 10.330278114639032,
+              "lng": 78.23354469959712
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v0-f6",
+              "name": "Narayanan",
+              "milk_liters": 29,
+              "lat": 10.286254721699638,
+              "lng": 78.00267642090552
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v0-f7",
+              "name": "Srinivasan",
+              "milk_liters": 32,
+              "lat": 10.13706921552927,
+              "lng": 78.30595546118747
+            }
+          ],
+          "total_milk": 282,
+          "distance": 25,
+          "travel_time": 102,
+          "utilization": 30
+        },
+        {
+          "id": "droppable-2-1",
+          "type": "C3",
+          "farmers": [
+            {
+              "id": "Ponnamaravathi Bus stand-v1-f0",
+              "name": "Kannan",
+              "milk_liters": 31,
+              "lat": 10.016861981744043,
+              "lng": 78.25930444951983
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v1-f1",
+              "name": "Venkatesh",
+              "milk_liters": 35,
+              "lat": 10.35078819095672,
+              "lng": 78.40873085849694
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v1-f2",
+              "name": "Saravanan",
+              "milk_liters": 21,
+              "lat": 10.28648054237605,
+              "lng": 78.17854786489826
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v1-f3",
+              "name": "Suresh",
+              "milk_liters": 31,
+              "lat": 10.328983091217367,
+              "lng": 78.19540730656335
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v1-f4",
+              "name": "Subramanian",
+              "milk_liters": 13,
+              "lat": 10.240228159006948,
+              "lng": 78.39290218258976
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v1-f5",
+              "name": "Pandiyan",
+              "milk_liters": 10,
+              "lat": 10.314494703297923,
+              "lng": 78.09677841366266
+            }
+          ],
+          "total_milk": 141,
+          "distance": 66,
+          "travel_time": 63,
+          "utilization": 94
+        },
+        {
+          "id": "droppable-2-2",
+          "type": "C6",
+          "farmers": [
+            {
+              "id": "Ponnamaravathi Bus stand-v2-f0",
+              "name": "Kamaraj",
+              "milk_liters": 48,
+              "lat": 10.210033987083717,
+              "lng": 78.14633284953061
+            },
+            {
+              "id": "Ponnamaravathi Bus stand-v2-f1",
+              "name": "Sakthivel",
+              "milk_liters": 30,
+              "lat": 10.164254215892019,
+              "lng": 78.10862440834951
+            }
+          ],
+          "total_milk": 78,
+          "distance": 48,
+          "travel_time": 171,
+          "utilization": 65
+        }
+      ]
+    },
+    {
+      "name": "Melur",
+      "total_milk": 9440,
+      "vehicles": [
+        {
+          "id": "droppable-3-0",
+          "type": "C2",
+          "farmers": [
+            {
+              "id": "Melur-v0-f0",
+              "name": "Muthupandi",
+              "milk_liters": 46,
+              "lat": 10.06874784215193,
+              "lng": 78.45561816599471
+            },
+            {
+              "id": "Melur-v0-f1",
+              "name": "Rajalakshmi",
+              "milk_liters": 23,
+              "lat": 10.210729278988717,
+              "lng": 78.01912728217684
+            },
+            {
+              "id": "Melur-v0-f2",
+              "name": "Rajendran",
+              "milk_liters": 31,
+              "lat": 10.407791000534822,
+              "lng": 78.124954933061
+            },
+            {
+              "id": "Melur-v0-f3",
+              "name": "Arulnithi",
+              "milk_liters": 33,
+              "lat": 10.176236433217307,
+              "lng": 78.12747819081903
+            },
+            {
+              "id": "Melur-v0-f4",
+              "name": "Kamalakannan",
+              "milk_liters": 20,
+              "lat": 10.378632655981466,
+              "lng": 78.4512662532697
+            },
+            {
+              "id": "Melur-v0-f5",
+              "name": "Marimuthu",
+              "milk_liters": 46,
+              "lat": 10.296871822603846,
+              "lng": 78.47497490138277
+            },
+            {
+              "id": "Melur-v0-f6",
+              "name": "Ayyappan",
+              "milk_liters": 31,
+              "lat": 10.036713568053816,
+              "lng": 78.1477530399041
+            },
+            {
+              "id": "Melur-v0-f7",
+              "name": "Jeevan",
+              "milk_liters": 39,
+              "lat": 10.44691024667833,
+              "lng": 78.23274939329494
+            }
+          ],
+          "total_milk": 269,
+          "distance": 50,
+          "travel_time": 112,
+          "utilization": 77
+        },
+        {
+          "id": "droppable-3-1",
+          "type": "C5",
+          "farmers": [
+            {
+              "id": "Melur-v1-f0",
+              "name": "Tharshan",
+              "milk_liters": 45,
+              "lat": 10.043864652361998,
+              "lng": 78.10643022651942
+            },
+            {
+              "id": "Melur-v1-f1",
+              "name": "Sathish",
+              "milk_liters": 17,
+              "lat": 10.18554475879205,
+              "lng": 78.41618226412209
+            },
+            {
+              "id": "Melur-v1-f2",
+              "name": "Manikavalan",
+              "milk_liters": 26,
+              "lat": 10.063210467741744,
+              "lng": 78.38908655627066
+            },
+            {
+              "id": "Melur-v1-f3",
+              "name": "Karuppaiah",
+              "milk_liters": 46,
+              "lat": 10.048687398323393,
+              "lng": 78.46241397855397
+            },
+            {
+              "id": "Melur-v1-f4",
+              "name": "Aravind",
+              "milk_liters": 27,
+              "lat": 10.189606939726533,
+              "lng": 78.17695729977258
+            },
+            {
+              "id": "Melur-v1-f5",
+              "name": "Velan",
+              "milk_liters": 10,
+              "lat": 10.072172768295578,
+              "lng": 78.18999928961998
+            },
+            {
+              "id": "Melur-v1-f6",
+              "name": "Pugalendhi",
+              "milk_liters": 23,
+              "lat": 10.444900491854808,
+              "lng": 78.168341268959
+            }
+          ],
+          "total_milk": 194,
+          "distance": 21,
+          "travel_time": 174,
+          "utilization": 46
+        },
+        {
+          "id": "droppable-3-2",
+          "type": "C4",
+          "farmers": [
+            {
+              "id": "Melur-v2-f0",
+              "name": "Gokul",
+              "milk_liters": 18,
+              "lat": 10.298415309662616,
+              "lng": 78.16708133990599
+            },
+            {
+              "id": "Melur-v2-f1",
+              "name": "Arokiyasamy",
+              "milk_liters": 36,
+              "lat": 10.032715074137892,
+              "lng": 78.07848128243242
+            },
+            {
+              "id": "Melur-v2-f2",
+              "name": "Raghuraman",
+              "milk_liters": 35,
+              "lat": 10.22887929104128,
+              "lng": 78.28286789679734
+            },
+            {
+              "id": "Melur-v2-f3",
+              "name": "Chidambaram",
+              "milk_liters": 26,
+              "lat": 10.340771513876737,
+              "lng": 78.29188207813068
+            },
+            {
+              "id": "Melur-v2-f4",
+              "name": "Ramasubramanian",
+              "milk_liters": 35,
+              "lat": 10.046193431290462,
+              "lng": 78.27805567079683
+            },
+            {
+              "id": "Melur-v2-f5",
+              "name": "Muthiah",
+              "milk_liters": 44,
+              "lat": 10.107964913997975,
+              "lng": 78.3876802025808
+            },
+            {
+              "id": "Melur-v2-f6",
+              "name": "Thanvanth",
+              "milk_liters": 15,
+              "lat": 10.292645835533214,
+              "lng": 78.48241321121655
+            }
+          ],
+          "total_milk": 209,
+          "distance": 40,
+          "travel_time": 112,
+          "utilization": 54
+        },
+        {
+          "id": "droppable-3-3",
+          "type": "C1",
+          "farmers": [
+            {
+              "id": "Melur-v3-f0",
+              "name": "Anand",
+              "milk_liters": 19,
+              "lat": 10.331877608339118,
+              "lng": 78.20675774190047
+            },
+            {
+              "id": "Melur-v3-f1",
+              "name": "Balamurugan",
+              "milk_liters": 19,
+              "lat": 10.324720466151437,
+              "lng": 78.15949074137214
+            },
+            {
+              "id": "Melur-v3-f2",
+              "name": "Sivasamy",
+              "milk_liters": 11,
+              "lat": 10.298963512985903,
+              "lng": 78.32087167653692
+            },
+            {
+              "id": "Melur-v3-f3",
+              "name": "Chandran",
+              "milk_liters": 37,
+              "lat": 10.111722589568098,
+              "lng": 78.15081470094186
+            },
+            {
+              "id": "Melur-v3-f4",
+              "name": "Periyasamy",
+              "milk_liters": 35,
+              "lat": 10.231675983081145,
+              "lng": 78.20438130643481
+            },
+            {
+              "id": "Melur-v3-f5",
+              "name": "Sathiya",
+              "milk_liters": 47,
+              "lat": 10.164971249714217,
+              "lng": 78.45050059875545
+            },
+            {
+              "id": "Melur-v3-f6",
+              "name": "Ramalingam",
+              "milk_liters": 45,
+              "lat": 10.053176561813142,
+              "lng": 78.47990143488657
+            },
+            {
+              "id": "Melur-v3-f7",
+              "name": "Periyapalan",
+              "milk_liters": 26,
+              "lat": 10.068269836825854,
+              "lng": 78.08280008964837
+            },
+            {
+              "id": "Melur-v3-f8",
+              "name": "Siva",
+              "milk_liters": 47,
+              "lat": 10.230556457910996,
+              "lng": 78.00082602259118
+            },
+            {
+              "id": "Melur-v3-f9",
+              "name": "Mani",
+              "milk_liters": 12,
+              "lat": 10.48436906970912,
+              "lng": 78.17424283517663
+            },
+            {
+              "id": "Melur-v3-f10",
+              "name": "Prabhakar",
+              "milk_liters": 47,
+              "lat": 10.334465505080647,
+              "lng": 78.39537782790264
+            }
+          ],
+          "total_milk": 345,
+          "distance": 59,
+          "travel_time": 122,
+          "utilization": 74
+        }
+      ]
+    },
+    {
+      "name": "Madurai",
+      "total_milk": 8080,
+      "vehicles": [
+        {
+          "id": "droppable-4-0",
+          "type": "C1",
+          "farmers": [
+            {
+              "id": "Madurai-v0-f0",
+              "name": "Karuthapandi",
+              "milk_liters": 37,
+              "lat": 10.398133751314107,
+              "lng": 78.15946311604894
+            },
+            {
+              "id": "Madurai-v0-f1",
+              "name": "Kaliyaperumal",
+              "milk_liters": 18,
+              "lat": 10.42132194661351,
+              "lng": 78.43792989248573
+            },
+            {
+              "id": "Madurai-v0-f2",
+              "name": "Venkataraman",
+              "milk_liters": 33,
+              "lat": 10.481997296512048,
+              "lng": 78.19216266008442
+            },
+            {
+              "id": "Madurai-v0-f3",
+              "name": "Selvakumar",
+              "milk_liters": 29,
+              "lat": 10.4851049438481,
+              "lng": 78.13716321346011
+            },
+            {
+              "id": "Madurai-v0-f4",
+              "name": "Jayanthan",
+              "milk_liters": 44,
+              "lat": 10.236751245177203,
+              "lng": 78.3996443123497
+            },
+            {
+              "id": "Madurai-v0-f5",
+              "name": "Ramajayan",
+              "milk_liters": 48,
+              "lat": 10.083499111098176,
+              "lng": 78.11800890281081
+            },
+            {
+              "id": "Madurai-v0-f6",
+              "name": "Palanisamy",
+              "milk_liters": 23,
+              "lat": 10.284568400843643,
+              "lng": 78.36177564153662
+            }
+          ],
+          "total_milk": 232,
+          "distance": 69,
+          "travel_time": 122,
+          "utilization": 77
+        },
+        {
+          "id": "droppable-4-1",
+          "type": "C2",
+          "farmers": [
+            {
+              "id": "Madurai-v1-f0",
+              "name": "Ramarajan",
+              "milk_liters": 36,
+              "lat": 10.18690324514579,
+              "lng": 78.08658794799652
+            },
+            {
+              "id": "Madurai-v1-f1",
+              "name": "Mahalingam",
+              "milk_liters": 47,
+              "lat": 10.26200961828243,
+              "lng": 78.1254268238017
+            },
+            {
+              "id": "Madurai-v1-f2",
+              "name": "Jagadeesan",
+              "milk_liters": 22,
+              "lat": 10.108985420750638,
+              "lng": 78.38541654932347
+            },
+            {
+              "id": "Madurai-v1-f3",
+              "name": "Selvaraj",
+              "milk_liters": 40,
+              "lat": 10.12558953157396,
+              "lng": 78.05250308662104
+            },
+            {
+              "id": "Madurai-v1-f4",
+              "name": "Kandasamy",
+              "milk_liters": 14,
+              "lat": 10.4430202079232,
+              "lng": 78.13745330235008
+            },
+            {
+              "id": "Madurai-v1-f5",
+              "name": "Krishnamoorthy",
+              "milk_liters": 41,
+              "lat": 10.38460221149675,
+              "lng": 78.21344875911355
+            },
+            {
+              "id": "Madurai-v1-f6",
+              "name": "Shankar",
+              "milk_liters": 14,
+              "lat": 10.136022861122164,
+              "lng": 78.02338505608064
+            },
+            {
+              "id": "Madurai-v1-f7",
+              "name": "Natarajan",
+              "milk_liters": 41,
+              "lat": 10.127259794497137,
+              "lng": 78.3676500299313
+            },
+            {
+              "id": "Madurai-v1-f8",
+              "name": "Arulkumar",
+              "milk_liters": 41,
+              "lat": 10.161438029198344,
+              "lng": 78.4388325247512
+            }
+          ],
+          "total_milk": 296,
+          "distance": 68,
+          "travel_time": 176,
+          "utilization": 69
+        },
+        {
+          "id": "droppable-4-2",
+          "type": "C4",
+          "farmers": [
+            {
+              "id": "Madurai-v2-f0",
+              "name": "Murugappan",
+              "milk_liters": 48,
+              "lat": 10.272716193850531,
+              "lng": 78.28880111375297
+            },
+            {
+              "id": "Madurai-v2-f1",
+              "name": "Rathi",
+              "milk_liters": 40,
+              "lat": 10.421290803656717,
+              "lng": 78.07871290578986
+            },
+            {
+              "id": "Madurai-v2-f2",
+              "name": "Karuppan",
+              "milk_liters": 24,
+              "lat": 10.027589973497333,
+              "lng": 78.00847405992312
+            },
+            {
+              "id": "Madurai-v2-f3",
+              "name": "Yogeshwaran",
+              "milk_liters": 20,
+              "lat": 10.050248627504311,
+              "lng": 78.16930778586816
+            },
+            {
+              "id": "Madurai-v2-f4",
+              "name": "Arumughan",
+              "milk_liters": 26,
+              "lat": 10.189698289663026,
+              "lng": 78.27393935523149
+            },
+            {
+              "id": "Madurai-v2-f5",
+              "name": "Velusamy",
+              "milk_liters": 25,
+              "lat": 10.397833296753895,
+              "lng": 78.04759164892018
+            },
+            {
+              "id": "Madurai-v2-f6",
+              "name": "Ramalingan",
+              "milk_liters": 21,
+              "lat": 10.088719784865948,
+              "lng": 78.21811749660651
+            },
+            {
+              "id": "Madurai-v2-f7",
+              "name": "Thavapalan",
+              "milk_liters": 43,
+              "lat": 10.247456505067968,
+              "lng": 78.48703008337503
+            }
+          ],
+          "total_milk": 247,
+          "distance": 39,
+          "travel_time": 97,
+          "utilization": 23
+        },
+        {
+          "id": "droppable-4-3",
+          "type": "C6",
+          "farmers": [
+            {
+              "id": "Madurai-v3-f0",
+              "name": "Kuppusamy",
+              "milk_liters": 36,
+              "lat": 10.150674112162603,
+              "lng": 78.21898484235767
+            },
+            {
+              "id": "Madurai-v3-f1",
+              "name": "Thanaraj",
+              "milk_liters": 10,
+              "lat": 10.205938120441056,
+              "lng": 78.11339069236432
+            },
+            {
+              "id": "Madurai-v3-f2",
+              "name": "Ayyanar",
+              "milk_liters": 44,
+              "lat": 10.304317223069798,
+              "lng": 78.0839924539327
+            }
+          ],
+          "total_milk": 90,
+          "distance": 43,
+          "travel_time": 99,
+          "utilization": 4
+        }
+      ]
+    },
+    {
+      "name": "Singampunari",
+      "total_milk": 5640,
+      "vehicles": [
+        {
+          "id": "droppable-5-0",
+          "type": "C2",
+          "farmers": [
+            {
+              "id": "Singampunari-v0-f0",
+              "name": "Ravichandran",
+              "milk_liters": 47,
+              "lat": 10.127745695182425,
+              "lng": 78.17878079796034
+            },
+            {
+              "id": "Singampunari-v0-f1",
+              "name": "Annamalai",
+              "milk_liters": 45,
+              "lat": 10.367396751176479,
+              "lng": 78.42988504365697
+            },
+            {
+              "id": "Singampunari-v0-f2",
+              "name": "Sakthivelan",
+              "milk_liters": 43,
+              "lat": 10.161436033119598,
+              "lng": 78.09698609986499
+            },
+            {
+              "id": "Singampunari-v0-f3",
+              "name": "Manikandan",
+              "milk_liters": 29,
+              "lat": 10.000939988404363,
+              "lng": 78.3882165530443
+            },
+            {
+              "id": "Singampunari-v0-f4",
+              "name": "Vaidyanathan",
+              "milk_liters": 29,
+              "lat": 10.158573960783192,
+              "lng": 78.37195635808672
+            },
+            {
+              "id": "Singampunari-v0-f5",
+              "name": "Karthik",
+              "milk_liters": 27,
+              "lat": 10.484136050713754,
+              "lng": 78.40947273937486
+            },
+            {
+              "id": "Singampunari-v0-f6",
+              "name": "Devarajan",
+              "milk_liters": 49,
+              "lat": 10.392814572747888,
+              "lng": 78.32902709786016
+            },
+            {
+              "id": "Singampunari-v0-f7",
+              "name": "Jegan",
+              "milk_liters": 42,
+              "lat": 10.301135658117815,
+              "lng": 78.21616437215317
+            }
+          ],
+          "total_milk": 311,
+          "distance": 27,
+          "travel_time": 102,
+          "utilization": 65
+        },
+        {
+          "id": "droppable-5-1",
+          "type": "C4",
+          "farmers": [
+            {
+              "id": "Singampunari-v1-f0",
+              "name": "Raja",
+              "milk_liters": 25,
+              "lat": 10.481377722890922,
+              "lng": 78.47685215741534
+            },
+            {
+              "id": "Singampunari-v1-f1",
+              "name": "Azhagan",
+              "milk_liters": 29,
+              "lat": 10.47860640085966,
+              "lng": 78.23274919158298
+            },
+            {
+              "id": "Singampunari-v1-f2",
+              "name": "Kasinathan",
+              "milk_liters": 30,
+              "lat": 10.345284414223316,
+              "lng": 78.14674392639574
+            },
+            {
+              "id": "Singampunari-v1-f3",
+              "name": "Anbu",
+              "milk_liters": 28,
+              "lat": 10.283666695198592,
+              "lng": 78.19440416842404
+            },
+            {
+              "id": "Singampunari-v1-f4",
+              "name": "Muthukumar",
+              "milk_liters": 32,
+              "lat": 10.473602831545893,
+              "lng": 78.1834299443564
+            },
+            {
+              "id": "Singampunari-v1-f5",
+              "name": "Jayakumar",
+              "milk_liters": 28,
+              "lat": 10.076024743141224,
+              "lng": 78.11172874323034
+            },
+            {
+              "id": "Singampunari-v1-f6",
+              "name": "Arvind",
+              "milk_liters": 42,
+              "lat": 10.493000441160545,
+              "lng": 78.27907707070459
+            }
+          ],
+          "total_milk": 214,
+          "distance": 68,
+          "travel_time": 167,
+          "utilization": 16
+        },
+        {
+          "id": "droppable-5-2",
+          "type": "C6",
+          "farmers": [
+            {
+              "id": "Singampunari-v2-f0",
+              "name": "Jagannathan",
+              "milk_liters": 42,
+              "lat": 10.41897571589524,
+              "lng": 78.12878517781314
+            },
+            {
+              "id": "Singampunari-v2-f1",
+              "name": "Rajaraman",
+              "milk_liters": 46,
+              "lat": 10.074093025785329,
+              "lng": 78.3291439294354
+            },
+            {
+              "id": "Singampunari-v2-f2",
+              "name": "Sundar",
+              "milk_liters": 49,
+              "lat": 10.020959349306741,
+              "lng": 78.27096409549016
+            },
+            {
+              "id": "Singampunari-v2-f3",
+              "name": "Ramachandran",
+              "milk_liters": 33,
+              "lat": 10.020663114865764,
+              "lng": 78.21453135785927
+            }
+          ],
+          "total_milk": 170,
+          "distance": 67,
+          "travel_time": 95,
+          "utilization": 41
+        }
+      ]
+    }
+  ]
+}
