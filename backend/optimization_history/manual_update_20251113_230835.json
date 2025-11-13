@@ -1,0 +1,1301 @@
+{
+  "optimization_results": {
+    "clusters": [
+      {
+        "name": "Thuvarankurichi",
+        "total_milk": 5880,
+        "capacity": 15000,
+        "lat": 10.652313694534127,
+        "lng": 78.34222521258086,
+        "vehicles": [
+          {
+            "id": "droppable-0-0",
+            "type": "TN56ST1256",
+            "vehicle_number": "TN56ST1256",
+            "farmers": [
+              {
+                "id": "Thuvarankurichi-v1-f0",
+                "name": "Nalliah",
+                "milk_liters": 26,
+                "lat": 10.0352983383701,
+                "lng": 78.01672990983825,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f0",
+                "name": "Kalimuthu",
+                "milk_liters": 47,
+                "lat": 10.180086682151629,
+                "lng": 78.18843619864519,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f1",
+                "name": "Gopalakrishnan",
+                "milk_liters": 27,
+                "lat": 10.164468215397251,
+                "lng": 78.13475226677136,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f2",
+                "name": "Senthilkumar",
+                "milk_liters": 32,
+                "lat": 10.402481728404146,
+                "lng": 78.22744302922246,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f3",
+                "name": "Ganesan",
+                "milk_liters": 28,
+                "lat": 10.215067839239303,
+                "lng": 78.41034330092921,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f4",
+                "name": "Ramu",
+                "milk_liters": 48,
+                "lat": 10.005649844125585,
+                "lng": 78.38231710859034,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f5",
+                "name": "Muthusamy",
+                "milk_liters": 49,
+                "lat": 10.2877302556284,
+                "lng": 78.23938120082445,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f6",
+                "name": "Nadarajan",
+                "milk_liters": 47,
+                "lat": 10.407213112293311,
+                "lng": 78.02676994374808,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f7",
+                "name": "Karuppusamy",
+                "milk_liters": 42,
+                "lat": 10.328705629118641,
+                "lng": 78.36786513938486,
+                "location": "Near Viralimalai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 346,
+            "capacity": 2800,
+            "distance": 51,
+            "travel_time": 99,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-0-1",
+            "type": "CAT_F011",
+            "vehicle_number": "CAT_F011",
+            "farmers": [
+              {
+                "id": "Thuvarankurichi-v1-f1",
+                "name": "Manickam",
+                "milk_liters": 19,
+                "lat": 10.30602514565399,
+                "lng": 78.47726011383708,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v1-f2",
+                "name": "Thirumalai",
+                "milk_liters": 45,
+                "lat": 10.032276203925376,
+                "lng": 78.2236651998422,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v1-f3",
+                "name": "Murugan",
+                "milk_liters": 16,
+                "lat": 10.099579908513663,
+                "lng": 78.00959907938665,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v1-f4",
+                "name": "Vellaiyappan",
+                "milk_liters": 48,
+                "lat": 10.332904547936161,
+                "lng": 78.31132990718429,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v1-f5",
+                "name": "Kothandaraman",
+                "milk_liters": 18,
+                "lat": 10.38630316742201,
+                "lng": 78.4516795180527,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v1-f6",
+                "name": "Veeramani",
+                "milk_liters": 10,
+                "lat": 10.304635099352618,
+                "lng": 78.05607334979817,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v1-f7",
+                "name": "Anbalagan",
+                "milk_liters": 18,
+                "lat": 10.130581937161379,
+                "lng": 78.28173296549785,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v1-f8",
+                "name": "Karunanidhi",
+                "milk_liters": 42,
+                "lat": 10.057906670724682,
+                "lng": 78.10553164007126,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v1-f9",
+                "name": "Karthikeyan",
+                "milk_liters": 13,
+                "lat": 10.394352864561204,
+                "lng": 78.27528313050286,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 229,
+            "capacity": 2680,
+            "distance": 35,
+            "travel_time": 123,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-0-2",
+            "type": "TN13ST7896",
+            "vehicle_number": "TN13ST7896",
+            "farmers": [
+              {
+                "id": "Thuvarankurichi-v2-f0",
+                "name": "Rajadurai",
+                "milk_liters": 21,
+                "lat": 10.09395670796588,
+                "lng": 78.3274179735497,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v2-f1",
+                "name": "Veerapandi",
+                "milk_liters": 19,
+                "lat": 10.49868482730097,
+                "lng": 78.4691221881288,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 400,
+            "capacity": 1200,
+            "distance": 36.81,
+            "travel_time": 39.24,
+            "utilization": 33.33333333333333
+          }
+        ],
+        "stats": {
+          "vehiclesUsed": 3,
+          "totalAssignedMilk": 975,
+          "fullnessPercent": 6.5,
+          "lowUtilized": [
+            {
+              "vehicle_number": "TN13ST7896",
+              "pct": 33.33
+            }
+          ]
+        }
+      },
+      {
+        "name": "Viralimalai",
+        "total_milk": 2840,
+        "capacity": 9000,
+        "lat": 10.61926384197756,
+        "lng": 78.18329751248656,
+        "vehicles": [
+          {
+            "id": "droppable-1-0",
+            "type": "TN12SV1485",
+            "vehicle_number": "TN12SV1485",
+            "farmers": [
+              {
+                "id": "Viralimalai-v0-f0",
+                "name": "Kumarasamy",
+                "milk_liters": 40,
+                "lat": 10.177685388213677,
+                "lng": 78.48244114220088,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v0-f1",
+                "name": "Sivaraj",
+                "milk_liters": 16,
+                "lat": 10.497969853627799,
+                "lng": 78.16612550097241,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v0-f2",
+                "name": "Mariappan",
+                "milk_liters": 36,
+                "lat": 10.34763489998567,
+                "lng": 78.34538031642418,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v0-f3",
+                "name": "Muthuraman",
+                "milk_liters": 37,
+                "lat": 10.098350832918396,
+                "lng": 78.0693005158733,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v0-f4",
+                "name": "Ponnusamy",
+                "milk_liters": 15,
+                "lat": 10.090717890118619,
+                "lng": 78.23532217560546,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v0-f5",
+                "name": "Ramasamy",
+                "milk_liters": 33,
+                "lat": 10.193479731025286,
+                "lng": 78.11069533179432,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v0-f6",
+                "name": "Arumugham",
+                "milk_liters": 28,
+                "lat": 10.098680414188326,
+                "lng": 78.40138878920521,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v0-f7",
+                "name": "Perumal",
+                "milk_liters": 36,
+                "lat": 10.071198735807577,
+                "lng": 78.11581202759994,
+                "location": "Near Madurai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 2600,
+            "capacity": 2600,
+            "distance": 128.54,
+            "travel_time": 137.45,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-1-1",
+            "type": "CAT_F013",
+            "vehicle_number": "CAT_F013",
+            "farmers": [
+              {
+                "id": "Viralimalai-v1-f0",
+                "name": "Venkatasamy",
+                "milk_liters": 25,
+                "lat": 10.212080832782975,
+                "lng": 78.02300499388878,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 240,
+            "capacity": 1200,
+            "distance": 30.54,
+            "travel_time": 40.55,
+            "utilization": 20
+          }
+        ],
+        "stats": {
+          "vehiclesUsed": 2,
+          "totalAssignedMilk": 2840,
+          "fullnessPercent": 31.56,
+          "lowUtilized": [
+            {
+              "vehicle_number": "CAT_F013",
+              "pct": 20
+            }
+          ]
+        }
+      },
+      {
+        "name": "Melur",
+        "total_milk": 9440,
+        "capacity": 18000,
+        "lat": 10.461686824396896,
+        "lng": 78.50978159692959,
+        "vehicles": [
+          {
+            "id": "droppable-2-0",
+            "type": "CAT_F019",
+            "vehicle_number": "CAT_F019",
+            "farmers": [
+              {
+                "id": "Melur-v0-f0",
+                "name": "Muthupandi",
+                "milk_liters": 47,
+                "lat": 10.274414725421435,
+                "lng": 78.23960529083799,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f1",
+                "name": "Rajalakshmi",
+                "milk_liters": 36,
+                "lat": 10.205647163871658,
+                "lng": 78.41122378676518,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f2",
+                "name": "Rajendran",
+                "milk_liters": 30,
+                "lat": 10.417751230744209,
+                "lng": 78.41259805116272,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f3",
+                "name": "Arulnithi",
+                "milk_liters": 41,
+                "lat": 10.167783560148191,
+                "lng": 78.34397395816042,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f4",
+                "name": "Kamalakannan",
+                "milk_liters": 32,
+                "lat": 10.421528637254237,
+                "lng": 78.36718505341693,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f5",
+                "name": "Marimuthu",
+                "milk_liters": 28,
+                "lat": 10.337494885757028,
+                "lng": 78.46707855450178,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f6",
+                "name": "Ayyappan",
+                "milk_liters": 46,
+                "lat": 10.165802047431965,
+                "lng": 78.0850851554137,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f7",
+                "name": "Tharshan",
+                "milk_liters": 18,
+                "lat": 10.166238819594717,
+                "lng": 78.259447051731,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f8",
+                "name": "Sathish",
+                "milk_liters": 15,
+                "lat": 10.21736430355761,
+                "lng": 78.13571388244148,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f9",
+                "name": "Manikavalan",
+                "milk_liters": 30,
+                "lat": 10.227892701783997,
+                "lng": 78.40131912314716,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f10",
+                "name": "Karuppaiah",
+                "milk_liters": 27,
+                "lat": 10.480973644634936,
+                "lng": 78.33756499559703,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f11",
+                "name": "Aravind",
+                "milk_liters": 43,
+                "lat": 10.422208255403303,
+                "lng": 78.31944853587389,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f12",
+                "name": "Velan",
+                "milk_liters": 29,
+                "lat": 10.366421329676943,
+                "lng": 78.26183557091775,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f13",
+                "name": "Gokul",
+                "milk_liters": 45,
+                "lat": 10.32741936243674,
+                "lng": 78.17657557172919,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f14",
+                "name": "Arokiyasamy",
+                "milk_liters": 18,
+                "lat": 10.22651927421375,
+                "lng": 78.05214038734566,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f15",
+                "name": "Pugalendhi",
+                "milk_liters": 27,
+                "lat": 10.077529493462546,
+                "lng": 78.43766236031921,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f16",
+                "name": "Raghuraman",
+                "milk_liters": 35,
+                "lat": 10.17062841953213,
+                "lng": 78.18137046074942,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f17",
+                "name": "Jeevan",
+                "milk_liters": 44,
+                "lat": 10.019444880349731,
+                "lng": 78.14898907526529,
+                "location": "Near Madurai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 5920,
+            "capacity": 5920,
+            "distance": 85.05,
+            "travel_time": 112.33,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-2-1",
+            "type": "CAT_F009",
+            "vehicle_number": "CAT_F009",
+            "farmers": [
+              {
+                "id": "Melur-v1-f0",
+                "name": "Chidambaram",
+                "milk_liters": 19,
+                "lat": 10.394816003181019,
+                "lng": 78.03547620865758,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f1",
+                "name": "Ramasubramanian",
+                "milk_liters": 48,
+                "lat": 10.309703629736282,
+                "lng": 78.13167726258142,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f2",
+                "name": "Muthiah",
+                "milk_liters": 10,
+                "lat": 10.019613548951797,
+                "lng": 78.43873358436834,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f3",
+                "name": "Anand",
+                "milk_liters": 20,
+                "lat": 10.133282699799306,
+                "lng": 78.01067073668489,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f4",
+                "name": "Balamurugan",
+                "milk_liters": 41,
+                "lat": 10.079920615327376,
+                "lng": 78.48067787998905,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f5",
+                "name": "Thanvanth",
+                "milk_liters": 32,
+                "lat": 10.067724113181193,
+                "lng": 78.3995790578894,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f6",
+                "name": "Sivasamy",
+                "milk_liters": 21,
+                "lat": 10.279931892364061,
+                "lng": 78.0182395631097,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f7",
+                "name": "Periyasamy",
+                "milk_liters": 43,
+                "lat": 10.226228904335901,
+                "lng": 78.4702658701824,
+                "location": "Near Viralimalai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 2080,
+            "capacity": 2080,
+            "distance": 57.96,
+            "travel_time": 71.72,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-2-2",
+            "type": "CAT_F007",
+            "vehicle_number": "CAT_F007",
+            "farmers": [
+              {
+                "id": "Melur-v2-f0",
+                "name": "Chandran",
+                "milk_liters": 42,
+                "lat": 10.491912357215842,
+                "lng": 78.43621498001141,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v2-f1",
+                "name": "Sathiya",
+                "milk_liters": 38,
+                "lat": 10.454026812150307,
+                "lng": 78.05474693488311,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v2-f2",
+                "name": "Ramalingam",
+                "milk_liters": 29,
+                "lat": 10.491035841312168,
+                "lng": 78.03604682207016,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v2-f3",
+                "name": "Periyapalan",
+                "milk_liters": 26,
+                "lat": 10.329492793697884,
+                "lng": 78.13724866905493,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v2-f4",
+                "name": "Siva",
+                "milk_liters": 48,
+                "lat": 10.377576405954958,
+                "lng": 78.32600468676398,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v2-f5",
+                "name": "Mani",
+                "milk_liters": 43,
+                "lat": 10.108591937114495,
+                "lng": 78.07028912929188,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v2-f6",
+                "name": "Prabhakar",
+                "milk_liters": 12,
+                "lat": 10.302115701192989,
+                "lng": 78.38325241394202,
+                "location": "Near Viralimalai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 1440,
+            "capacity": 1520,
+            "distance": 77.94,
+            "travel_time": 92.99,
+            "utilization": 94.73684210526315
+          }
+        ],
+        "stats": {
+          "vehiclesUsed": 3,
+          "totalAssignedMilk": 9440,
+          "fullnessPercent": 52.44,
+          "lowUtilized": []
+        }
+      },
+      {
+        "name": "Madurai",
+        "total_milk": 8080,
+        "capacity": 25000,
+        "lat": 10.317144183908882,
+        "lng": 78.14625225100875,
+        "vehicles": [
+          {
+            "id": "droppable-3-0",
+            "type": "CAT_F020",
+            "vehicle_number": "CAT_F020",
+            "farmers": [
+              {
+                "id": "Madurai-v0-f0",
+                "name": "Karuthapandi",
+                "milk_liters": 47,
+                "lat": 10.367543756960877,
+                "lng": 78.20758611334125,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f1",
+                "name": "Kaliyaperumal",
+                "milk_liters": 26,
+                "lat": 10.188644284249188,
+                "lng": 78.34594990220427,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f2",
+                "name": "Venkataraman",
+                "milk_liters": 40,
+                "lat": 10.443301275208468,
+                "lng": 78.1852017530992,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f3",
+                "name": "Selvakumar",
+                "milk_liters": 30,
+                "lat": 10.139306716527331,
+                "lng": 78.00735697209858,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f4",
+                "name": "Jayanthan",
+                "milk_liters": 17,
+                "lat": 10.413757521730652,
+                "lng": 78.05897249601108,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f5",
+                "name": "Ramajayan",
+                "milk_liters": 25,
+                "lat": 10.19784958883064,
+                "lng": 78.35314857295046,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f6",
+                "name": "Ramarajan",
+                "milk_liters": 19,
+                "lat": 10.053195404871575,
+                "lng": 78.45574143939464,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f7",
+                "name": "Mahalingam",
+                "milk_liters": 22,
+                "lat": 10.127467189397677,
+                "lng": 78.23031437710942,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f8",
+                "name": "Jagadeesan",
+                "milk_liters": 32,
+                "lat": 10.239369772146349,
+                "lng": 78.0774027140138,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f9",
+                "name": "Palanisamy",
+                "milk_liters": 12,
+                "lat": 10.411624936927314,
+                "lng": 78.23117191616541,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f10",
+                "name": "Selvaraj",
+                "milk_liters": 16,
+                "lat": 10.406150204905742,
+                "lng": 78.18429533376455,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f11",
+                "name": "Kandasamy",
+                "milk_liters": 18,
+                "lat": 10.097979263990135,
+                "lng": 78.11107224971387,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f12",
+                "name": "Krishnamoorthy",
+                "milk_liters": 33,
+                "lat": 10.164788446164405,
+                "lng": 78.34505837119455,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f13",
+                "name": "Shankar",
+                "milk_liters": 31,
+                "lat": 10.398584118052577,
+                "lng": 78.06467078135928,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f14",
+                "name": "Natarajan",
+                "milk_liters": 25,
+                "lat": 10.249084880939623,
+                "lng": 78.35735060611688,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f15",
+                "name": "Arulkumar",
+                "milk_liters": 45,
+                "lat": 10.371014202635402,
+                "lng": 78.3492738265859,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f16",
+                "name": "Murugappan",
+                "milk_liters": 17,
+                "lat": 10.05708672377342,
+                "lng": 78.05544399588322,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f17",
+                "name": "Yogeshwaran",
+                "milk_liters": 37,
+                "lat": 10.27384165738975,
+                "lng": 78.13717871732148,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 5920,
+            "capacity": 5920,
+            "distance": 55.55,
+            "travel_time": 83.47,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-3-1",
+            "type": "TN17ST1478",
+            "vehicle_number": "TN17ST1478",
+            "farmers": [
+              {
+                "id": "Madurai-v1-f0",
+                "name": "Rathi",
+                "milk_liters": 42,
+                "lat": 10.316392501522678,
+                "lng": 78.46926283108985,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v1-f1",
+                "name": "Karuppan",
+                "milk_liters": 17,
+                "lat": 10.365227909276124,
+                "lng": 78.46389809813486,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v1-f2",
+                "name": "Arumughan",
+                "milk_liters": 31,
+                "lat": 10.327815794435441,
+                "lng": 78.4670945644805,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v1-f3",
+                "name": "Velusamy",
+                "milk_liters": 47,
+                "lat": 10.299049019437692,
+                "lng": 78.00549895027255,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v1-f4",
+                "name": "Ramalingan",
+                "milk_liters": 49,
+                "lat": 10.027805029998126,
+                "lng": 78.15575317757587,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v1-f5",
+                "name": "Kuppusamy",
+                "milk_liters": 39,
+                "lat": 10.212720683188868,
+                "lng": 78.22349559624348,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v1-f6",
+                "name": "Thanaraj",
+                "milk_liters": 28,
+                "lat": 10.137462528477124,
+                "lng": 78.16112015586654,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v1-f7",
+                "name": "Thavapalan",
+                "milk_liters": 49,
+                "lat": 10.440383004602444,
+                "lng": 78.06922905041267,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v1-f8",
+                "name": "Ayyanar",
+                "milk_liters": 41,
+                "lat": 10.094384606742741,
+                "lng": 78.09124963800151,
+                "location": "Near Madurai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 2160,
+            "capacity": 2200,
+            "distance": 34.38,
+            "travel_time": 51.78,
+            "utilization": 98.18181818181819
+          }
+        ],
+        "stats": {
+          "vehiclesUsed": 2,
+          "totalAssignedMilk": 8080,
+          "fullnessPercent": 32.32,
+          "lowUtilized": []
+        }
+      },
+      {
+        "name": "Singampunari",
+        "total_milk": 5640,
+        "capacity": 20000,
+        "lat": 10.432357281379959,
+        "lng": 78.28626715822935,
+        "vehicles": [
+          {
+            "id": "droppable-4-0",
+            "type": "CAT_F017",
+            "vehicle_number": "CAT_F017",
+            "farmers": [
+              {
+                "id": "Singampunari-v0-f0",
+                "name": "Ravichandran",
+                "milk_liters": 32,
+                "lat": 10.374411753714977,
+                "lng": 78.00092932620993,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f1",
+                "name": "Annamalai",
+                "milk_liters": 18,
+                "lat": 10.278686345527582,
+                "lng": 78.37196670424065,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f2",
+                "name": "Sakthivelan",
+                "milk_liters": 25,
+                "lat": 10.039697502672636,
+                "lng": 78.19859351413655,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f3",
+                "name": "Manikandan",
+                "milk_liters": 28,
+                "lat": 10.284192060591494,
+                "lng": 78.3265980679101,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f4",
+                "name": "Vaidyanathan",
+                "milk_liters": 26,
+                "lat": 10.452898693324725,
+                "lng": 78.41971059281117,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f5",
+                "name": "Karthik",
+                "milk_liters": 27,
+                "lat": 10.070815955322832,
+                "lng": 78.42252818368814,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f6",
+                "name": "Devarajan",
+                "milk_liters": 20,
+                "lat": 10.107522219842105,
+                "lng": 78.41223255046259,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f7",
+                "name": "Jegan",
+                "milk_liters": 35,
+                "lat": 10.22188102827654,
+                "lng": 78.30717531879557,
+                "location": "Near Viralimalai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 2800,
+            "capacity": 2800,
+            "distance": 72.19,
+            "travel_time": 72.65,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-4-1",
+            "type": "TN15TV1256",
+            "vehicle_number": "TN15TV1256",
+            "farmers": [
+              {
+                "id": "Singampunari-v1-f0",
+                "name": "Raja",
+                "milk_liters": 38,
+                "lat": 10.332621191704781,
+                "lng": 78.44878690988614,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v1-f1",
+                "name": "Azhagan",
+                "milk_liters": 45,
+                "lat": 10.044658320893781,
+                "lng": 78.46992035929526,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v1-f2",
+                "name": "Kasinathan",
+                "milk_liters": 36,
+                "lat": 10.219923638722783,
+                "lng": 78.1949166619995,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v1-f3",
+                "name": "Anbu",
+                "milk_liters": 47,
+                "lat": 10.017940329117092,
+                "lng": 78.04611794336843,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v1-f4",
+                "name": "Muthukumar",
+                "milk_liters": 46,
+                "lat": 10.453713182550285,
+                "lng": 78.08841771866074,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v1-f5",
+                "name": "Jayakumar",
+                "milk_liters": 35,
+                "lat": 10.419577959975433,
+                "lng": 78.17862113705526,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v1-f6",
+                "name": "Arvind",
+                "milk_liters": 44,
+                "lat": 10.334348877295778,
+                "lng": 78.13107355243926,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 2000,
+            "capacity": 2000,
+            "distance": 62.71,
+            "travel_time": 63.39,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-4-2",
+            "type": "CAT_F008",
+            "vehicle_number": "CAT_F008",
+            "farmers": [
+              {
+                "id": "Singampunari-v2-f0",
+                "name": "Jagannathan",
+                "milk_liters": 29,
+                "lat": 10.267148737417399,
+                "lng": 78.10448392573974,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v2-f1",
+                "name": "Rajaraman",
+                "milk_liters": 48,
+                "lat": 10.107363550549358,
+                "lng": 78.0723080882155,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v2-f2",
+                "name": "Sundar",
+                "milk_liters": 13,
+                "lat": 10.270510514744373,
+                "lng": 78.30243324716899,
+                "location": "Near Viralimalai, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v2-f3",
+                "name": "Ramachandran",
+                "milk_liters": 10,
+                "lat": 10.261708559699356,
+                "lng": 78.05467877021476,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 840,
+            "capacity": 1320,
+            "distance": 33.68,
+            "travel_time": 40.77,
+            "utilization": 63.63636363636363
+          }
+        ],
+        "stats": {
+          "vehiclesUsed": 3,
+          "totalAssignedMilk": 5640,
+          "fullnessPercent": 28.2,
+          "lowUtilized": [
+            {
+              "vehicle_number": "CAT_F008",
+              "pct": 63.64
+            }
+          ]
+        }
+      },
+      {
+        "name": "Ponnamaravathi Bus stand",
+        "total_milk": 4840,
+        "capacity": 30000,
+        "lat": 10.344026657924122,
+        "lng": 78.34355625224686,
+        "vehicles": [
+          {
+            "id": "droppable-5-0",
+            "type": "CAT_F015",
+            "vehicle_number": "CAT_F015",
+            "farmers": [
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f0",
+                "name": "Subash",
+                "milk_liters": 45,
+                "lat": 10.300336088562844,
+                "lng": 78.11197446908534,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f1",
+                "name": "Dhanapal",
+                "milk_liters": 32,
+                "lat": 10.331793276056437,
+                "lng": 78.29823540624716,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f2",
+                "name": "Suthan",
+                "milk_liters": 17,
+                "lat": 10.445809837123273,
+                "lng": 78.30248420982453,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f3",
+                "name": "Vasu",
+                "milk_liters": 27,
+                "lat": 10.039353534169411,
+                "lng": 78.13984044722292,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f4",
+                "name": "Shanmugam",
+                "milk_liters": 38,
+                "lat": 10.441209303587666,
+                "lng": 78.46418502267014,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f5",
+                "name": "Murali",
+                "milk_liters": 25,
+                "lat": 10.095762278734755,
+                "lng": 78.16322891818736,
+                "location": "Near Madurai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 2200,
+            "capacity": 2200,
+            "distance": 76.03,
+            "travel_time": 87.57,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-5-1",
+            "type": "CAT_F014",
+            "vehicle_number": "CAT_F014",
+            "farmers": [
+              {
+                "id": "Ponnamaravathi Bus stand-v1-f0",
+                "name": "Narayanan",
+                "milk_liters": 21,
+                "lat": 10.020272627428437,
+                "lng": 78.15538043617899,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v1-f1",
+                "name": "Srinivasan",
+                "milk_liters": 24,
+                "lat": 10.063093433264733,
+                "lng": 78.1664219020873,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v1-f2",
+                "name": "Kannan",
+                "milk_liters": 38,
+                "lat": 10.140610236350625,
+                "lng": 78.20809844390784,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v1-f3",
+                "name": "Venkatesh",
+                "milk_liters": 43,
+                "lat": 10.152517295847188,
+                "lng": 78.00716894599893,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v1-f4",
+                "name": "Saravanan",
+                "milk_liters": 15,
+                "lat": 10.23288444451118,
+                "lng": 78.19543914667811,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v1-f5",
+                "name": "Suresh",
+                "milk_liters": 35,
+                "lat": 10.283066619231782,
+                "lng": 78.00603948329075,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v1-f6",
+                "name": "Subramanian",
+                "milk_liters": 45,
+                "lat": 10.261996575995392,
+                "lng": 78.09324836945777,
+                "location": "Near Pudukkottai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 1960,
+            "capacity": 2000,
+            "distance": 74.42,
+            "travel_time": 84.38,
+            "utilization": 98
+          },
+          {
+            "id": "droppable-5-2",
+            "type": "TN12SV1986",
+            "vehicle_number": "TN12SV1986",
+            "farmers": [
+              {
+                "id": "Ponnamaravathi Bus stand-v2-f0",
+                "name": "Pandiyan",
+                "milk_liters": 29,
+                "lat": 10.342900775632753,
+                "lng": 78.20096142037796,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v2-f1",
+                "name": "Kamaraj",
+                "milk_liters": 19,
+                "lat": 10.017377679127351,
+                "lng": 78.26355361650023,
+                "location": "Near Madurai, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v2-f2",
+                "name": "Sakthivel",
+                "milk_liters": 27,
+                "lat": 10.007022186894451,
+                "lng": 78.46251957611979,
+                "location": "Near Madurai, Tamil Nadu"
+              }
+            ],
+            "total_milk": 680,
+            "capacity": 1600,
+            "distance": 60.67,
+            "travel_time": 70.74,
+            "utilization": 42.5
+          }
+        ],
+        "stats": {
+          "vehiclesUsed": 3,
+          "totalAssignedMilk": 4840,
+          "fullnessPercent": 16.13,
+          "lowUtilized": [
+            {
+              "vehicle_number": "TN12SV1986",
+              "pct": 42.5
+            }
+          ]
+        }
+      }
+    ],
+    "timestamp": "2025-11-13T17:38:35.638794+00:00"
+  }
+}

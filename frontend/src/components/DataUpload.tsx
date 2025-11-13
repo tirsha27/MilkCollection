@@ -1,5 +1,7 @@
+// src/components/DataUpload.tsx
 import { useState } from 'react';
 import { Upload, FileSpreadsheet, CheckCircle, AlertCircle, Download } from 'lucide-react';
+import * as XLSX from 'xlsx';
 
 export default function DataUpload() {
   const [uploading, setUploading] = useState(false);
@@ -68,32 +70,52 @@ export default function DataUpload() {
   };
 
   // -----------------------------
-  // Download Excel Template
+  // ✅ FIXED: Download Excel Template
   // -----------------------------
   const downloadTemplate = (dataType: string) => {
-    let headers = '';
-    let sampleData = '';
+    let headers: string[] = [];
+    let sampleData: any[][] = [];
 
     if (dataType === 'chilling_centers') {
-      headers = 'Hub Name,Location,Latitude,Longitude,Capacity (Liters)';
-      sampleData = 'Center A,123 Main St,40.7128,-74.0060,50000\nCenter B,456 Oak Ave,34.0522,-118.2437,75000';
+      headers = ['Hub Name', 'Location', 'Contact', 'Latitude', 'Longitude', 'Capacity (Liters)'];
+      sampleData = [
+        ['Central Hub Guntur', 'Guntur District', '9876543220', 16.3067, 80.4365, 5000],
+        ['Vijayawada Collection Center', 'Krishna District', '9876543221', 16.5062, 80.6480, 8000],
+        ['Tenali Storage Hub', 'Guntur District', '9876543222', 16.2428, 80.6428, 6000]
+      ];
     } else if (dataType === 'vehicles') {
-      headers = 'Vehicle Name,Vehicle Number,Category,Capacity (Cans),Model,Manufacturer,Fuel Type,Driver Name,Driver Contact';
-      sampleData = 'Mini Van,TN01AB1234,Mini,50,Tata Ace,Tata,Diesel,John Doe,9876543210';
+      headers = ['Vehicle Name', 'Vehicle Number', 'Category', 'Capacity (Cans)', 'Model', 'Manufacturer', 'Fuel Type', 'Driver Name', 'Driver Contact', 'Avg Speed (kmph)'];
+      sampleData = [
+        ['Mini Van 1', 'AP01AB1234', 'mini', 50, 'Eeco', 'Maruti Suzuki', 'Diesel', 'Rajesh', '9876543230', 40],
+        ['Small Truck 1', 'AP02CD5678', 'small', 100, 'Ace', 'Tata', 'Diesel', 'Suresh', '9876543231', 45],
+        ['Mini Van 2', 'AP03EF9012', 'mini', 50, 'Supro', 'Mahindra', 'CNG', 'Ramesh', '9876543232', 40]
+      ];
     } else if (dataType === 'farmers') {
-      headers = 'Vendor Name,Village/Area,Contact,Latitude,Longitude,Milk Quantity (Cans)';
-      sampleData = 'Farmer A,Village 1,9876543210,40.7580,-73.9855,20';
+      headers = ['Vendor Name', 'Village/Area', 'Contact', 'Latitude', 'Longitude', 'Milk Quantity (Cans)'];
+      sampleData = [
+        ['Ramesh Kumar', 'Guntur', '9876543210', 16.3067, 80.4365, 5],
+        ['Lakshmi Devi', 'Vijayawada', '9876543211', 16.5062, 80.6480, 8],
+        ['Venkata Rao', 'Tenali', '9876543212', 16.2428, 80.6428, 6]
+      ];
     }
 
-    const blob = new Blob([`${headers}\n${sampleData}`], {
-      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${dataType}_template.xlsx`;
-    a.click();
-    window.URL.revokeObjectURL(url);
+    // Create workbook
+    const wb = XLSX.utils.book_new();
+    
+    // Create worksheet data: headers + sample rows
+    const wsData = [headers, ...sampleData];
+    
+    // Convert to worksheet
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    
+    // Set column widths
+    ws['!cols'] = headers.map(h => ({ wch: Math.max(h.length + 2, 15) }));
+    
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(wb, ws, 'Template');
+    
+    // Write and download file
+    XLSX.writeFile(wb, `${dataType}_template.xlsx`);
   };
 
   return (

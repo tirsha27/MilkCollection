@@ -6,6 +6,9 @@ REST APIs for fleet operations
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List, Optional
+from sqlalchemy import select
+from models.optimization import OptimizationRun
+import json
 
 from api.deps import get_db
 from services import FleetService, ExcelService

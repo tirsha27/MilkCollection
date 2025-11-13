@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, LayersControl } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, LayersControl,useMap  } from "react-leaflet";
 import L from "leaflet";
 import { api } from "../lib/api-client";
 import { API } from "../lib/api-endpoints";
@@ -33,7 +33,18 @@ const hubIcon = new L.DivIcon({
   iconAnchor: [19, 38],
   popupAnchor: [0, -35],
 });
+function MapBoundsController({ positions }: { positions: [number, number][] }) {
+  const map = useMap();
 
+  useEffect(() => {
+    if (positions.length === 0) return;
+
+    const bounds = L.latLngBounds(positions);
+    map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
+  }, [map, positions]);
+
+  return null; // This component does not render UI
+}
 
 // 🚛 Fleet Vehicle Icon — unchanged
 const fleetIcon = new L.Icon({
@@ -66,6 +77,12 @@ export default function MapView() {
     }
   };
 
+ const allPositions: [number, number][] = [
+    ...vendors.filter((v) => v.latitude && v.longitude).map((v) => [v.latitude, v.longitude]),
+    ...hubs.filter((h) => h.latitude && h.longitude).map((h) => [h.latitude, h.longitude]),
+    ...fleet.filter((f) => f.current_latitude && f.current_longitude).map((f) => [f.current_latitude, f.current_longitude]),
+  ];
+
   useEffect(() => {
     fetchData();
     const interval = setInterval(fetchData, 15000); // refresh every 15s
@@ -92,6 +109,7 @@ export default function MapView() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+         <MapBoundsController positions={allPositions} />
 
         <LayersControl position="topright">
           {/* 👨‍🌾 Vendors Layer */}

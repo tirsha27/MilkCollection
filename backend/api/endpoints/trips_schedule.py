@@ -1,179 +1,159 @@
+# api/endpoints/trips_schedule.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import insert
+from sqlalchemy import insert, select
 from database.session import get_db
 from models.optimization import OptimizationRun
-from datetime import datetime
-import os, json, glob, math
-from fastapi.logger import logger
+from datetime import datetime, timezone
+from services.optimization_metrics import compute_run_metrics, compare_runs
+from services.evaluator import evaluate_manual_assignment
+import json, os, glob, logging
+from typing import Any, Dict
 
 router = APIRouter(prefix="/trips", tags=["Trip Schedule"])
+logger = logging.getLogger(__name__)
 
 
-# ---------------------------------------------------------------------
-# Helper: Calculate Haversine distance
-# ---------------------------------------------------------------------
-def haversine(lat1, lon1, lat2, lon2):
-    """Calculate distance (in km) between two lat/lon pairs."""
-    R = 6371
-    dlat = math.radians(lat2 - lat1)
-    dlon = math.radians(lon2 - lon1)
-    a = math.sin(dlat / 2) ** 2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2) ** 2
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    return R * c
-
-
-# ---------------------------------------------------------------------
-# ✅ GET: Trip Schedule
-# ---------------------------------------------------------------------
 @router.get("/schedule")
-def get_trip_schedule():
-    """Load the latest optimization result JSON."""
+async def get_trip_schedule():
+    """Load latest optimization result JSON and return trip data"""
     try:
-        folder = "optimization_history"
-        files = sorted(glob.glob(f"{folder}/optimization_*.json"))
-        if not files:
-            return {"message": "No optimization results found", "data": []}
-
-        latest_file = files[-1]
-        with open(latest_file, "r") as f:
-            data = json.load(f)
-        return {"message": "Schedule loaded", "data": data}
-
-    except Exception as e:
-        logger.error("❌ Error loading schedule: %s", e)
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-# ---------------------------------------------------------------------
-# ✅ PUT: Manual Update with Metrics Calculation
-# ---------------------------------------------------------------------
-@router.put("/schedule/update")
-async def update_trip_schedule(payload: dict, db: AsyncSession = Depends(get_db)):
-    """
-    Compare new manual schedule with last machine optimization and compute metrics:
-    distance/time/cost savings, efficiencies, etc.
-    """
-    try:
-        logger.info("📦 Received manual update payload")
-
         folder = "optimization_history"
         if not os.path.exists(folder):
-            os.makedirs(folder)
+            return {"message": "No optimization results found", "data": []}
+        # Sorted so latest file is last
+        files = sorted(glob.glob(os.path.join(folder, "optimization_*.json")))
+        if not files:
+            return {"message": "No optimization results found", "data": []}
+        latest_file = files[-1]
+        with open(latest_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        # if top-level has optimization_results, return that for backward compat
+        if isinstance(data, dict) and data.get("optimization_results"):
+            return {"message": "Schedule loaded", "data": data["optimization_results"]}
+        # otherwise return whole file
+        return {"message": "Schedule loaded", "data": data}
+    except Exception as e:
+        logger.exception("❌ Failed to load schedule")
+        return {"message": f"Error: {str(e)}", "data": []}
 
-        # 1️⃣ Get the latest machine optimization JSON as baseline
-        machine_files = sorted(glob.glob(f"{folder}/optimization_*.json"))
-        if not machine_files:
-            raise HTTPException(status_code=404, detail="No machine optimization found")
-        machine_file = machine_files[-1]
-        with open(machine_file, "r") as f:
-            machine_data = json.load(f)
 
-        machine_opt = machine_data.get("data", {}).get("optimization_results", {})
-        machine_clusters = machine_opt.get("clusters", [])
-        prev_total_cost = machine_opt.get("total_cost", 0)
-        prev_total_distance = sum(v.get("distance", 0) for c in machine_clusters for v in c.get("vehicles", []))
-        prev_total_time = sum(v.get("total_time", 0) for c in machine_clusters for v in c.get("vehicles", []))
-        prev_total_capacity = sum(v.get("capacity", 0) for c in machine_clusters for v in c.get("vehicles", []))
-        prev_total_milk = sum(v.get("total_milk", 0) for c in machine_clusters for v in c.get("vehicles", []))
+@router.put("/schedule/update")
+async def update_trip_schedule(payload: Dict[str, Any], db: AsyncSession = Depends(get_db)):
+    """
+    Save manual (drag/drop) optimization and compare with latest machine run.
 
-        # 2️⃣ Save the manual update JSON
-        manual_file = f"{folder}/manual_update_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        with open(manual_file, "w") as f:
-            json.dump(payload, f, indent=2)
+    Expects `payload` coming from frontend Trip Scheduler. To evaluate and compare
+    properly, we normalize it into a structure similar to machine-generated output:
+    {
+      "optimization_results": {
+         "clusters": [ ... ],
+         "timestamp": "...",
+         ...
+      }
+    }
+    """
+    try:
+        if not os.path.exists("optimization_history"):
+            os.makedirs("optimization_history", exist_ok=True)
 
-        # 3️⃣ Read manual clusters
-        manual_clusters = payload.get("clusters", [])
-        if not manual_clusters:
-            raise HTTPException(status_code=400, detail="Manual payload missing 'clusters'")
+        # Normalize payload into expected shape for evaluation functions.
+        # If frontend already sent an optimization_results root, accept it.
+        if payload.get("optimization_results"):
+            normalized = payload
+        else:
+            # Accept shape { clusters: [...] } or { data: { clusters: [...] } }
+            clusters = None
+            if isinstance(payload.get("clusters"), list):
+                clusters = payload.get("clusters")
+            elif isinstance(payload.get("data"), dict) and isinstance(payload["data"].get("clusters"), list):
+                clusters = payload["data"]["clusters"]
+            else:
+                # try top-level lists inside payload
+                if isinstance(payload, dict) and "clusters" in payload:
+                    clusters = payload["clusters"]
+                else:
+                    # as a fallback, try to interpret payload as already a machine run
+                    clusters = payload.get("optimization_results", {}).get("clusters", [])
 
-        new_total_cost = sum(v.get("cost", 0) for c in manual_clusters for v in c.get("vehicles", []))
-        new_total_distance = sum(v.get("distance", 0) for c in manual_clusters for v in c.get("vehicles", []))
-        new_total_time = sum(v.get("total_time", 0) for c in manual_clusters for v in c.get("vehicles", []))
-        new_total_capacity = sum(v.get("capacity", 0) for c in manual_clusters for v in c.get("vehicles", []))
-        new_total_milk = sum(v.get("total_milk", 0) for c in manual_clusters for v in c.get("vehicles", []))
+            normalized = {
+                "optimization_results": {
+                    "clusters": clusters or [],
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                }
+            }
 
-        # 4️⃣ Estimate missing values (fallback if payload lacks details)
-        if new_total_cost == 0 and prev_total_cost:
-            new_total_cost = round(prev_total_cost * 0.96, 2)  # assume 4% improvement
-        if new_total_distance == 0 and prev_total_distance:
-            new_total_distance = round(prev_total_distance * 0.95, 2)
-        if new_total_time == 0 and prev_total_time:
-            new_total_time = round(prev_total_time * 0.94, 2)
-        if new_total_capacity == 0:
-            new_total_capacity = prev_total_capacity
-        if new_total_milk == 0:
-            new_total_milk = prev_total_milk
+        # Save manual file
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        file_path = f"optimization_history/manual_update_{timestamp}.json"
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(normalized, f, indent=2, default=str)
 
-        # 5️⃣ Calculate savings and performance metrics
-        cost_saving = round(prev_total_cost - new_total_cost, 2)
-        distance_saving = round(prev_total_distance - new_total_distance, 2)
-        time_saving = round(prev_total_time - new_total_time, 2)
-
-        optimization_percentage = (
-            round((cost_saving / prev_total_cost) * 100, 2) if prev_total_cost else 0
+        # Fetch the latest machine run for comparison
+        q = (
+            select(OptimizationRun)
+            .where(OptimizationRun.trigger_type == "machine_generated_optimization")
+            .order_by(OptimizationRun.started_at.desc())
+            .limit(1)
         )
-        distance_efficiency = (
-            round((distance_saving / prev_total_distance) * 100, 2) if prev_total_distance else 0
-        )
-        time_efficiency = (
-            round((time_saving / prev_total_time) * 100, 2) if prev_total_time else 0
-        )
-        capacity_utilization = (
-            round((new_total_milk / new_total_capacity) * 100, 2) if new_total_capacity else 0
-        )
+        res = await db.execute(q)
+        latest_machine = res.scalars().first()
+        previous_result = latest_machine.result if latest_machine else {}
 
-        efficiency_score = round(
-            (optimization_percentage * 0.4)
-            + (distance_efficiency * 0.3)
-            + (time_efficiency * 0.2)
-            + (capacity_utilization * 0.1),
-            2,
-        )
+        # Evaluate the manual assignment.
+        # evaluate_manual_assignment expects a run-like structure; we pass normalized
+        try:
+            manual_eval = evaluate_manual_assignment(normalized, vehicle_catalog=[])
+        except Exception as ee:
+            logger.exception("Failed to evaluate manual assignment")
+            manual_eval = normalized  # fallback - at least store it
 
-        # 6️⃣ Insert into database
+        # Compute metrics for the manual run (safe)
+        try:
+            manual_metrics = compute_run_metrics(manual_eval) or {}
+        except Exception:
+            logger.exception("compute_run_metrics failed for manual run")
+            manual_metrics = {}
+
+        # Compare with previous machine run (if exists)
+        try:
+            comparison = compare_runs(previous_result or {}, manual_eval or {}) or {}
+        except Exception:
+            logger.exception("compare_runs failed")
+            comparison = {}
+
+        results_summary = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "file_saved": file_path,
+            **manual_metrics,
+            **comparison,
+        }
+
+        # Persist the manual update as an OptimizationRun row
         stmt = insert(OptimizationRun).values(
             trigger_type="manual_update_optimization",
             trigger_details={"source": "Trip Scheduler Drag-Drop"},
             status="completed",
-            results_summary={
-                "timestamp": datetime.now().isoformat(),
-                "file_saved": manual_file,
-                "previous_cost": prev_total_cost,
-                "new_cost": new_total_cost,
-                "previous_distance": prev_total_distance,
-                "new_distance": new_total_distance,
-                "previous_time": prev_total_time,
-                "new_time": new_total_time,
-                "distance_saving": distance_saving,
-                "time_saving": time_saving,
-                "cost_saving": cost_saving,
-                "optimization_percentage": optimization_percentage,
-                "time_efficiency": time_efficiency,
-                "distance_efficiency": distance_efficiency,
-                "capacity_utilization": capacity_utilization,
-                "efficiency_score": efficiency_score,
-            },
-            started_at=datetime.now(),
-            completed_at=datetime.now(),
+            results_summary=results_summary,
+            manual_changes=normalized,
+            started_at=datetime.now(timezone.utc),
+            completed_at=datetime.now(timezone.utc),
         )
 
         await db.execute(stmt)
         await db.commit()
-
-        logger.info("✅ Manual optimization metrics recorded successfully")
-
+        logger.info("✅ Manual optimization saved successfully")
         return {
             "status": "success",
-            "message": "Manual optimization calculated & saved",
-            "optimization_percentage": optimization_percentage,
-            "efficiency_score": efficiency_score,
-            "distance_efficiency": distance_efficiency,
-            "time_efficiency": time_efficiency,
-            "capacity_utilization": capacity_utilization,
+            "message": "Manual optimization logged",
+            "results_summary": results_summary,
+            "file_saved": file_path,
         }
 
+    except HTTPException:
+        await db.rollback()
+        raise
     except Exception as e:
         await db.rollback()
-        logger.error("❌ Failed to insert manual optimization: %s", e)
+        logger.exception("❌ Manual optimization insert failed")
         raise HTTPException(status_code=500, detail=str(e))

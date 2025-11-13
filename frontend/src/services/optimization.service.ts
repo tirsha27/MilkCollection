@@ -1,4 +1,4 @@
-// src/services/optimization.service.ts
+// domain/frontend/src/services/optimization.service.ts
 import { api } from "../lib/api-client";
 import { API } from "../lib/api-endpoints";
 
@@ -10,6 +10,7 @@ export const OptimizationService = {
     if (maxDistanceKm) params.append("max_distance_km", String(maxDistanceKm));
     const url = `${API.optimization}/run${params.toString() ? `?${params.toString()}` : ""}`;
     const res = await api.post(url);
+    // API returns { status, data: {...} } — keep the raw response object
     return res.data;
   },
 
@@ -22,6 +23,22 @@ export const OptimizationService = {
   // ✅ Get all manual (drag-drop) optimizations
   getManualRuns: async () => {
     const res = await api.get(`${API.optimization}/manual`);
+    return res.data;
+  },
+
+  // Get latest run (returns the API response object — i.e. {status, data})
+  getLatest: async () => {
+    const res = await api.get(`${API.optimization}/latest`);
+    return res.data; // res.data is the API response; Dashboard expects optRes.data
+  },
+
+  // Get status/result helpers (if you have task-based system)
+  getStatus: async (taskId: string) => {
+    const res = await api.get(`${API.optimization}/status/${taskId}`);
+    return res.data;
+  },
+  getResult: async (taskId: string) => {
+    const res = await api.get(`${API.optimization}/result/${taskId}`);
     return res.data;
   },
 

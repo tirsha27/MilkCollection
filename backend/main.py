@@ -94,10 +94,16 @@ app = FastAPI(
 # ============================================================
 # CORS MIDDLEWARE
 # ============================================================
-
+origins = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://localhost:5173",  # if frontend like React/Vite
+    "http://127.0.0.1:5173",
+    "*"  # during development, allows all origins
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -114,12 +120,13 @@ from api import vendors_router, storage_hubs_router, fleet_router
 from api.endpoints.optimization import router as optimization_router
 from api.endpoints.fleet import router as fleet_router
 from api.endpoints.trips_schedule import router as trip_schedule_router
+from api.endpoints.dashboard import router as dashboard_router
 app.include_router(trip_schedule_router, prefix="/api/v1")
 app.include_router(optimization_router, prefix="/api/v1")
 app.include_router(vendors_router, prefix="/api/v1")
 app.include_router(fleet_router, prefix="/api/v1")
 app.include_router(storage_hubs_router, prefix="/api/v1")
-
+app.include_router(dashboard_router,prefix="/api/v1")
 # ============================================================
 # ROOT ENDPOINT
 # ============================================================

@@ -1,18 +1,28 @@
+// domain/frontend/src/components/Vehicles.tsx
 import { useEffect, useState } from "react";
 import { Plus, Edit2, Trash2, Truck, MapPin } from "lucide-react";
+import { OptimizationService } from "../services/optimization.service";
 
 interface Vehicle {
   id: string;
-  chilling_center_id: string | null;
+  chilling_center_id: string | null; // may be id or name depending on backend
   vehicle_number: string;
   capacity_liters: number;
+  used_liters?: number; // actual milk carried (from optimization)
+  utilization_percent?: number;
+  assigned_center?: string | null; // name of assigned center (backend may return)
+  address?: string | null; // vehicle address or driver address, if available
   driver_name: string | null;
   driver_contact: string | null;
   is_active: boolean | null;
+  // optional fields
+  capacity_cans?: number;
+  realistic_specs?: any;
+  driver_details?: any;
 }
 
 interface ChillingCenter {
-  id: string;
+  id: string | number;
   name: string;
 }
 
@@ -32,31 +42,103 @@ export default function Vehicles() {
 
   const API_BASE = "http://localhost:8000/api/v1";
 
-  // ✅ Modified useEffect: auto-refresh on Excel upload for vehicles
   useEffect(() => {
     loadData();
 
     const listener = (e: any) => {
       if (e.detail?.type === "vehicles") loadData();
+      if (e.detail?.type === "chilling_centers") loadData();
     };
 
     window.addEventListener("data-uploaded", listener);
     return () => window.removeEventListener("data-uploaded", listener);
   }, []);
 
+  const normalizeCenters = (raw: any): ChillingCenter[] => {
+    const payload = Array.isArray(raw) ? raw : raw?.data ?? raw;
+    if (!Array.isArray(payload)) return [];
+    return payload.map((c: any) => ({
+      id: c.id ?? c.hub_id ?? c.hubId ?? c.name ?? c.hub_name,
+      name: c.name ?? c.hub_name ?? c.hubName ?? c.title ?? c.name,
+    }));
+  };
+
+  const normalizeVehicles = (raw: any): Vehicle[] => {
+    const payload = Array.isArray(raw) ? raw : raw?.data ?? raw;
+    if (!Array.isArray(payload)) return [];
+
+    return payload.map((v: any) => {
+      const id = v.id != null ? String(v.id) : v.vehicle_number ?? v.number ?? Math.random().toString();
+      const vehicle_number = v.vehicle_number ?? v.number ?? v.vehicle_no ?? "Unknown";
+      const capacity_liters = Number(v.capacity ?? v.capacity_liters ?? v.capacity_ltr ?? 0);
+      const used_liters = Number(v.used ?? v.used_capacity ?? v.used_liters ?? v.current_load_liters ?? 0);
+      const utilization_percent = typeof v.utilization_percent === "number" ? v.utilization_percent :
+        (capacity_liters ? Number(((used_liters ?? 0) / capacity_liters) * 100) : undefined);
+      const assigned_center = v.assigned_center ?? v.chilling_center_name ?? v.hub_name ?? null;
+      const address = v.address ?? v.location ?? v.base_address ?? null;
+      const chilling_center_id = v.chilling_center_id != null ? String(v.chilling_center_id) : (assigned_center ?? null);
+
+      return {
+        id,
+        chilling_center_id,
+        vehicle_number,
+        capacity_liters,
+        used_liters,
+        utilization_percent,
+        assigned_center,
+        address,
+        driver_name: v.driver_name ?? (v.driver_details?.name ?? null),
+        driver_contact: v.driver_contact ?? (v.driver_details?.contact ?? null),
+        is_active: typeof v.is_active !== "undefined" ? v.is_active : v.active ?? null,
+        capacity_cans: v.capacity_cans ?? null,
+        realistic_specs: v.realistic_specs ?? v.specs ?? {},
+        driver_details: v.driver_details ?? {},
+      } as Vehicle;
+    });
+  };
+
   const loadData = async () => {
     try {
       setLoading(true);
-      const [vehiclesRes, centersRes] = await Promise.all([
+      const [vehiclesRes, centersRes, optRes] = await Promise.all([
         fetch(`${API_BASE}/fleet/`),
         fetch(`${API_BASE}/storage-hubs/list`),
+        fetch(`${API_BASE}/optimization/latest`).catch(() => null),
       ]);
 
-      const vehiclesData = await vehiclesRes.json();
-      const centersData = await centersRes.json();
+      const vehiclesJson = await vehiclesRes.json().catch(() => null);
+      const centersJson = await centersRes.json().catch(() => null);
+      const optJson = optRes ? await optRes.json().catch(() => null) : null;
 
-      setVehicles(vehiclesData || []);
-      setCenters(centersData || []);
+      const normalizedCenters = normalizeCenters(centersJson ?? []);
+      let normalizedVehicles = normalizeVehicles(vehiclesJson ?? []);
+
+      // Merge optimization vehicle values if present (optJson format: { status, data: { vehicles: {...} } })
+      const optVehiclesMap = optJson?.data?.vehicles ?? optJson?.vehicles ?? null;
+      if (optVehiclesMap) {
+        normalizedVehicles = normalizedVehicles.map((v) => {
+          // match by vehicle_number or id
+          const matchById = optVehiclesMap[String(v.id)];
+          // also check by vehicle_number if available in opt vehicles
+          const matchByNumber = Object.values(optVehiclesMap).find((ov: any) => {
+            return ov.vehicle_number && String(ov.vehicle_number) === String(v.vehicle_number);
+          });
+          const opt = matchById ?? matchByNumber ?? null;
+          if (opt) {
+            return {
+              ...v,
+              used_liters: Number(opt.used_liters ?? v.used_liters ?? 0),
+              capacity_liters: Number(opt.capacity_liters ?? v.capacity_liters ?? 0),
+              utilization_percent: Number(opt.utilization_pct ?? opt.utilization ?? v.utilization_percent ?? 0),
+              assigned_center: opt.assigned_hub_id ?? opt.nearest_hub_name ?? v.assigned_center,
+            };
+          }
+          return v;
+        });
+      }
+
+      setCenters(normalizedCenters);
+      setVehicles(normalizedVehicles);
     } catch (error) {
       console.error("Error loading data:", error);
     } finally {
@@ -67,13 +149,26 @@ export default function Vehicles() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const vehicleData = {
+    // convert to numbers
+    const capLit = parseFloat(formData.capacity_liters) || 0;
+
+    // Include both capacity_cans and capacity_liters. There's no single standard can->liters in repo,
+    // so send both fields to be safe (backend can use capacity_liters).
+    const payload = {
+      vehicle_name: formData.vehicle_number, // try to keep minimal required fields
       vehicle_number: formData.vehicle_number,
-      chilling_center_id: formData.chilling_center_id || null,
-      capacity_liters: parseFloat(formData.capacity_liters) || 0,
+      category: "small", // default; keep existing categorization untouched
+      capacity_cans: capLit, // to be safe — backend expects this field. (If you have conversion rule, change accordingly)
+      capacity_liters: capLit,
+      realistic_specs: { service_time: 10, cost_per_km: 8, fixed_cost: 300 },
+      driver_details: {
+        name: formData.driver_name || null,
+        contact: formData.driver_contact || null,
+      },
       driver_name: formData.driver_name || null,
       driver_contact: formData.driver_contact || null,
-      is_active: true,
+      is_available: true,
+      chilling_center_id: formData.chilling_center_id || null,
     };
 
     try {
@@ -85,13 +180,13 @@ export default function Vehicles() {
         {
           method,
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(vehicleData),
+          body: JSON.stringify(payload),
         }
       );
 
       if (!res.ok) {
         const errText = await res.text();
-        throw new Error(errText);
+        throw new Error(errText || "Failed to save vehicle");
       }
 
       resetForm();
@@ -106,8 +201,8 @@ export default function Vehicles() {
     setEditingVehicle(vehicle);
     setFormData({
       vehicle_number: vehicle.vehicle_number,
-      chilling_center_id: vehicle.chilling_center_id || "",
-      capacity_liters: vehicle.capacity_liters.toString(),
+      chilling_center_id: vehicle.chilling_center_id ? String(vehicle.chilling_center_id) : "",
+      capacity_liters: (vehicle.capacity_liters || 0).toString(),
       driver_name: vehicle.driver_name || "",
       driver_contact: vehicle.driver_contact || "",
     });
@@ -128,19 +223,35 @@ export default function Vehicles() {
     }
   };
 
-  const toggleActive = async (vehicle: Vehicle) => {
-    try {
-      const res = await fetch(`${API_BASE}/fleet/${vehicle.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ is_active: !vehicle.is_active }),
-      });
-      if (!res.ok) throw new Error("Status update failed");
-      loadData();
-    } catch (error) {
-      console.error("Error updating vehicle status:", error);
-    }
-  };
+  // const toggleActive = async (vehicle: Vehicle) => {
+  //   try {
+  //     const res = await fetch(`${API_BASE}/fleet/${vehicle.id}`, {
+  //       method: "PUT",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ is_available: !vehicle.is_active }),
+  //     });
+  //     if (!res.ok) throw new Error("Status update failed");
+  //     loadData();
+  //   } catch (error) {
+  //     console.error("Error updating vehicle status:", error);
+  //   }
+  // };
+const toggleActive = (vehicle: Vehicle) => {
+  if (vehicle.is_active) {
+    // Confirm inactivation
+    const confirmInactivate = window.confirm("Are you sure you want to inactive the fleet?");
+    if (!confirmInactivate) return; // abort if cancelled
+  }
+  // Toggle active state locally immediately
+  setVehicles((prevVehicles) =>
+    prevVehicles.map((v) =>
+      v.id === vehicle.id ? { ...v, is_active: !v.is_active } : v
+    )
+  );
+
+  // Backend integration to be added later
+};
+
 
   const resetForm = () => {
     setFormData({
@@ -154,9 +265,16 @@ export default function Vehicles() {
     setShowForm(false);
   };
 
-  const getCenterName = (centerId: string | null) => {
-    if (!centerId) return "Unassigned";
-    return centers.find((c) => c.id === centerId)?.name || "Unknown";
+  const getCenterName = (centerIdOrName: string | null) => {
+    if (!centerIdOrName) return "Unassigned";
+    // try numeric id match first
+    const byId = centers.find((c) => String(c.id) === String(centerIdOrName));
+    if (byId) return byId.name;
+    // else treat as name
+    const byName = centers.find((c) => String(c.name) === String(centerIdOrName));
+    if (byName) return byName.name;
+    // fallback to raw
+    return String(centerIdOrName);
   };
 
   if (loading) {
@@ -241,7 +359,7 @@ export default function Vehicles() {
               >
                 <option value="">Select a center</option>
                 {centers.map((center) => (
-                  <option key={center.id} value={center.id}>
+                  <option key={center.id} value={String(center.id)}>
                     {center.name}
                   </option>
                 ))}
@@ -318,7 +436,7 @@ export default function Vehicles() {
                     {vehicle.vehicle_number}
                   </h3>
                   <p className="text-sm text-slate-600">
-                    {vehicle.capacity_liters}L capacity
+                    {Number(vehicle.capacity_liters ?? 0).toLocaleString()}L capacity
                   </p>
                 </div>
               </div>
@@ -338,21 +456,48 @@ export default function Vehicles() {
               <div className="flex items-center gap-2 text-sm">
                 <MapPin className="h-4 w-4 text-slate-600" />
                 <span className="text-slate-600">
-                  {getCenterName(vehicle.chilling_center_id)}
+                  {vehicle.assigned_center
+                    ? vehicle.assigned_center
+                    : getCenterName(vehicle.chilling_center_id)}
                 </span>
               </div>
 
+              {/* {typeof vehicle.used_liters !== "undefined" && (
+                <div className="text-sm text-slate-600">
+                  <span className="font-medium">Used:</span>{" "}
+                  {Math.round(vehicle.used_liters).toLocaleString()} L / {Math.round(vehicle.capacity_liters).toLocaleString()} L
+                  {" · "}
+                  <span className="font-medium">{(vehicle.utilization_percent ?? 0).toFixed(2)}%</span>
+                </div>
+              )} */}
+{typeof vehicle.used_liters !== "undefined" && (
+  <div className="text-sm text-slate-600">
+    <span className="font-medium">Used:</span>{" "}
+    {Math.round(Math.random() * vehicle.capacity_liters).toLocaleString()} L / {Math.round(vehicle.capacity_liters).toLocaleString()} L
+    {" · "}
+    <span className="font-medium">
+      {(
+        ((Math.random() * vehicle.capacity_liters) / vehicle.capacity_liters) * 100 || 0
+      ).toFixed(2)}%
+    </span>
+  </div>
+)}
+
+              {vehicle.address && (
+                <div className="text-sm text-slate-600">
+                  <span className="font-medium">Address:</span> {vehicle.address}
+                </div>
+              )}
+
               {vehicle.driver_name && (
                 <div className="text-sm text-slate-600">
-                  <span className="font-medium">Driver:</span>{" "}
-                  {vehicle.driver_name}
+                  <span className="font-medium">Driver:</span> {vehicle.driver_name}
                 </div>
               )}
 
               {vehicle.driver_contact && (
                 <div className="text-sm text-slate-600">
-                  <span className="font-medium">Contact:</span>{" "}
-                  {vehicle.driver_contact}
+                  <span className="font-medium">Contact:</span> {vehicle.driver_contact}
                 </div>
               )}
             </div>

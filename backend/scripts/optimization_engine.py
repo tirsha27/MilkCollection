@@ -1,24 +1,23 @@
 """
 Milk Collection Route Optimization Engine
 Class-based optimization logic for FastAPI backend integration
+WITH TRACKING FOR UNASSIGNED FARMERS AND UNUSED VEHICLES
 """
 
 import json
 import requests
 import os
-import math
-import random
 from datetime import datetime
 from typing import List, Dict, Any, Tuple, Optional
 
 # ========== API CONFIGURATION ==========
 API_KEY = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6ImIyNjFmZWMzYWRhNTRmMDE5YzVjZWZkYTQ2MzRjNzk2IiwiaCI6Im11cm11cjY0In0="
 
-
 class OptimizationEngine:
     """
     Optimization engine for milk collection route planning.
     Handles fleet assignment, route optimization, and constraint validation.
+    NOW INCLUDES: Unassigned farmer tracking and unused vehicle reporting
     """
     
     def __init__(self):
@@ -81,6 +80,13 @@ class OptimizationEngine:
     def check_deadline_constraint(self, total_time: float, deadline_minutes: int) -> Tuple[bool, float, str]:
         """
         Check if route violates time deadline
+        
+        Args:
+            total_time: Total route time in minutes
+            deadline_minutes: Maximum allowed time in minutes
+        
+        Returns:
+            Tuple of (is_violated, time_difference, status_message)
         """
         if total_time > deadline_minutes:
             time_exceeded = total_time - deadline_minutes
@@ -92,6 +98,13 @@ class OptimizationEngine:
     def check_distance_constraint(self, distance_km: float, max_distance_km: int) -> Tuple[bool, float, str]:
         """
         Check if route violates distance constraint
+        
+        Args:
+            distance_km: Route distance in kilometers
+            max_distance_km: Maximum allowed distance in kilometers
+        
+        Returns:
+            Tuple of (is_violated, distance_difference, status_message)
         """
         if distance_km > max_distance_km:
             distance_exceeded = distance_km - max_distance_km
@@ -101,10 +114,24 @@ class OptimizationEngine:
             return False, distance_remaining, "WITHIN DISTANCE"
     
     def assign_heterogeneous_fleet(self, farmer_list: List[str], cluster_name: str, 
-                                   farmers_milk: Dict, fleet_types_dict: List[Dict]) -> List[Dict]:
+                                   farmers_milk: Dict, fleet_types_dict: List[Dict],
+                                   fleet_availability: Dict) -> Tuple[List[Dict], List[Dict]]:
         """
         Assign heterogeneous fleet to farmers based on milk quantities
         Maximizes vehicle utilization while respecting capacity constraints
+        NOW RETURNS: Both vehicle assignments AND unassigned farmers
+        
+        Args:
+            farmer_list: List of farmer names in cluster
+            cluster_name: Name of the cluster/chilling center
+            farmers_milk: Dictionary of milk quantities
+            fleet_types_dict: List of vehicle type specifications
+            fleet_availability: GLOBAL fleet availability dictionary (SHARED across clusters)
+        
+        Returns:
+            Tuple of (vehicle_assignments, unassigned_farmers)
+            - vehicle_assignments: List of vehicle assignments with farmers and utilization
+            - unassigned_farmers: List of farmers who couldn't be assigned (with milk quantities)
         """
         total_milk = sum(farmers_milk[f] for f in farmer_list)
         farmers_sorted = sorted(
@@ -115,7 +142,7 @@ class OptimizationEngine:
         
         vehicle_assignments = []
         remaining_farmers = farmers_sorted.copy()
-        fleet_availability = {v['name']: v['count'] for v in fleet_types_dict}
+        
         sorted_vehicle_types = sorted(fleet_types_dict, key=lambda x: x['capacity'], reverse=True)
         
         while remaining_farmers:
@@ -157,35 +184,30 @@ class OptimizationEngine:
             else:
                 break
         
-        return vehicle_assignments
-
-    def _haversine_distance(self, coord1, coord2):
-        """Fallback: Calculate haversine distance (km)"""
-        lat1, lon1 = coord1
-        lat2, lon2 = coord2
-        R = 6371.0
-        dlat = math.radians(lat2 - lat1)
-        dlon = math.radians(lon2 - lon1)
-        a = math.sin(dlat/2)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon/2)**2
-        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-        return R * c
-
-    def _estimate_local_metrics(self, ordered_names: List[str], chilling_center_coords: Tuple) -> Tuple[float, float]:
-        """Fallback: estimate distance/time if ORS fails"""
-        total_dist = 0
-        prev = chilling_center_coords
-        for n in ordered_names:
-            total_dist += self._haversine_distance(prev, self.subareas[n])
-            prev = self.subareas[n]
-        total_dist += self._haversine_distance(prev, chilling_center_coords)
-        est_time = total_dist / 40 * 60  # assume 40 km/h
-        return round(total_dist, 2), round(est_time, 1)
+        # ✅ NEW: Track unassigned farmers
+        unassigned_farmers = [
+            {"name": name, "milk": milk} 
+            for name, milk in remaining_farmers
+        ]
+        
+        return vehicle_assignments, unassigned_farmers
     
     def optimize_vehicle_route(self, chilling_center_name: str, chilling_center_coords: Tuple, 
                                farmer_list: List[str], vehicle_id: int, 
                                vehicle_capacity: int, farmers_milk: Dict) -> Tuple[List[str], Optional[Dict]]:
         """
-        Optimize route for a single vehicle using OpenRouteService (fallback if fails)
+        Optimize route for a single vehicle using OpenRouteService
+        
+        Args:
+            chilling_center_name: Name of the chilling center
+            chilling_center_coords: Coordinates of chilling center (lat, lon)
+            farmer_list: List of farmer names to visit
+            vehicle_id: Vehicle identifier
+            vehicle_capacity: Vehicle capacity in liters
+            farmers_milk: Dictionary of milk quantities
+        
+        Returns:
+            Tuple of (optimized_route, api_response)
         """
         if not farmer_list:
             return [], None
@@ -224,21 +246,30 @@ class OptimizationEngine:
                 route = [farmer_list[step["id"]] for step in steps if step["type"] == "job"]
                 return route, optimized_data
             else:
-                # fallback random order
-                return random.sample(farmer_list, len(farmer_list)), None
-        except Exception:
-            # fallback route order
-            return random.sample(farmer_list, len(farmer_list)), None
-
+                return [], optimized_data
+        except Exception as e:
+            raise Exception(f"Error in route optimization: {str(e)}")
+    
     def get_route_metrics(self, ordered_names: List[str], chilling_center_coords: Tuple) -> Tuple[Optional[float], Optional[float]]:
         """
-        Get distance and time metrics for a route (fallback if ORS fails)
+        Get distance and time metrics for a route using OpenRouteService
+        
+        Args:
+            ordered_names: List of farmer names in route order
+            chilling_center_coords: Coordinates of chilling center (lat, lon)
+        
+        Returns:
+            Tuple of (distance_km, duration_minutes)
         """
         coordinates = [[chilling_center_coords[1], chilling_center_coords[0]]]
         for name in ordered_names:
             lat, lon = self.subareas[name]
             coordinates.append([lon, lat])
         coordinates.append([chilling_center_coords[1], chilling_center_coords[0]])
+        
+        unique_coords = set(tuple(c) for c in coordinates)
+        if len(unique_coords) < 2:
+            return None, None
         
         url = 'https://api.openrouteservice.org/v2/directions/driving-car'
         body = {"coordinates": coordinates, "format": "json"}
@@ -249,20 +280,33 @@ class OptimizationEngine:
             data = response.json()
             
             if 'error' in data:
-                raise Exception("ORS returned error")
+                return None, None
             
             summary = data['routes'][0]['summary']
             distance_km = summary['distance'] / 1000
             duration_min = summary['duration'] / 60
             return round(distance_km, 2), round(duration_min, 2)
-        except Exception:
-            # fallback estimation
-            return self._estimate_local_metrics(ordered_names, chilling_center_coords)
+        except Exception as e:
+            raise Exception(f"Error getting route metrics: {str(e)}")
     
     def run_optimization(self, deadline_minutes: int, max_distance_km: int, 
                         vehicle_types_list: List[Dict]) -> Optional[Dict]:
         """
         Run complete optimization process
+        NOW INCLUDES: Unassigned farmer tracking and unused vehicle reporting
+        
+        Args:
+            deadline_minutes: Maximum time allowed per route in minutes
+            max_distance_km: Maximum distance allowed per route in kilometers
+            vehicle_types_list: List of vehicle type specifications with capacity, count, costs
+        
+        Returns:
+            Dictionary containing optimization results with:
+            - clusters: Vehicle assignments per chilling center
+            - violations: Constraint violations
+            - unassigned_farmers: Farmers who couldn't be assigned (NEW)
+            - unused_vehicles: Vehicles still available after optimization (NEW)
+            - total_cost, total_violations, configuration
         """
         try:
             # Create distance matrix
@@ -282,37 +326,30 @@ class OptimizationEngine:
             }
             headers = {'Authorization': self.api_key, 'Content-Type': 'application/json'}
             
-            try:
-                response = requests.post(
-                    'https://api.openrouteservice.org/v2/matrix/driving-car',
-                    json=matrix_req_body,
-                    headers=headers,
-                    timeout=30
-                )
-                data_response = response.json()
-                distance_matrix = data_response.get('distances', [])
-            except Exception:
-                distance_matrix = []  # fallback if ORS fails
+            response = requests.post(
+                'https://api.openrouteservice.org/v2/matrix/driving-car',
+                json=matrix_req_body,
+                headers=headers,
+                timeout=30
+            )
+            data_response = response.json()
+            distance_matrix = data_response['distances']
             
-            # Assign vendors to nearest chilling centers (fallback if matrix empty)
+            # Assign vendors to nearest chilling centers
             cluster_assignments = {centroid: [] for centroid in self.centroids.keys()}
             subarea_names = list(self.subareas.keys())
             centroid_names = list(self.centroids.keys())
             
-            if distance_matrix:
-                for i, distances_to_centroids in enumerate(distance_matrix):
-                    nearest_centroid_index = distances_to_centroids.index(min(distances_to_centroids))
-                    nearest_centroid_name = centroid_names[nearest_centroid_index]
-                    cluster_assignments[nearest_centroid_name].append(subarea_names[i])
-            else:
-                # fallback by random assignment
-                for i, name in enumerate(subarea_names):
-                    cluster_assignments[random.choice(centroid_names)].append(name)
+            for i, distances_to_centroids in enumerate(distance_matrix):
+                nearest_centroid_index = distances_to_centroids.index(min(distances_to_centroids))
+                nearest_centroid_name = centroid_names[nearest_centroid_index]
+                cluster_assignments[nearest_centroid_name].append(subarea_names[i])
             
             # Initialize results structure
             results = {
                 'clusters': [],
                 'violations': [],
+                'unassigned_farmers': [],  # ✅ NEW: Track all unassigned farmers
                 'total_cost': 0,
                 'total_violations': 0,
                 'configuration': {
@@ -322,13 +359,18 @@ class OptimizationEngine:
                 }
             }
             
+            # Create global fleet availability
+            global_fleet_availability = {v['name']: v['count'] for v in vehicle_types_list}
+            
             # Process each cluster
             for centroid_name, subarea_list in cluster_assignments.items():
                 chilling_center_coords = self.centroids[centroid_name]
                 total_cluster_milk = sum(self.farmers_milk.get(farmer, 0) for farmer in subarea_list)
                 
-                vehicle_assignments = self.assign_heterogeneous_fleet(
-                    subarea_list, centroid_name, self.farmers_milk, vehicle_types_list
+                # ✅ UPDATED: Receive both assignments and unassigned farmers
+                vehicle_assignments, unassigned_farmers = self.assign_heterogeneous_fleet(
+                    subarea_list, centroid_name, self.farmers_milk, 
+                    vehicle_types_list, global_fleet_availability
                 )
                 
                 cluster_data = {
@@ -336,14 +378,24 @@ class OptimizationEngine:
                     'total_milk': total_cluster_milk,
                     'capacity': self.center_capacity.get(centroid_name, 0),
                     'vehicles': [],
-                    'cost': 0
+                    'cost': 0,
+                    'unassigned_farmers': unassigned_farmers  # ✅ NEW: Add to cluster data
                 }
+                
+                # ✅ NEW: Add unassigned farmers to global list
+                for unassigned in unassigned_farmers:
+                    results['unassigned_farmers'].append({
+                        'cluster': centroid_name,
+                        'farmer_name': unassigned['name'],
+                        'milk': unassigned['milk']
+                    })
                 
                 # Optimize routes for each vehicle
                 for vehicle_idx, vehicle_data in enumerate(vehicle_assignments):
                     vtype = vehicle_data["vehicle_type"]
                     vspec = vehicle_data["vehicle_spec"]
                     
+                    # Optimize route
                     optimized_route, _ = self.optimize_vehicle_route(
                         centroid_name,
                         chilling_center_coords,
@@ -353,6 +405,7 @@ class OptimizationEngine:
                         self.farmers_milk
                     )
                     
+                    # Get route metrics
                     distance_km, travel_time_min = self.get_route_metrics(
                         optimized_route, chilling_center_coords
                     )
@@ -374,13 +427,17 @@ class OptimizationEngine:
                     if distance_km:
                         num_stops = len(optimized_route)
                         service_time_per_stop = vspec['service_time']
+                        
+                        # Calculate times
                         total_time, total_service_time = self.calculate_total_route_time(
                             travel_time_min, num_stops, service_time_per_stop
                         )
                         
+                        # Calculate cost
                         route_cost = vspec["fixed_cost"] + (distance_km * vspec["cost_per_km"])
                         cluster_data['cost'] += route_cost
-
+                        
+                        # Check constraints
                         is_time_violated, time_diff, status = self.check_deadline_constraint(
                             total_time, deadline_minutes
                         )
@@ -389,22 +446,60 @@ class OptimizationEngine:
                         )
                         
                         is_any_violation = is_time_violated or is_dist_violated
+                        violation_type = ""
+                        if is_time_violated and is_dist_violated:
+                            violation_type = "Time+Distance"
+                        elif is_time_violated:
+                            violation_type = "Time"
+                        elif is_dist_violated:
+                            violation_type = "Distance"
                         
                         vehicle_info.update({
                             'total_time': round(total_time, 1),
                             'service_time': total_service_time,
                             'cost': round(route_cost, 2),
                             'is_violated': is_any_violation,
+                            'time_violation': is_time_violated,
+                            'distance_violation': is_dist_violated,
+                            'time_diff': round(time_diff, 1),
+                            'dist_diff': round(dist_diff, 1),
                             'status': f"{status} | {dist_status}",
+                            'violation_type': violation_type
                         })
                         
+                        # Record violations
                         if is_any_violation:
                             results['total_violations'] += 1
+                            results['violations'].append({
+                                'cluster': centroid_name,
+                                'vehicle': f"Vehicle {vehicle_idx + 1} ({vtype})",
+                                'violation_type': violation_type,
+                                'total_time': round(total_time, 1),
+                                'exceeded_by_time': round(time_diff, 1) if is_time_violated else None,
+                                'distance': distance_km,
+                                'exceeded_by_dist': round(dist_diff, 1) if is_dist_violated else None,
+                                'farmers': len(optimized_route)
+                            })
                     
                     cluster_data['vehicles'].append(vehicle_info)
                 
                 results['total_cost'] += cluster_data['cost']
                 results['clusters'].append(cluster_data)
+            
+            # ✅ NEW: Track unused vehicles
+            unused_vehicles = []
+            for vehicle_type, count in global_fleet_availability.items():
+                if count > 0:
+                    vehicle_spec = next(v for v in vehicle_types_list if v['name'] == vehicle_type)
+                    unused_vehicles.append({
+                        "type": vehicle_type,
+                        "count": count,
+                        "capacity": vehicle_spec['capacity']
+                    })
+            
+            results['unused_vehicles'] = unused_vehicles
+            results['total_unassigned_farmers'] = len(results['unassigned_farmers'])
+            results['total_unassigned_milk'] = sum(f['milk'] for f in results['unassigned_farmers'])
             
             return results
         
@@ -414,6 +509,13 @@ class OptimizationEngine:
     def save_optimization_result(self, results: Dict, output_dir: str = "optimization_history") -> str:
         """
         Save optimization results to JSON file with timestamp
+        
+        Args:
+            results: Optimization results dictionary
+            output_dir: Directory to save results (default: "optimization_history")
+        
+        Returns:
+            Filename of saved results
         """
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
@@ -421,6 +523,7 @@ class OptimizationEngine:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"{output_dir}/optimization_{timestamp}.json"
         
+        # Add timestamp to results
         results['timestamp'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         results['timestamp_epoch'] = int(datetime.now().timestamp())
         

@@ -39,6 +39,7 @@ class FleetBase(BaseModel):
     capacity_cans: float
     capacity_liters: float
     realistic_specs: dict
+    chilling_center_id: Optional[str]
     driver_details: Optional[dict] = None
     is_available: Optional[bool] = True
     fixed_cost: Optional[float] = 300.0
@@ -110,6 +111,7 @@ class FleetUpdate(BaseModel):
     realistic_specs: Optional[dict]
     driver_details: Optional[dict]
     is_available: Optional[bool]
+    chilling_center_id: Optional[str]
 
 class FleetResponse(FleetBase):
     """Schema for API response"""

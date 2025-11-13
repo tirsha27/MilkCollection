@@ -1,6 +1,8 @@
+// domain/frontend/src/components/ChillingCenters.tsx
 import { useEffect, useState } from "react";
 import { StorageHubService } from "../services/storageHub.service";
 import { Plus, Edit2, Trash2, MapPin, Activity } from "lucide-react";
+import { OptimizationService } from "../services/optimization.service";
 
 interface ChillingCenter {
   id: number; // backend int id
@@ -11,6 +13,9 @@ interface ChillingCenter {
   capacity_liters: number;
   current_load_liters?: number | null; // backend field name
   is_active?: boolean | null;
+  // optional optimization fields:
+  used_liters?: number;
+  utilization_pct?: number;
 }
 
 export default function ChillingCenters() {
@@ -26,7 +31,7 @@ export default function ChillingCenters() {
     capacity_liters: "",
   });
 
-  // ✅ Modified: Auto-refresh when Excel file uploaded for chilling_centers
+  // Auto-refresh when Excel file uploaded for chilling_centers
   useEffect(() => {
     loadCenters();
 
@@ -40,9 +45,53 @@ export default function ChillingCenters() {
 
   const loadCenters = async () => {
     try {
+      setLoading(true);
       const res = await StorageHubService.getAll();
-      const hubs = res.data;
-      setCenters(hubs);
+      // res.data or res
+      const hubs = res?.data ?? res ?? [];
+      // normalize to array
+      const normalized = Array.isArray(hubs) ? hubs : hubs.hubs ?? [];
+      // map
+      const mapped = normalized.map((c: any) => ({
+        id: c.id ?? c.hub_id ?? c.hubCode ?? c.hub_code ?? Math.random(),
+        hub_name: c.hub_name ?? c.name ?? c.title ?? c.hubName ?? "Unnamed Hub",
+        latitude: c.latitude ?? c.lat ?? null,
+        longitude: c.longitude ?? c.lng ?? null,
+        location: c.location ?? c.address ?? c.village ?? null,
+        capacity_liters: Number(c.capacity_liters ?? c.capacity ?? 0),
+        current_load_liters: Number(c.current_load_liters ?? c.current_load ?? c.used_liters ?? 0),
+        is_active: typeof c.is_active !== "undefined" ? c.is_active : c.active ?? true,
+      })) as ChillingCenter[];
+
+      // fetch optimization latest and merge per-hub info
+      try {
+        const optResp = await OptimizationService.getLatest();
+        const optData = optResp?.data ?? null;
+        if (optData && optData.hubs) {
+          const hubsMap = optData.hubs;
+          const merged = mapped.map((hub) => {
+            // try to find hub by id then by name
+            const byId = hubsMap[String(hub.id)];
+            const byName = Object.values(hubsMap).find((h: any) => String(h.name).toLowerCase() === String(hub.hub_name).toLowerCase());
+            const opt = byId ?? byName ?? null;
+            if (opt) {
+              return {
+                ...hub,
+                used_liters: Number(opt.used_liters ?? opt.used_liters ?? hub.current_load_liters ?? 0),
+                capacity_liters: Number(opt.capacity_liters ?? hub.capacity_liters ?? hub.capacity_liters ?? 0),
+                utilization_pct: Number(opt.utilization_pct ?? 0),
+              };
+            }
+            return hub;
+          });
+          setCenters(merged);
+          return;
+        }
+      } catch (err) {
+        console.warn("Failed to load optimization for hubs:", err);
+      }
+
+      setCenters(mapped);
     } catch (err) {
       console.error("Error loading centers:", err);
     } finally {
@@ -219,9 +268,9 @@ export default function ChillingCenters() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {centers.map((center) => {
-          const currentLoad = center.current_load_liters || 0;
-          const utilizationPercent =
-            center.capacity_liters > 0 ? (currentLoad / center.capacity_liters) * 100 : 0;
+          const currentLoad = center.used_liters ?? center.current_load_liters ?? 0;
+          const capacity = Number(center.capacity_liters ?? 0);
+          const utilizationPercent = capacity > 0 ? (currentLoad / capacity) * 100 : 0;
 
           return (
             <div key={center.id} className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
@@ -249,20 +298,18 @@ export default function ChillingCenters() {
                 <div>
                   <div className="flex items-center justify-between text-sm mb-1">
                     <span className="text-slate-600">Capacity Utilization</span>
-                    <span className="font-semibold text-slate-900">
-                      {utilizationPercent.toFixed(1)}%
-                    </span>
+                    <span className="font-semibold text-slate-900">{(center.utilization_pct ?? utilizationPercent).toFixed(2)}%</span>
                   </div>
                   <div className="w-full bg-slate-200 rounded-full h-2">
                     <div
                       className={`h-2 rounded-full ${
-                        utilizationPercent > 90
+                        (center.utilization_pct ?? utilizationPercent) > 90
                           ? "bg-red-500"
-                          : utilizationPercent > 70
+                          : (center.utilization_pct ?? utilizationPercent) > 70
                           ? "bg-amber-500"
                           : "bg-green-500"
                       }`}
-                      style={{ width: `${Math.min(utilizationPercent, 100)}%` }}
+                      style={{ width: `${Math.min(center.utilization_pct ?? utilizationPercent, 100)}%` }}
                     />
                   </div>
                 </div>
@@ -270,13 +317,13 @@ export default function ChillingCenters() {
                 <div className="flex items-center gap-2 text-sm">
                   <Activity className="h-4 w-4 text-slate-600" />
                   <span className="text-slate-600">
-                    {currentLoad.toLocaleString()}L / {center.capacity_liters.toLocaleString()}L
+                    {(center.used_liters ?? center.current_load_liters ?? 0).toLocaleString()}L / {Number(center.capacity_liters ?? capacity).toLocaleString()}L
                   </span>
                 </div>
 
                 {center.latitude && center.longitude && (
                   <div className="text-xs text-slate-500">
-                    Coordinates: {center.latitude.toFixed(4)}, {center.longitude.toFixed(4)}
+                    Coordinates: {Number(center.latitude).toFixed(4)}, {Number(center.longitude).toFixed(4)}
                   </div>
                 )}
               </div>

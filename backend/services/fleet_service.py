@@ -216,11 +216,12 @@ class FleetService:
         fleet_id: int,
         fleet_update: FleetUpdate
     ) -> Optional[Fleet]:
-
+        print("fleet_update1")
         vehicle = await FleetService.get_fleet_by_id(db, fleet_id)
         if not vehicle:
             return None
-
+        print("fleet_update")
+        print(fleet_update)
         update_data = fleet_update.dict(exclude_unset=True)
 
         for field, value in update_data.items():

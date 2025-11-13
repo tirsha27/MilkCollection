@@ -19,6 +19,11 @@ class OptimizationRun(Base):
     started_at = Column(DateTime(timezone=True), server_default=func.now())
     completed_at = Column(DateTime(timezone=True), nullable=True)
     results_summary = Column(JSON, nullable=True)
+    manual_changes = Column(JSON, nullable=True)
+    # ✅ Add missing columns here
+    input_config = Column(JSON, nullable=True)
+    result = Column(JSON, nullable=True)
+
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 

@@ -308,8 +308,8 @@ export default function Farmers() {
                 <div className="flex items-center gap-2 text-sm">
                   <Droplets className="h-4 w-4 text-blue-600" />
                   <span className="text-slate-600">
-                    <span className="font-medium">{farmer.daily_supply_capacity}L</span>{' '}
-                    daily capacity
+                    <span className="font-medium">{farmer.daily_supply_capacity}</span>{' '}
+                    Cans
                   </span>
                 </div>
               )}

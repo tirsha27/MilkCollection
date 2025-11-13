@@ -1,3 +1,5 @@
+import Dashboard from "../components/Dashboard";
+
 // src/lib/api-endpoints.ts
 export const API = {
   vendors: "/vendors",
@@ -6,4 +8,5 @@ export const API = {
   config: "/config",
   optimization: "/optimization",
   trips: "trips",
+  dashboard: "/dashboard",
 };
