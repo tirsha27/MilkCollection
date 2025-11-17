@@ -1,4 +1,5 @@
 # api/endpoints/trips_schedule.py
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import insert, select
@@ -6,74 +7,75 @@ from database.session import get_db
 from models.optimization import OptimizationRun
 from datetime import datetime, timezone
 from services.optimization_metrics import compute_run_metrics, compare_runs
-from services.evaluator import evaluate_manual_assignment
 import json, os, glob, logging
 from typing import Any, Dict
 
 router = APIRouter(prefix="/trips", tags=["Trip Schedule"])
 logger = logging.getLogger(__name__)
 
-
 @router.get("/schedule")
-async def get_trip_schedule():
-    """Load latest optimization result JSON and return trip data"""
+async def get_trip_schedule(db: AsyncSession = Depends(get_db)):
+    """
+    ✅ FIXED: Fetch latest optimization from database instead of JSON files
+    Returns the latest optimization result with proper structure
+    """
     try:
-        folder = "optimization_history"
-        if not os.path.exists(folder):
-            return {"message": "No optimization results found", "data": []}
-        # Sorted so latest file is last
-        files = sorted(glob.glob(os.path.join(folder, "optimization_*.json")))
-        if not files:
-            return {"message": "No optimization results found", "data": []}
-        latest_file = files[-1]
-        with open(latest_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        # if top-level has optimization_results, return that for backward compat
-        if isinstance(data, dict) and data.get("optimization_results"):
-            return {"message": "Schedule loaded", "data": data["optimization_results"]}
-        # otherwise return whole file
-        return {"message": "Schedule loaded", "data": data}
+        # Fetch the latest optimization run from database
+        stmt = select(OptimizationRun).order_by(OptimizationRun.created_at.desc()).limit(1)
+        res = await db.execute(stmt)
+        run = res.scalars().first()
+
+        if not run:
+            return {"message": "No optimization results found", "data": {"clusters": []}}
+
+        # Extract optimization results
+        raw = run.result or {}
+        opt_root = (
+            raw.get("optimization_results")
+            if isinstance(raw, dict) and raw.get("optimization_results")
+            else raw if isinstance(raw, dict)
+            else {}
+        )
+
+        clusters = opt_root.get("clusters", []) if isinstance(opt_root, dict) else []
+
+        return {
+            "message": "Schedule loaded from latest optimization",
+            "data": {
+                "clusters": clusters,
+                "timestamp": run.created_at.isoformat() if run.created_at else None,
+                "run_id": str(run.id)
+            }
+        }
+
     except Exception as e:
         logger.exception("❌ Failed to load schedule")
-        return {"message": f"Error: {str(e)}", "data": []}
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.put("/schedule/update")
 async def update_trip_schedule(payload: Dict[str, Any], db: AsyncSession = Depends(get_db)):
     """
-    Save manual (drag/drop) optimization and compare with latest machine run.
-
-    Expects `payload` coming from frontend Trip Scheduler. To evaluate and compare
-    properly, we normalize it into a structure similar to machine-generated output:
-    {
-      "optimization_results": {
-         "clusters": [ ... ],
-         "timestamp": "...",
-         ...
-      }
-    }
+    ✅ FIXED: Save manual updates without using evaluator.py
+    Computes metrics directly from the payload structure
     """
     try:
         if not os.path.exists("optimization_history"):
             os.makedirs("optimization_history", exist_ok=True)
 
-        # Normalize payload into expected shape for evaluation functions.
-        # If frontend already sent an optimization_results root, accept it.
+        # Normalize payload
         if payload.get("optimization_results"):
             normalized = payload
         else:
-            # Accept shape { clusters: [...] } or { data: { clusters: [...] } }
             clusters = None
             if isinstance(payload.get("clusters"), list):
                 clusters = payload.get("clusters")
             elif isinstance(payload.get("data"), dict) and isinstance(payload["data"].get("clusters"), list):
                 clusters = payload["data"]["clusters"]
             else:
-                # try top-level lists inside payload
                 if isinstance(payload, dict) and "clusters" in payload:
                     clusters = payload["clusters"]
                 else:
-                    # as a fallback, try to interpret payload as already a machine run
                     clusters = payload.get("optimization_results", {}).get("clusters", [])
 
             normalized = {
@@ -98,26 +100,20 @@ async def update_trip_schedule(payload: Dict[str, Any], db: AsyncSession = Depen
         )
         res = await db.execute(q)
         latest_machine = res.scalars().first()
+
         previous_result = latest_machine.result if latest_machine else {}
 
-        # Evaluate the manual assignment.
-        # evaluate_manual_assignment expects a run-like structure; we pass normalized
+        # ✅ Compute metrics directly from normalized structure (no evaluator)
         try:
-            manual_eval = evaluate_manual_assignment(normalized, vehicle_catalog=[])
-        except Exception as ee:
-            logger.exception("Failed to evaluate manual assignment")
-            manual_eval = normalized  # fallback - at least store it
-
-        # Compute metrics for the manual run (safe)
-        try:
-            manual_metrics = compute_run_metrics(manual_eval) or {}
+            manual_metrics = compute_run_metrics(normalized.get("optimization_results", {})) or {}
         except Exception:
             logger.exception("compute_run_metrics failed for manual run")
             manual_metrics = {}
 
         # Compare with previous machine run (if exists)
         try:
-            comparison = compare_runs(previous_result or {}, manual_eval or {}) or {}
+            prev_opt = previous_result.get("optimization_results", {}) if isinstance(previous_result, dict) else {}
+            comparison = compare_runs(prev_opt, normalized.get("optimization_results", {})) or {}
         except Exception:
             logger.exception("compare_runs failed")
             comparison = {}
@@ -136,13 +132,16 @@ async def update_trip_schedule(payload: Dict[str, Any], db: AsyncSession = Depen
             status="completed",
             results_summary=results_summary,
             manual_changes=normalized,
+            result=normalized,  # Store the full normalized result
             started_at=datetime.now(timezone.utc),
             completed_at=datetime.now(timezone.utc),
         )
 
         await db.execute(stmt)
         await db.commit()
+
         logger.info("✅ Manual optimization saved successfully")
+
         return {
             "status": "success",
             "message": "Manual optimization logged",

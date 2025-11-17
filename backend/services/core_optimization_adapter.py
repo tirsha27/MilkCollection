@@ -1,3 +1,4 @@
+#services/core_optimization_adapter.py
 from scripts.optimization_engine import OptimizationEngine
 """
 Core Optimization Adapter
