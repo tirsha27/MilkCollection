@@ -403,14 +403,38 @@
 //     </div>
 //   );
 // }
+// domain/frontend/src/components/StaticConfig.tsx
 
-import { useState } from 'react';
 
-function Snackbar({ message, onClose }: { message: string; onClose: () => void }) {
+
+import React, { useEffect, useState } from "react";
+
+function Snackbar({
+  message,
+  onClose,
+  variant = "success",
+}: {
+  message: string;
+  onClose: () => void;
+  variant?: "success" | "info" | "error";
+}) {
+  useEffect(() => {
+    if (!message) return;
+    const t = setTimeout(onClose, 3500);
+    return () => clearTimeout(t);
+  }, [message, onClose]);
+
   if (!message) return null;
-  setTimeout(onClose, 3500);
+
+  const bg =
+    variant === "success" ? "bg-green-600" : variant === "error" ? "bg-red-600" : "bg-sky-600";
+
   return (
-    <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-green-600 text-white rounded px-6 py-3 shadow-lg z-50 select-none">
+    <div
+      role="status"
+      aria-live="polite"
+      className={`fixed bottom-6 left-1/2 transform -translate-x-1/2 ${bg} text-white rounded-md px-5 py-3 shadow-lg z-50`}
+    >
       {message}
     </div>
   );
@@ -418,109 +442,233 @@ function Snackbar({ message, onClose }: { message: string; onClose: () => void }
 
 export default function StaticConfig() {
   // Static fixed values (hours, kilometers)
-  const deadlineHours = '17'; // Representing hours, e.g., 17 hours
-  const deadlineDistance = '250'; // km
-  const graceHours = '0.25'; // 0.25 hours = 15 minutes
-  const graceKm = '10'; // km grace distance
+  const deadlineHours = "17"; // Representing hours, e.g., 17 hours
+  const deadlineDistance = "250"; // km
+  const graceHours = "0.25"; // 0.25 hours = 15 minutes
+  const graceKm = "10"; // km grace distance
 
-  const [snackbarMsg, setSnackbarMsg] = useState('');
+  const [snackbarMsg, setSnackbarMsg] = useState("");
+  const [snackbarVariant, setSnackbarVariant] = useState<"success" | "info" | "error">(
+    "success"
+  );
+
+  const copyToClipboard = async (text: string, label?: string) => {
+    try {
+      await navigator.clipboard.writeText(String(text));
+      setSnackbarVariant("success");
+      setSnackbarMsg(`${label ?? "Value"} copied to clipboard`);
+    } catch {
+      setSnackbarVariant("error");
+      setSnackbarMsg("Failed to copy");
+    }
+  };
+
+  const copyAll = async () => {
+    const payload = `Deadline Hours: ${deadlineHours}\nDeadline Distance: ${deadlineDistance} km\nGrace Time: ${graceHours} hours\nGrace Distance: ${graceKm} km`;
+    try {
+      await navigator.clipboard.writeText(payload);
+      setSnackbarVariant("success");
+      setSnackbarMsg("All configuration values copied");
+    } catch {
+      setSnackbarVariant("error");
+      setSnackbarMsg("Failed to copy all values");
+    }
+  };
 
   return (
-    <main className="min-h-screen bg-gray-50 flex flex-col justify-center px-6 sm:px-12 py-16 font-sans text-gray-900 select-none">
-      <h1 className="text-4xl font-semibold mb-16 text-center">Static Configuration</h1>
+    <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-8 md:px-12 lg:px-20">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-8">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-semibold text-slate-900">
+              Configuration
+            </h1>
+            <p className="mt-2 text-sm text-slate-600 max-w-xl">
+              These values are  configuration parameters used by the optimizer.
+              You can copy any value or copy all for sharing.
+            </p>
+          </div>
 
-      <section className="max-w-xl mx-auto space-y-12">
-        <div className="flex flex-col">
-          <label htmlFor="deadline-hours" className="mb-3 text-lg font-medium">
-            Deadline Time (hours)
-          </label>
-          <input
-            id="deadline-hours"
-            type="number"
-            value={deadlineHours}
-            readOnly
-            disabled
-            className="border-b-2 border-gray-300 bg-gray-100 py-2 text-lg cursor-not-allowed text-gray-700"
-          />
-          <small className="mt-1 text-gray-600">
-             cutoff time expressed in hours.
-          </small>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={copyAll}
+              className="inline-flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-md shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-300"
+              aria-label="Copy all configuration values"
+            >
+              Copy all
+            </button>
+          </div>
         </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="deadline-distance" className="mb-3 text-lg font-medium">
-            Deadline Distance (km)
-          </label>
-          <input
-            id="deadline-distance"
-            type="number"
-            value={deadlineDistance}
-            readOnly
-            disabled
-            className="border-b-2 border-gray-300 bg-gray-100 py-2 text-lg cursor-not-allowed text-gray-700"
-          />
-          <small className="mt-1 text-gray-600">
-             maximum allowed delivery distance.
-          </small>
-        </div>
+        {/* Card */}
+        <section className="bg-white rounded-2xl shadow-md border border-slate-100 p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Deadline Time */}
+            <div className="p-4 border rounded-lg bg-white">
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="text-base font-medium text-slate-900">Deadline Time</h3>
+                  <p className="text-sm text-slate-500 mt-1">Cutoff time expressed in hours</p>
+                </div>
+                
+              </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="grace-hours" className="mb-3 text-lg font-medium">
-            Grace Time (hours)
-          </label>
-          <input
-            id="grace-hours"
-            type="number"
-            step="0.01"
-            value={graceHours}
-            readOnly
-            disabled
-            className="border-b-2 border-gray-300 bg-gray-100 py-2 text-lg cursor-not-allowed text-gray-700"
-          />
-          <small className="mt-1 text-gray-600">
-             grace period expressed in hours.
-          </small>
-        </div>
+              <div className="mt-4 flex items-center gap-3">
+                <div className="flex-1">
+                  <input
+                    id="deadline-hours"
+                    type="text"
+                    value={deadlineHours}
+                    readOnly
+                    disabled
+                    aria-readonly
+                    className="w-full text-lg font-medium bg-gray-50 border border-slate-100 rounded-md px-4 py-2 text-slate-900"
+                  />
+                </div>
+                <button
+                  onClick={() => copyToClipboard(deadlineHours, "Deadline time")}
+                  className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 focus:outline-none"
+                  aria-label="Copy deadline hours"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="grace-km" className="mb-3 text-lg font-medium">
-            Grace Distance (km)
-          </label>
-          <input
-            id="grace-km"
-            type="number"
-            value={graceKm}
-            readOnly
-            disabled
-            className="border-b-2 border-gray-300 bg-gray-100 py-2 text-lg cursor-not-allowed text-gray-700"
-          />
-          <small className="mt-1 text-gray-600">
-             grace distance beyond deadline distance.
-          </small>
-        </div>
-      </section>
+            {/* Deadline Distance */}
+            <div className="p-4 border rounded-lg bg-white">
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="text-base font-medium text-slate-900">Deadline Distance</h3>
+                  <p className="text-sm text-slate-500 mt-1">Maximum allowed delivery distance (km)</p>
+                </div>
+                
+              </div>
 
-      <section className="mt-20 max-w-xl mx-auto text-center space-y-4 text-gray-800 select-text">
-        <h2 className="text-3xl font-semibold tracking-tight">Saved Configuration</h2>
-        <p className="text-xl">
-          <span className="font-semibold">Deadline Time (hours):</span>{' '}
-          <span className="italic">{deadlineHours}</span>
-        </p>
-        <p className="text-xl">
-          <span className="font-semibold">Deadline Distance:</span>{' '}
-          <span className="italic">{deadlineDistance} km</span>
-        </p>
-        <p className="text-xl">
-          <span className="font-semibold">Grace Time (hours):</span>{' '}
-          <span className="italic">{graceHours}</span>
-        </p>
-        <p className="text-xl">
-          <span className="font-semibold">Grace Distance:</span>{' '}
-          <span className="italic">{graceKm} km</span>
-        </p>
-      </section>
+              <div className="mt-4 flex items-center gap-3">
+                <div className="flex-1">
+                  <input
+                    id="deadline-distance"
+                    type="text"
+                    value={`${deadlineDistance} km`}
+                    readOnly
+                    disabled
+                    className="w-full text-lg font-medium bg-gray-50 border border-slate-100 rounded-md px-4 py-2 text-slate-900"
+                  />
+                </div>
+                <button
+                  onClick={() => copyToClipboard(deadlineDistance, "Deadline distance")}
+                  className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 focus:outline-none"
+                  aria-label="Copy deadline distance"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
 
-      <Snackbar message={snackbarMsg} onClose={() => setSnackbarMsg('')} />
+            {/* Grace Time */}
+            <div className="p-4 border rounded-lg bg-white">
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="text-base font-medium text-slate-900">Grace Time</h3>
+                  <p className="text-sm text-slate-500 mt-1">Grace period expressed in hours</p>
+                </div>
+
+              </div>
+
+              <div className="mt-4 flex items-center gap-3">
+                <div className="flex-1">
+                  <input
+                    id="grace-hours"
+                    type="text"
+                    value={graceHours}
+                    readOnly
+                    disabled
+                    className="w-full text-lg font-medium bg-gray-50 border border-slate-100 rounded-md px-4 py-2 text-slate-900 "
+                  />
+                </div>
+                <button
+                  onClick={() => copyToClipboard(graceHours, "Grace time")}
+                  className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 focus:outline-none"
+                  aria-label="Copy grace time"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+
+            {/* Grace Distance */}
+            <div className="p-4 border rounded-lg bg-white">
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="text-base font-medium text-slate-900">Grace Distance</h3>
+                  <p className="text-sm text-slate-500 mt-1">Grace distance beyond deadline (km)</p>
+                </div>
+
+              </div>
+
+              <div className="mt-4 flex items-center gap-3">
+                <div className="flex-1">
+                  <input
+                    id="grace-km"
+                    type="text"
+                    value={`${graceKm} km`}
+                    className="w-full text-lg font-medium bg-gray-50 border border-slate-100 rounded-md px-4 py-2 text-slate-900 "
+                  />
+                </div>
+                <button
+                  onClick={() => copyToClipboard(graceKm, "Grace distance")}
+                  className="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 focus:outline-none"
+                  aria-label="Copy grace distance"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer / saved values summary */}
+          <div className="mt-6 border-t pt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h4 className="text-sm font-medium text-slate-700">Saved Configuration</h4>
+              <div className="mt-3 text-sm text-slate-600 space-y-1">
+                <div>
+                  <span className="font-semibold text-slate-800">Deadline Time (hours): </span>
+                  <span className="italic">{deadlineHours}</span>
+                </div>
+                <div>
+                  <span className="font-semibold text-slate-800">Deadline Distance: </span>
+                  <span className="italic">{deadlineDistance} km</span>
+                </div>
+                <div>
+                  <span className="font-semibold text-slate-800">Grace Time (hours): </span>
+                  <span className="italic">{graceHours}</span>
+                </div>
+                <div>
+                  <span className="font-semibold text-slate-800">Grace Distance: </span>
+                  <span className="italic">{graceKm} km</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+
+              <button
+                onClick={() => {
+                  setSnackbarVariant("success");
+                  setSnackbarMsg("Values are up to date");
+                }}
+                className="px-4 py-2 rounded-md bg-slate-900 text-white shadow-sm hover:bg-slate-800 focus:outline-none"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <Snackbar message={snackbarMsg} onClose={() => setSnackbarMsg("")} variant={snackbarVariant} />
     </main>
   );
 }

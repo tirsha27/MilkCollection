@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { Upload, FileSpreadsheet, CheckCircle, AlertCircle, Download } from 'lucide-react';
 import * as XLSX from 'xlsx';
+import { api } from "../lib/api-client";                 // ✅ ADDED
+import { API } from "../lib/api-endpoints";
 
 export default function DataUpload() {
   const [uploading, setUploading] = useState(false);
@@ -10,7 +12,7 @@ export default function DataUpload() {
     message: string;
     details?: string;
   } | null>(null);
-  const API_BASE = "http://localhost:8000/api/v1";
+  
 
   // -----------------------------
   // Excel Upload → Backend
@@ -28,13 +30,12 @@ export default function DataUpload() {
       formData.append("file", file);
 
       let endpoint = "";
-      if (dataType === "chilling_centers") endpoint = `${API_BASE}/storage-hubs/upload`;
-      else if (dataType === "vehicles") endpoint = `${API_BASE}/fleet/upload`;
-      else if (dataType === "farmers") endpoint = `${API_BASE}/vendors/upload`;
+      if (dataType === "chilling_centers") endpoint = `${API.storageHubs}/upload`;
+      else if (dataType === "vehicles") endpoint = `${API.fleet}/upload`;
+      else if (dataType === "farmers") endpoint = `${API.vendors}/upload`;
 
-      const res = await fetch(endpoint, {
-        method: "POST",
-        body: formData,
+      const res = await api.post(endpoint, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       if (!res.ok) {

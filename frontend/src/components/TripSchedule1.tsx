@@ -1,6 +1,8 @@
 // domain/frontend/src/components/TripSchedule.tsx
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { api } from "../lib/api-client";                 // ✅ ADDED
+import { API } from "../lib/api-endpoints";
 import {
   DragDropContext,
   Droppable,
@@ -117,14 +119,14 @@ export default function TripSchedule() {
     try {
       setLoading(true);
       // 1) get schedule
-      const res = await axios.get("http://localhost:8000/api/v1/trips/schedule");
+      const res = await api.get(`${API.trips}/schedule`);
       const raw = res.data?.data || res.data;
       const clusters = raw?.clusters || raw?.optimization_results?.clusters || [];
 
       // 2) fetch fleet to map category_name -> vehicle_number (first available)
       let fleetMap: Record<string, string> = {}; // category_name -> vehicle_number
       try {
-        const fleetRes = await axios.get("http://localhost:8000/api/v1/fleet/?skip=0&limit=500");
+        const fleetRes = await api.get(`${API.fleet}?skip=0&limit=500`);
         const fleetArr = Array.isArray(fleetRes.data) ? fleetRes.data : fleetRes.data?.data ?? [];
         for (const f of fleetArr) {
           const cat = f?.category_name ?? f?.category_name ?? null;
@@ -282,7 +284,7 @@ export default function TripSchedule() {
   const handleSaveChanges = async () => {
     try {
       setSaving(true);
-      await axios.put("http://localhost:8000/api/v1/trips/schedule/update", data);
+      await api.put(`${API.trips}/schedule/update`, data);
       alert("✅ Schedule saved successfully!");
       setChangesMade(false);
     } catch (err) {

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚛 Milk Collection Route Optimization Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header .timestamp {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* File Upload Section */
+        .file-upload {
+            background: #f8f9fa;
+            padding: 30px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .file-upload h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 40px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .upload-area:hover {
+            border-color: #764ba2;
+            background: #f8f9fa;
+            transform: scale(1.02);
+        }
+
+        .upload-area.dragover {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .upload-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(118, 75, 162, 0.4);
+        }
+
+        .file-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: #e7f3ff;
+            border-radius: 10px;
+            color: #0056b3;
+            display: none;
+        }
+
+        .file-info.show {
+            display: block;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .stat-card .label {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-card .subtitle {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        /* Content Area */
+        .content {
+            padding: 30px;
+        }
+
+        /* Cluster Cards */
+        .clusters-grid {
+            display: grid;
+            gap: 25px;
+        }
+
+        .cluster-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .cluster-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+
+        .cluster-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cluster-header h3 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cluster-header .icon {
+            font-size: 1.8rem;
+        }
+
+        .cluster-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .cluster-stat {
+            text-align: center;
+        }
+
+        .cluster-stat .label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+        }
+
+        .cluster-stat .value {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Vehicles */
+        .vehicles-container {
+            padding: 25px;
+        }
+
+        .vehicle-card {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .vehicle-card:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .vehicle-card.violated {
+            border-left-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .vehicle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .vehicle-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .vehicle-number {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .vehicle-card.violated .vehicle-number {
+            background: #dc3545;
+        }
+
+        .vehicle-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .metric .label {
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .metric .value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .metric.violated .value {
+            color: #dc3545;
+        }
+
+        /* Route Display */
+        .route-display {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .route-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .route-path {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .route-node {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .route-arrow {
+            color: #999;
+            font-weight: bold;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .status-badge.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-badge.danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Welcome Message */
+        .welcome {
+            text-align: center;
+            padding: 60px 30px;
+            color: #666;
+        }
+
+        .welcome-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .welcome h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* Error Message */
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .vehicle-metrics {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .cluster-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .vehicle-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚛 Milk Collection Route Optimization</h1>
+            <p class="timestamp" id="timestamp">Dashboard Ready</p>
+        </div>
+
+        <div class="file-upload">
+            <h3>📁 Load Optimization Result</h3>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📂</div>
+                <p style="font-size: 1.1rem; color: #666; margin-bottom: 10px;">
+                    Drag & Drop JSON file here
+                </p>
+                <p style="font-size: 0.9rem; color: #999; margin-bottom: 15px;">
+                    or
+                </p>
+                <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                    Choose File
+                </button>
+                <input type="file" 
+                       id="fileInput" 
+                       class="file-input" 
+                       accept=".json" 
+                       onchange="handleFileSelect(event)">
+            </div>
+            <div class="file-info" id="fileInfo">
+                <strong>📄 Loaded:</strong> <span id="fileName"></span>
+            </div>
+        </div>
+
+        <div id="statsContainer"></div>
+        <div id="contentContainer">
+            <div class="welcome">
+                <div class="welcome-icon">📊</div>
+                <h2>Welcome to Route Optimization Dashboard</h2>
+                <p>Upload an optimization result JSON file to visualize routes and metrics</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let optimizationData = null;
+
+        // Setup drag and drop
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, () => {
+                uploadArea.classList.add('dragover');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, () => {
+                uploadArea.classList.remove('dragover');
+            }, false);
+        });
+
+        uploadArea.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        }
+
+        function handleFile(file) {
+            if (!file.name.endsWith('.json')) {
+                showError('Please select a JSON file');
+                return;
+            }
+
+            // Show file info
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileInfo').classList.add('show');
+
+            // Read file
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    optimizationData = JSON.parse(e.target.result);
+                    renderDashboard();
+                } catch (error) {
+                    showError('Error parsing JSON file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function renderDashboard() {
+            if (!optimizationData) {
+                showError('No data available');
+                return;
+            }
+
+            const data = optimizationData.data || optimizationData;
+            const results = data.optimization_results || data;
+            
+            // Update timestamp
+            const timestamp = data.timestamp || new Date().toISOString();
+            document.getElementById('timestamp').textContent = 
+                `Last Updated: ${new Date(timestamp).toLocaleString()}`;
+
+            // Render statistics
+            renderStats(results);
+
+            // Render clusters
+            renderClusters(results.clusters || []);
+        }
+
+        function renderStats(results) {
+            const clusters = results.clusters || [];
+            
+            const totalVehicles = clusters.reduce((sum, cluster) => 
+                sum + (cluster.vehicles || []).length, 0);
+            
+            const totalMilk = clusters.reduce((sum, cluster) => 
+                sum + (cluster.total_milk || 0), 0);
+            
+            const totalViolations = results.total_violations || 0;
+            
+            const totalDistance = clusters.reduce((sum, cluster) => 
+                sum + (cluster.vehicles || []).reduce((vSum, v) => 
+                    vSum + (v.distance || 0), 0), 0);
+
+            const statsHTML = `
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="label">Total Clusters</div>
+                        <div class="value">${clusters.length}</div>
+                        <div class="subtitle">Storage Hubs</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Total Vehicles</div>
+                        <div class="value">${totalVehicles}</div>
+                        <div class="subtitle">Assigned Trucks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Total Milk</div>
+                        <div class="value">${totalMilk.toFixed(0)}</div>
+                        <div class="subtitle">Liters Collected</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Total Distance</div>
+                        <div class="value">${totalDistance.toFixed(1)}</div>
+                        <div class="subtitle">Kilometers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Violations</div>
+                        <div class="value" style="color: ${totalViolations > 0 ? '#dc3545' : '#28a745'}">${totalViolations}</div>
+                        <div class="subtitle">${totalViolations > 0 ? 'Action Required' : 'All Clear'}</div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('statsContainer').innerHTML = statsHTML;
+        }
+
+        function renderClusters(clusters) {
+            let html = '<div class="content"><div class="clusters-grid">';
+
+            clusters.forEach((cluster, index) => {
+                html += `
+                    <div class="cluster-card">
+                        <div class="cluster-header">
+                            <h3>
+                                <span class="icon">🏭</span>
+                                ${cluster.name || `Cluster ${index + 1}`}
+                            </h3>
+                            <div class="cluster-stats">
+                                <div class="cluster-stat">
+                                    <div class="label">Milk</div>
+                                    <div class="value">${cluster.total_milk || 0}L</div>
+                                </div>
+                                <div class="cluster-stat">
+                                    <div class="label">Capacity</div>
+                                    <div class="value">${cluster.capacity || 0}L</div>
+                                </div>
+                                <div class="cluster-stat">
+                                    <div class="label">Vehicles</div>
+                                    <div class="value">${(cluster.vehicles || []).length}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vehicles-container">
+                            ${renderVehicles(cluster.vehicles || [])}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            document.getElementById('contentContainer').innerHTML = html;
+        }
+
+        function renderVehicles(vehicles) {
+            if (vehicles.length === 0) {
+                return '<p style="text-align: center; color: #999;">No vehicles assigned</p>';
+            }
+
+            return vehicles.map(vehicle => {
+                const isViolated = vehicle.is_violated || false;
+                const statusClass = isViolated ? 'danger' : 'success';
+                const statusText = vehicle.status || (isViolated ? 'VIOLATED' : 'ON TIME');
+
+                return `
+                    <div class="vehicle-card ${isViolated ? 'violated' : ''}">
+                        <div class="vehicle-header">
+                            <div class="vehicle-title">
+                                🚛 ${vehicle.vehicle_name || vehicle.type || 'Unknown Vehicle'}
+                            </div>
+                            <div class="vehicle-number">${vehicle.vehicle_number || vehicle.vehicle_code || 'N/A'}</div>
+                        </div>
+                        
+                        <div class="vehicle-metrics">
+                            <div class="metric">
+                                <div class="label">Capacity</div>
+                                <div class="value">${vehicle.capacity || 0}L</div>
+                            </div>
+                            <div class="metric">
+                                <div class="label">Loaded</div>
+                                <div class="value">${vehicle.total_milk || 0}L</div>
+                            </div>
+                            <div class="metric ${isViolated ? 'violated' : ''}">
+                                <div class="label">Utilization</div>
+                                <div class="value">${vehicle.utilization || 0}%</div>
+                            </div>
+                            <div class="metric">
+                                <div class="label">Distance</div>
+                                <div class="value">${(vehicle.distance || 0).toFixed(1)} km</div>
+                            </div>
+                            <div class="metric">
+                                <div class="label">Time</div>
+                                <div class="value">${(vehicle.travel_time || 0).toFixed(0)} min</div>
+                            </div>
+                        </div>
+
+                        ${vehicle.route && vehicle.route.length > 0 ? `
+                            <div class="route-display">
+                                <div class="route-title">
+                                    📍 Route (${vehicle.route.length} stops)
+                                </div>
+                                <div class="route-path">
+                                    ${vehicle.route.map((stop, idx) => `
+                                        ${idx > 0 ? '<span class="route-arrow">→</span>' : ''}
+                                        <span class="route-node">${stop}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <div class="status-badge ${statusClass}">
+                            ${statusText}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showError(message) {
+            document.getElementById('statsContainer').innerHTML = '';
+            document.getElementById('contentContainer').innerHTML = `
+                <div class="error-message">
+                    <strong>⚠️ Error:</strong> ${message}
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

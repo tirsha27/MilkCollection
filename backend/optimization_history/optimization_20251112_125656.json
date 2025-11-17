@@ -1,0 +1,303 @@
+{
+  "clusters": [
+    {
+      "name": "Viralimalai",
+      "total_milk": 2840.0,
+      "capacity": 2000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "C1",
+          "capacity": 2600.0,
+          "farmers": [
+            "Kumarasamy",
+            "Sivaraj",
+            "Mariappan",
+            "Muthuraman",
+            "Ponnusamy",
+            "Ramasamy",
+            "Arumugham",
+            "Perumal"
+          ],
+          "total_milk": 2600.0,
+          "utilization": 100.0,
+          "route": [
+            "Sivaraj",
+            "Muthuraman",
+            "Ramasamy",
+            "Perumal",
+            "Ponnusamy",
+            "Kumarasamy",
+            "Mariappan",
+            "Arumugham"
+          ],
+          "distance": 128.54,
+          "travel_time": 137.45,
+          "is_violated": true,
+          "status": "ON TIME | DISTANCE EXCEEDED",
+          "total_time": 169.4,
+          "service_time": 32,
+          "cost": 942.7,
+          "time_violation": false,
+          "distance_violation": true,
+          "time_diff": 310.6,
+          "dist_diff": 28.5,
+          "violation_type": "Distance"
+        },
+        {
+          "id": 2,
+          "type": "C6",
+          "capacity": 1200.0,
+          "farmers": [
+            "Venkatasamy"
+          ],
+          "total_milk": 240.0,
+          "utilization": 20.0,
+          "route": [
+            "Venkatasamy"
+          ],
+          "distance": 30.54,
+          "travel_time": 40.55,
+          "is_violated": false,
+          "status": "ON TIME | WITHIN DISTANCE",
+          "total_time": 44.5,
+          "service_time": 4,
+          "cost": 1131.75,
+          "time_violation": false,
+          "distance_violation": false,
+          "time_diff": 435.4,
+          "dist_diff": 69.5,
+          "violation_type": ""
+        }
+      ],
+      "cost": 2074.45
+    },
+    {
+      "name": "Thuvarankurichi",
+      "total_milk": 5880.0,
+      "capacity": 1500.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "C2",
+          "capacity": 2800.0,
+          "farmers": [
+            "Kalimuthu",
+            "Gopalakrishnan",
+            "Senthilkumar",
+            "Ganesan",
+            "Ramu",
+            "Muthusamy",
+            "Nadarajan",
+            "Karuppusamy"
+          ],
+          "total_milk": 2800.0,
+          "utilization": 100.0,
+          "route": [
+            "Nadarajan",
+            "Karuppusamy",
+            "Senthilkumar",
+            "Muthusamy",
+            "Gopalakrishnan",
+            "Kalimuthu",
+            "Ramu",
+            "Ganesan"
+          ],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        },
+        {
+          "id": 2,
+          "type": "C3",
+          "capacity": 1600.0,
+          "farmers": [
+            "Nalliah",
+            "Manickam",
+            "Thirumalai",
+            "Murugan",
+            "Vellaiyappan"
+          ],
+          "total_milk": 1560.0,
+          "utilization": 97.5,
+          "route": [
+            "Murugan",
+            "Thirumalai",
+            "Manickam",
+            "Vellaiyappan",
+            "Nalliah"
+          ],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        },
+        {
+          "id": 3,
+          "type": "C4",
+          "capacity": 2000.0,
+          "farmers": [
+            "Kothandaraman",
+            "Veeramani",
+            "Anbalagan",
+            "Karunanidhi",
+            "Karthikeyan",
+            "Rajadurai",
+            "Veerapandi"
+          ],
+          "total_milk": 1520.0,
+          "utilization": 76.0,
+          "route": [
+            "Anbalagan",
+            "Karthikeyan",
+            "Veerapandi",
+            "Veeramani",
+            "Kothandaraman",
+            "Rajadurai",
+            "Karunanidhi"
+          ],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        }
+      ],
+      "cost": 0
+    },
+    {
+      "name": "Ponnamaravathi Bus stand",
+      "total_milk": 4840.0,
+      "capacity": 1500.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "C5",
+          "capacity": 2200.0,
+          "farmers": [
+            "Subash",
+            "Dhanapal",
+            "Suthan",
+            "Vasu",
+            "Shanmugam",
+            "Murali"
+          ],
+          "total_milk": 2200.0,
+          "utilization": 100.0,
+          "route": [
+            "Suthan",
+            "Shanmugam",
+            "Murali",
+            "Dhanapal",
+            "Vasu",
+            "Subash"
+          ],
+          "distance": 76.03,
+          "travel_time": 87.57,
+          "is_violated": false,
+          "status": "ON TIME | WITHIN DISTANCE",
+          "total_time": 111.6,
+          "service_time": 24,
+          "cost": 1496.33,
+          "time_violation": false,
+          "distance_violation": false,
+          "time_diff": 368.4,
+          "dist_diff": 24.0,
+          "violation_type": ""
+        }
+      ],
+      "cost": 1496.33
+    },
+    {
+      "name": "Melur",
+      "total_milk": 9440.0,
+      "capacity": 1800.0,
+      "vehicles": [],
+      "cost": 0
+    },
+    {
+      "name": "Madurai",
+      "total_milk": 8080.0,
+      "capacity": 2500.0,
+      "vehicles": [],
+      "cost": 0
+    },
+    {
+      "name": "Singampunari",
+      "total_milk": 5640.0,
+      "capacity": 2500.0,
+      "vehicles": [],
+      "cost": 0
+    }
+  ],
+  "violations": [
+    {
+      "cluster": "Viralimalai",
+      "vehicle": "Vehicle 1 (C1)",
+      "violation_type": "Distance",
+      "total_time": 169.4,
+      "exceeded_by_time": null,
+      "distance": 128.54,
+      "exceeded_by_dist": 28.5,
+      "farmers": 8
+    }
+  ],
+  "total_cost": 3570.7799999999997,
+  "total_violations": 1,
+  "configuration": {
+    "deadline_minutes": 480,
+    "max_distance_km": 100.0,
+    "vehicle_types": [
+      {
+        "name": "C6",
+        "capacity": 1200.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 12.5,
+        "fixed_cost": 750.0
+      },
+      {
+        "name": "C3",
+        "capacity": 1600.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 8.0,
+        "fixed_cost": 480.0
+      },
+      {
+        "name": "C4",
+        "capacity": 2000.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 9.5,
+        "fixed_cost": 570.0
+      },
+      {
+        "name": "C5",
+        "capacity": 2200.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 11.0,
+        "fixed_cost": 660.0
+      },
+      {
+        "name": "C1",
+        "capacity": 2600.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "C2",
+        "capacity": 2800.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 6.5,
+        "fixed_cost": 390.0
+      }
+    ]
+  },
+  "timestamp": "2025-11-12 12:56:56",
+  "timestamp_epoch": 1762932416
+}

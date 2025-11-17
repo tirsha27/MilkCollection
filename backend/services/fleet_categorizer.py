@@ -69,13 +69,13 @@ class FleetCategorizer:
                     await db.execute(
                         update(Fleet)
                         .where(Fleet.id == vehicle.id)
-                        .values({
-                            "category_name": category,
-                            "fixed_cost": cat_details.get('fixed_cost', 300),
-                            "cost_per_km": cat_details.get('cost_per_km', 5),
-                            "service_time": cat_details.get('service_time', 15),
-                            "vehicle_count": 1
-                        })
+                        .values(
+                            category_name=category,
+                            fixed_cost=cat_details['fixed_cost'],
+                            cost_per_km=cat_details['cost_per_km'],
+                            service_time=cat_details['service_time'],
+                            vehicle_count=1
+                        )
                     )
                     updated_count += 1
                     
@@ -86,6 +86,7 @@ class FleetCategorizer:
                         'id': vehicle.id,
                         'vehicle_code': vehicle.vehicle_code,
                         'vehicle_name': vehicle.vehicle_name,
+                        'vehicle_number':vehicle.vehicle_number,
                         'capacity_cans': vehicle.capacity_cans,
                         'capacity_liters': vehicle.capacity_liters
                     })

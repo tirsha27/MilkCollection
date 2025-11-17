@@ -1,0 +1,352 @@
+{
+  "status": "success",
+  "data": {
+    "status": "SUCCESS",
+    "total_vehicles": 20,
+    "total_categories": 18,
+    "categories": [
+      {
+        "category": "C1",
+        "capacity_cans": 33,
+        "capacity_liters": 1320,
+        "fixed_cost": 300,
+        "cost_per_km": 5,
+        "service_time": 4
+      },
+      {
+        "category": "C2",
+        "capacity_cans": 65,
+        "capacity_liters": 2600,
+        "fixed_cost": 390,
+        "cost_per_km": 6.5,
+        "service_time": 4
+      },
+      {
+        "category": "C3",
+        "capacity_cans": 67,
+        "capacity_liters": 2680,
+        "fixed_cost": 480,
+        "cost_per_km": 8,
+        "service_time": 4
+      },
+      {
+        "category": "C4",
+        "capacity_cans": 130,
+        "capacity_liters": 5200,
+        "fixed_cost": 570,
+        "cost_per_km": 9.5,
+        "service_time": 4
+      },
+      {
+        "category": "C5",
+        "capacity_cans": 38,
+        "capacity_liters": 1520,
+        "fixed_cost": 660,
+        "cost_per_km": 11,
+        "service_time": 4
+      },
+      {
+        "category": "C6",
+        "capacity_cans": 70,
+        "capacity_liters": 2800,
+        "fixed_cost": 750,
+        "cost_per_km": 12.5,
+        "service_time": 4
+      },
+      {
+        "category": "C7",
+        "capacity_cans": 40,
+        "capacity_liters": 1600,
+        "fixed_cost": 840,
+        "cost_per_km": 14,
+        "service_time": 4
+      },
+      {
+        "category": "C8",
+        "capacity_cans": 134,
+        "capacity_liters": 5360,
+        "fixed_cost": 930,
+        "cost_per_km": 15.5,
+        "service_time": 4
+      },
+      {
+        "category": "C9",
+        "capacity_cans": 74,
+        "capacity_liters": 2960,
+        "fixed_cost": 1020,
+        "cost_per_km": 17,
+        "service_time": 4
+      },
+      {
+        "category": "C10",
+        "capacity_cans": 140,
+        "capacity_liters": 5600,
+        "fixed_cost": 1110,
+        "cost_per_km": 18.5,
+        "service_time": 4
+      },
+      {
+        "category": "C11",
+        "capacity_cans": 110,
+        "capacity_liters": 4400,
+        "fixed_cost": 1200,
+        "cost_per_km": 20,
+        "service_time": 4
+      },
+      {
+        "category": "C12",
+        "capacity_cans": 50,
+        "capacity_liters": 2000,
+        "fixed_cost": 1290,
+        "cost_per_km": 21.5,
+        "service_time": 4
+      },
+      {
+        "category": "C13",
+        "capacity_cans": 114,
+        "capacity_liters": 4560,
+        "fixed_cost": 1380,
+        "cost_per_km": 23,
+        "service_time": 4
+      },
+      {
+        "category": "C14",
+        "capacity_cans": 52,
+        "capacity_liters": 2080,
+        "fixed_cost": 1470,
+        "cost_per_km": 24.5,
+        "service_time": 4
+      },
+      {
+        "category": "C15",
+        "capacity_cans": 148,
+        "capacity_liters": 5920,
+        "fixed_cost": 1560,
+        "cost_per_km": 26,
+        "service_time": 4
+      },
+      {
+        "category": "C16",
+        "capacity_cans": 55,
+        "capacity_liters": 2200,
+        "fixed_cost": 1650,
+        "cost_per_km": 27.5,
+        "service_time": 4
+      },
+      {
+        "category": "C17",
+        "capacity_cans": 57,
+        "capacity_liters": 2280,
+        "fixed_cost": 1740,
+        "cost_per_km": 29,
+        "service_time": 4
+      },
+      {
+        "category": "C18",
+        "capacity_cans": 30,
+        "capacity_liters": 1200,
+        "fixed_cost": 1830,
+        "cost_per_km": 30.5,
+        "service_time": 4
+      }
+    ],
+    "mapping": {
+      "C18": [
+        {
+          "id": 17,
+          "vehicle_code": "F009",
+          "vehicle_name": "Mahindra Supro Maxitruck",
+          "vehicle_number": "TN51 0097",
+          "capacity_cans": 30,
+          "capacity_liters": 1200
+        }
+      ],
+      "C1": [
+        {
+          "id": 12,
+          "vehicle_code": "F003",
+          "vehicle_name": "Mahindra Jeeto",
+          "vehicle_number": "TN46 0092",
+          "capacity_cans": 33,
+          "capacity_liters": 1320
+        }
+      ],
+      "C5": [
+        {
+          "id": 11,
+          "vehicle_code": "F002",
+          "vehicle_name": "Tata Ace Gold",
+          "vehicle_number": "TN45 0091",
+          "capacity_cans": 38,
+          "capacity_liters": 1520
+        }
+      ],
+      "C7": [
+        {
+          "id": 16,
+          "vehicle_code": "F008",
+          "vehicle_name": "Ashok Leyland Dost+",
+          "vehicle_number": "TN50 0096",
+          "capacity_cans": 40,
+          "capacity_liters": 1600
+        }
+      ],
+      "C12": [
+        {
+          "id": 18,
+          "vehicle_code": "F010",
+          "vehicle_name": "Tata Yodha Pickup",
+          "vehicle_number": "TN52 0098",
+          "capacity_cans": 50,
+          "capacity_liters": 2000
+        }
+      ],
+      "C14": [
+        {
+          "id": 13,
+          "vehicle_code": "F004",
+          "vehicle_name": "Tata Intra V10",
+          "vehicle_number": "TN47 0093",
+          "capacity_cans": 52,
+          "capacity_liters": 2080
+        }
+      ],
+      "C16": [
+        {
+          "id": 19,
+          "vehicle_code": "F011",
+          "vehicle_name": "Ashok Leyland Bada Dost",
+          "vehicle_number": "TN53 0099",
+          "capacity_cans": 55,
+          "capacity_liters": 2200
+        }
+      ],
+      "C17": [
+        {
+          "id": 14,
+          "vehicle_code": "F005",
+          "vehicle_name": "Mahindra Bolero Pickup",
+          "vehicle_number": "TN48 0094",
+          "capacity_cans": 57,
+          "capacity_liters": 2280
+        }
+      ],
+      "C2": [
+        {
+          "id": 20,
+          "vehicle_code": "F012",
+          "vehicle_name": "Mahindra Furio 7",
+          "vehicle_number": "TN54 0100",
+          "capacity_cans": 65,
+          "capacity_liters": 2600
+        }
+      ],
+      "C3": [
+        {
+          "id": 15,
+          "vehicle_code": "F007",
+          "vehicle_name": "Tata Intra V30",
+          "vehicle_number": "TN49 0095",
+          "capacity_cans": 67,
+          "capacity_liters": 2680
+        }
+      ],
+      "C6": [
+        {
+          "id": 21,
+          "vehicle_code": "F013",
+          "vehicle_name": "Tata 407 Gold SFC",
+          "vehicle_number": "TN55 0101",
+          "capacity_cans": 70,
+          "capacity_liters": 2800
+        }
+      ],
+      "C9": [
+        {
+          "id": 22,
+          "vehicle_code": "F014",
+          "vehicle_name": "Eicher Pro 2049",
+          "vehicle_number": "TN56 0102",
+          "capacity_cans": 74,
+          "capacity_liters": 2960
+        }
+      ],
+      "C11": [
+        {
+          "id": 29,
+          "vehicle_code": "F022",
+          "vehicle_name": "Mahindra Blazo X 28",
+          "vehicle_number": "TN63 0109",
+          "capacity_cans": 110,
+          "capacity_liters": 4400
+        }
+      ],
+      "C13": [
+        {
+          "id": 30,
+          "vehicle_code": "F023",
+          "vehicle_name": "Eicher Pro 2095",
+          "vehicle_number": "TN64 0110",
+          "capacity_cans": 114,
+          "capacity_liters": 4560
+        }
+      ],
+      "C4": [
+        {
+          "id": 28,
+          "vehicle_code": "F021",
+          "vehicle_name": "Ashok Leyland Ecomet",
+          "vehicle_number": "TN62 0108",
+          "capacity_cans": 130,
+          "capacity_liters": 5200
+        }
+      ],
+      "C8": [
+        {
+          "id": 27,
+          "vehicle_code": "F020",
+          "vehicle_name": "Tata 710 LPT",
+          "vehicle_number": "TN61 0107",
+          "capacity_cans": 134,
+          "capacity_liters": 5360
+        }
+      ],
+      "C10": [
+        {
+          "id": 26,
+          "vehicle_code": "F019",
+          "vehicle_name": "Mahindra Furio 11",
+          "vehicle_number": "TN60 0106",
+          "capacity_cans": 140,
+          "capacity_liters": 5600
+        },
+        {
+          "id": 25,
+          "vehicle_code": "F018",
+          "vehicle_name": "Ashok Leyland Partner",
+          "vehicle_number": "TN59 0105",
+          "capacity_cans": 140,
+          "capacity_liters": 5600
+        }
+      ],
+      "C15": [
+        {
+          "id": 24,
+          "vehicle_code": "F017",
+          "vehicle_name": "Eicher Pro 3015",
+          "vehicle_number": "TN58 0104",
+          "capacity_cans": 148,
+          "capacity_liters": 5920
+        },
+        {
+          "id": 23,
+          "vehicle_code": "F016",
+          "vehicle_name": "Tata 407 Gold Turbo",
+          "vehicle_number": "TN57 0103",
+          "capacity_cans": 148,
+          "capacity_liters": 5920
+        }
+      ]
+    }
+  }
+}

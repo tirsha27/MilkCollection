@@ -1,0 +1,562 @@
+{
+  "clusters": [
+    {
+      "name": "Thuvarankurichi",
+      "total_milk": 5880.0,
+      "capacity": 15000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "CAT_F011",
+          "capacity": 2680.0,
+          "vehicle_number": "TN12SV1900",
+          "vehicle_code": "F011",
+          "vehicle_name": "Tata Intra V30",
+          "total_milk": 2680.0,
+          "utilization": 100.0,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        },
+        {
+          "id": 2,
+          "type": "CAT_F016",
+          "capacity": 2600.0,
+          "vehicle_number": "TN12SV1905",
+          "vehicle_code": "F016",
+          "vehicle_name": "Mahindra Furio 7",
+          "total_milk": 2600.0,
+          "utilization": 100.0,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        },
+        {
+          "id": 3,
+          "type": "C6",
+          "capacity": 1200.0,
+          "vehicle_number": "TN13ST7896",
+          "vehicle_code": "F002",
+          "vehicle_name": "Mahindra Jeeto",
+          "total_milk": 600.0,
+          "utilization": 50.0,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        }
+      ],
+      "cost": 0,
+      "unassigned_farmers": []
+    },
+    {
+      "name": "Viralimalai",
+      "total_milk": 2840.0,
+      "capacity": 9000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "C4",
+          "capacity": 2000.0,
+          "vehicle_number": "TN15TV1256",
+          "vehicle_code": "F003",
+          "vehicle_name": "Tata Intra V10",
+          "total_milk": 2000.0,
+          "utilization": 100.0,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        },
+        {
+          "id": 2,
+          "type": "CAT_F013",
+          "capacity": 1200.0,
+          "vehicle_number": "TN12SV1902",
+          "vehicle_code": "F013",
+          "vehicle_name": "Mahindra Supro Maxitruck",
+          "total_milk": 840.0,
+          "utilization": 70.0,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        }
+      ],
+      "cost": 0,
+      "unassigned_farmers": []
+    },
+    {
+      "name": "Melur",
+      "total_milk": 9440.0,
+      "capacity": 18000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "CAT_F015",
+          "capacity": 2200.0,
+          "vehicle_number": "TN12SV1904",
+          "vehicle_code": "F015",
+          "vehicle_name": "Ashok Leyland Bada Dost",
+          "total_milk": 2200.0,
+          "utilization": 100.0,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        },
+        {
+          "id": 2,
+          "type": "C3",
+          "capacity": 1600.0,
+          "vehicle_number": "TN12SV1986",
+          "vehicle_code": "F001",
+          "vehicle_name": "Tata Ace Gold",
+          "total_milk": 1600.0,
+          "utilization": 100.0,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        },
+        {
+          "id": 3,
+          "type": "CAT_F007",
+          "capacity": 1520.0,
+          "vehicle_number": "TN12SV1896",
+          "vehicle_code": "F007",
+          "vehicle_name": "Tata Ace Gold",
+          "total_milk": 1520.0,
+          "utilization": 100.0,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        },
+        {
+          "id": 4,
+          "type": "CAT_F014",
+          "capacity": 2000.0,
+          "vehicle_number": "TN12SV1903",
+          "vehicle_code": "F014",
+          "vehicle_name": "Tata Yodha Pickup",
+          "total_milk": 2000.0,
+          "utilization": 100.0,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        },
+        {
+          "id": 5,
+          "type": "CAT_F008",
+          "capacity": 52800.0,
+          "vehicle_number": "TN12SV1897",
+          "vehicle_code": "F008",
+          "vehicle_name": "TN12SV1897",
+          "total_milk": 2120.0,
+          "utilization": 4.02,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        }
+      ],
+      "cost": 0,
+      "unassigned_farmers": []
+    },
+    {
+      "name": "Madurai",
+      "total_milk": 8080.0,
+      "capacity": 25000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "CAT_F012",
+          "capacity": 64000.0,
+          "vehicle_number": "TN12SV1901",
+          "vehicle_code": "F012",
+          "vehicle_name": "TN12SV1901",
+          "total_milk": 8080.0,
+          "utilization": 12.62,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        }
+      ],
+      "cost": 0,
+      "unassigned_farmers": []
+    },
+    {
+      "name": "Singampunari",
+      "total_milk": 5640.0,
+      "capacity": 20000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "CAT_F009",
+          "capacity": 83200.0,
+          "vehicle_number": "TN12SV1898",
+          "vehicle_code": "F009",
+          "vehicle_name": "TN12SV1898",
+          "total_milk": 5640.0,
+          "utilization": 6.78,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        }
+      ],
+      "cost": 0,
+      "unassigned_farmers": []
+    },
+    {
+      "name": "Ponnamaravathi Bus stand",
+      "total_milk": 4840.0,
+      "capacity": 30000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "C5",
+          "capacity": 88000.0,
+          "vehicle_number": "TN17ST1478",
+          "vehicle_code": "F004",
+          "vehicle_name": "TN17ST1478",
+          "total_milk": 4840.0,
+          "utilization": 5.5,
+          "route": [],
+          "distance": null,
+          "travel_time": null,
+          "is_violated": false,
+          "status": "NO DATA"
+        }
+      ],
+      "cost": 0,
+      "unassigned_farmers": []
+    }
+  ],
+  "violations": [],
+  "unassigned_farmers": [],
+  "total_cost": 0,
+  "total_violations": 0,
+  "configuration": {
+    "deadline_minutes": 480,
+    "max_distance_km": 100.0,
+    "vehicle_types": [
+      {
+        "name": "CAT_F007",
+        "capacity": 1520.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F009",
+        "capacity": 83200.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F008",
+        "capacity": 52800.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F010",
+        "capacity": 91200.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "C2",
+        "capacity": 112000.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 6.5,
+        "fixed_cost": 390.0
+      },
+      {
+        "name": "C1",
+        "capacity": 104000.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "C5",
+        "capacity": 88000.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 11.0,
+        "fixed_cost": 660.0
+      },
+      {
+        "name": "C6",
+        "capacity": 1200.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 12.5,
+        "fixed_cost": 750.0
+      },
+      {
+        "name": "C3",
+        "capacity": 1600.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 8.0,
+        "fixed_cost": 480.0
+      },
+      {
+        "name": "C4",
+        "capacity": 2000.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 9.5,
+        "fixed_cost": 570.0
+      },
+      {
+        "name": "CAT_F011",
+        "capacity": 2680.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F013",
+        "capacity": 1200.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F014",
+        "capacity": 2000.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F015",
+        "capacity": 2200.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F016",
+        "capacity": 2600.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F022",
+        "capacity": 224000.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F017",
+        "capacity": 112000.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F019",
+        "capacity": 236800.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F020",
+        "capacity": 236800.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F018",
+        "capacity": 118400.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F021",
+        "capacity": 224000.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F012",
+        "capacity": 64000.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      }
+    ]
+  },
+  "unused_vehicles": [
+    {
+      "type": "CAT_F010",
+      "count": 1,
+      "capacity": 91200.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1899",
+          "vehicle_code": "F010",
+          "vehicle_name": "TN12SV1899",
+          "capacity_liters": 91200.0
+        }
+      ]
+    },
+    {
+      "type": "C2",
+      "count": 1,
+      "capacity": 112000.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN56ST1256",
+          "vehicle_code": "F006",
+          "vehicle_name": "TN56ST1256",
+          "capacity_liters": 112000.0
+        }
+      ]
+    },
+    {
+      "type": "C1",
+      "count": 1,
+      "capacity": 104000.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1485",
+          "vehicle_code": "F005",
+          "vehicle_name": "TN12SV1485",
+          "capacity_liters": 104000.0
+        }
+      ]
+    },
+    {
+      "type": "CAT_F022",
+      "count": 1,
+      "capacity": 224000.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1911",
+          "vehicle_code": "F022",
+          "vehicle_name": "TN12SV1911",
+          "capacity_liters": 224000.0
+        }
+      ]
+    },
+    {
+      "type": "CAT_F017",
+      "count": 1,
+      "capacity": 112000.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1906",
+          "vehicle_code": "F017",
+          "vehicle_name": "TN12SV1906",
+          "capacity_liters": 112000.0
+        }
+      ]
+    },
+    {
+      "type": "CAT_F019",
+      "count": 1,
+      "capacity": 236800.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1908",
+          "vehicle_code": "F019",
+          "vehicle_name": "TN12SV1908",
+          "capacity_liters": 236800.0
+        }
+      ]
+    },
+    {
+      "type": "CAT_F020",
+      "count": 1,
+      "capacity": 236800.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1909",
+          "vehicle_code": "F020",
+          "vehicle_name": "TN12SV1909",
+          "capacity_liters": 236800.0
+        }
+      ]
+    },
+    {
+      "type": "CAT_F018",
+      "count": 1,
+      "capacity": 118400.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1907",
+          "vehicle_code": "F018",
+          "vehicle_name": "TN12SV1907",
+          "capacity_liters": 118400.0
+        }
+      ]
+    },
+    {
+      "type": "CAT_F021",
+      "count": 1,
+      "capacity": 224000.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1910",
+          "vehicle_code": "F021",
+          "vehicle_name": "TN12SV1910",
+          "capacity_liters": 224000.0
+        }
+      ]
+    }
+  ],
+  "total_unassigned_farmers": 0,
+  "total_unassigned_milk": 0,
+  "timestamp": "2025-11-14 10:13:43",
+  "timestamp_epoch": 1763095423
+}

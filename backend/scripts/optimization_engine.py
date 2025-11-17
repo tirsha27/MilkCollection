@@ -112,7 +112,79 @@ class OptimizationEngine:
         else:
             distance_remaining = max_distance_km - distance_km
             return False, distance_remaining, "WITHIN DISTANCE"
-    
+
+    def get_optimized_route(self, cluster_center: Tuple[float, float], 
+                        route_coords: List[Tuple[float, float]], 
+                        farmer_names: List[str]) -> Tuple[List[str], float, float]:
+        """
+        Get optimized route using OpenRouteService API
+        
+        Returns: (optimized_farmer_order, distance_km, travel_time_minutes)
+        """
+        if not route_coords or len(route_coords) == 0:
+            return farmer_names, None, None
+        
+        # Build full route: hub -> farmers -> hub
+        full_route_coords = [cluster_center] + route_coords + [cluster_center]
+        
+        # Format coordinates for OpenRouteService (longitude, latitude)
+        coordinates = [[lon, lat] for lat, lon in full_route_coords]
+        
+        # API request
+        url = "https://api.openrouteservice.org/v2/directions/driving-car"
+        headers = {
+            'Authorization': self.api_key,
+            'Content-Type': 'application/json'
+        }
+        
+        payload = {
+            'coordinates': coordinates,
+            'radiuses': [-1] * len(coordinates),  # No radius restriction
+            'instructions': False
+        }
+        
+        try:
+            response = requests.post(url, json=payload, headers=headers, timeout=10)
+            
+            if response.status_code == 200:
+                data = response.json()
+                route = data['routes'][0]
+                summary = route['summary']
+                
+                # Extract distance and duration
+                distance_m = summary['distance']
+                duration_s = summary['duration']
+                
+                distance_km = distance_m / 1000
+                travel_time_min = duration_s / 60
+                
+                # Get waypoint order (excluding start/end hub)
+                waypoint_order = route.get('way_points', list(range(len(coordinates))))
+                
+                # Reorder farmer names based on optimized route (skip first and last - they're the hub)
+                if len(waypoint_order) > 2:
+                    farmer_indices = waypoint_order[1:-1]  # Exclude hub positions
+                    # Adjust indices (subtract 1 because hub is index 0)
+                    optimized_farmer_order = [farmer_names[i - 1] for i in farmer_indices if 0 <= i - 1 < len(farmer_names)]
+                else:
+                    optimized_farmer_order = farmer_names
+                
+                return optimized_farmer_order, distance_km, travel_time_min
+                
+            else:
+                print(f"OpenRouteService API error: {response.status_code}")
+                print(f"Response: {response.text}")
+                return farmer_names, None, None
+                
+        except requests.exceptions.Timeout:
+            print("OpenRouteService API timeout")
+            return farmer_names, None, None
+        except Exception as e:
+            print(f"Route optimization error: {e}")
+            return farmer_names, None, None
+
+
+
     def assign_heterogeneous_fleet(self, farmer_list: List[str], cluster_name: str, 
                                    farmers_milk: Dict, fleet_types_dict: List[Dict],
                                    fleet_availability: Dict) -> Tuple[List[Dict], List[Dict]]:
@@ -168,13 +240,40 @@ class OptimizationEngine:
                 utilization = (current_load / capacity) * 100
                 if utilization > best_utilization:
                     best_utilization = utilization
+
+                    # NEW: Get fleet info from fleet_lookup
+                    category_key = vehicle_spec['name']
+                    vehicle_info = None
+                    
+                    if hasattr(self, 'fleet_lookup') and category_key in self.fleet_lookup:
+                        # Get the next available vehicle for this category
+                        used_count = sum(1 for v in vehicle_assignments if v['vehicle_type'] == category_key)
+                        
+                        if used_count < len(self.fleet_lookup[category_key]):
+                            vehicle_info = self.fleet_lookup[category_key][used_count]
+                        else:
+                            # Fallback to first vehicle if we run out
+                            vehicle_info = self.fleet_lookup[category_key][0] if self.fleet_lookup[category_key] else None
+                    
+                    # MODIFIED: Add vehicle_info to best_assignment
                     best_assignment = {
                         "vehicle_type": vehicle_spec['name'],
                         "vehicle_spec": vehicle_spec,
+                        "vehicle_info": vehicle_info,  # NEW LINE
                         "farmers": current_vehicle_farmers,
                         "total_milk": current_load,
-                        "utilization": utilization
+                        "utilization": round(utilization, 2)
                     }
+
+
+
+                    # best_assignment = {
+                    #     "vehicle_type": vehicle_spec['name'],
+                    #     "vehicle_spec": vehicle_spec,
+                    #     "farmers": current_vehicle_farmers,
+                    #     "total_milk": current_load,
+                    #     "utilization": utilization
+                    # }
             
             if best_assignment:
                 vehicle_assignments.append(best_assignment)
@@ -409,20 +508,89 @@ class OptimizationEngine:
                     distance_km, travel_time_min = self.get_route_metrics(
                         optimized_route, chilling_center_coords
                     )
+
+                    print("8888888888888888888888888888888888888888888888888888")
+                    print(vehicle_data)
+
+                    v_info = vehicle_data.get('vehicle_info')
+                    farmer_names = vehicle_data['farmers']
+                    route_coords = [self.subareas[f] for f in farmer_names if f in self.subareas]
                     
+                    # Call route optimization
+                    if route_coords and len(route_coords) > 0:
+                        try:
+                            optimized_route, distance_km, travel_time_min = self.get_optimized_route(
+                                cluster_center, route_coords, farmer_names
+                            )
+                        except Exception as e:
+                            print(f"❌ Route optimization failed: {e}")
+                            optimized_route = farmer_names
+                            distance_km = None
+                            travel_time_min = None
+                    else:
+                        # No coordinates found
+                        optimized_route = farmer_names
+                        distance_km = None
+                        travel_time_min = None
+                    
+                    # Calculate metrics
+                    service_time = len(farmer_names) * vspec.get('service_time', 4)
+                    total_time = (travel_time_min or 0) + service_time
+                    
+                    if distance_km:
+                        cost = vspec['fixed_cost'] + (distance_km * vspec['cost_per_km'])
+                    else:
+                        cost = 0
+                    
+                    # Check violations
+                    time_violation = total_time > deadline_minutes if distance_km else False
+                    distance_violation = distance_km > max_distance_km if distance_km else False
+                    is_violated = time_violation or distance_violation
+                    
+                    # Build status
+                    if not distance_km:
+                        status = "NO DATA"
+                    elif is_violated:
+                        if time_violation and distance_violation:
+                            status = "TIME & DISTANCE EXCEEDED"
+                        elif time_violation:
+                            status = "TIME EXCEEDED | WITHIN DISTANCE"
+                        else:
+                            status = "ON TIME | DISTANCE EXCEEDED"
+                    else:
+                        status = "ON TIME | WITHIN DISTANCE"
+                    
+                    # Build complete vehicle info
                     vehicle_info = {
                         'id': vehicle_idx + 1,
                         'type': vtype,
                         'capacity': vspec['capacity'],
-                        'farmers': vehicle_data['farmers'],
+                        'vehicle_number': v_info.get('vehicle_number') if v_info else None,
+                        'vehicle_code': v_info.get('vehicle_code') if v_info else None,
+                        'vehicle_name': v_info.get('vehicle_name') if v_info else None,
                         'total_milk': vehicle_data['total_milk'],
+                        'farmers' : farmer_names,
                         'utilization': vehicle_data['utilization'],
                         'route': optimized_route,
                         'distance': distance_km,
                         'travel_time': travel_time_min,
-                        'is_violated': False,
-                        'status': 'NO DATA'
+                        'is_violated': is_violated,
+                        'status': status,
+                        'total_time': total_time,
+                        'service_time': service_time,
+                        'cost': round(cost, 2),
+                        'time_violation': time_violation,
+                        'distance_violation': distance_violation,
+                        'time_diff': deadline_minutes - total_time if distance_km else 0,
+                        'dist_diff': max_distance_km - distance_km if distance_km else 0,
+                        'violation_type': 'Distance' if distance_violation and not time_violation else ('Time' if time_violation and not distance_violation else ('Both' if is_violated else ''))
                     }
+                    
+                    # Update cluster cost
+                    cluster_data['cost'] += cost
+                    
+                    # Add vehicle to cluster
+                    cluster_data['vehicles'].append(vehicle_info)
                     
                     if distance_km:
                         num_stops = len(optimized_route)
@@ -483,20 +651,43 @@ class OptimizationEngine:
                     
                     cluster_data['vehicles'].append(vehicle_info)
                 
+                cluster_data['cost'] = round(cluster_data['cost'],2)
                 results['total_cost'] += cluster_data['cost']
                 results['clusters'].append(cluster_data)
             
-            # ✅ NEW: Track unused vehicles
+            # ✅ NEW: Track unused vehicles with fleet details
             unused_vehicles = []
             for vehicle_type, count in global_fleet_availability.items():
                 if count > 0:
                     vehicle_spec = next(v for v in vehicle_types_list if v['name'] == vehicle_type)
+                    
+                    # Get the fleet details for this category
+                    category_key = vehicle_type
+                    unused_fleet_details = []
+                    
+                    if hasattr(self, 'fleet_lookup') and category_key in self.fleet_lookup:
+                        # Count how many of this type were used
+                        used_count = vehicle_spec['count'] - count
+                        
+                        # Get the unused vehicles (skip the ones that were used)
+                        for idx in range(used_count, len(self.fleet_lookup[category_key])):
+                            if len(unused_fleet_details) < count:  # Only add as many as are unused
+                                vehicle_info = self.fleet_lookup[category_key][idx]
+                                unused_fleet_details.append({
+                                    'vehicle_number': vehicle_info.get('vehicle_number'),
+                                    'vehicle_code': vehicle_info.get('vehicle_code'),
+                                    'vehicle_name': vehicle_info.get('vehicle_name'),
+                                    'capacity_liters': vehicle_info.get('capacity_liters')
+                                })
+                    
+                    # THIS IS THE MISSING LINE - ADD IT:
                     unused_vehicles.append({
                         "type": vehicle_type,
                         "count": count,
-                        "capacity": vehicle_spec['capacity']
+                        "capacity": vehicle_spec['capacity'],
+                        "vehicles": unused_fleet_details  # Fleet details with numbers
                     })
-            
+
             results['unused_vehicles'] = unused_vehicles
             results['total_unassigned_farmers'] = len(results['unassigned_farmers'])
             results['total_unassigned_milk'] = sum(f['milk'] for f in results['unassigned_farmers'])

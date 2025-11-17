@@ -1,0 +1,838 @@
+{
+  "status": "success",
+  "data": {
+    "status": "SUCCESS",
+    "timestamp": "2025-11-14T00:52:59.835344",
+    "optimization_results": {
+      "clusters": [
+        {
+          "name": "Thuvarankurichi",
+          "total_milk": 5880,
+          "capacity": 15000,
+          "vehicles": [
+            {
+              "id": 1,
+              "type": "CAT_F011",
+              "capacity": 2680,
+              "vehicle_number": "TN12SV1900",
+              "vehicle_code": "F011",
+              "vehicle_name": "Tata Intra V30",
+              "total_milk": 2680,
+              "utilization": 100,
+              "route": [
+                "Anbalagan",
+                "Nadarajan",
+                "Senthilkumar",
+                "Muthusamy",
+                "Gopalakrishnan",
+                "Kalimuthu",
+                "Ramu",
+                "Ganesan"
+              ],
+              "distance": null,
+              "travel_time": null,
+              "is_violated": false,
+              "status": "NO DATA"
+            },
+            {
+              "id": 2,
+              "type": "CAT_F016",
+              "capacity": 2600,
+              "vehicle_number": "TN12SV1905",
+              "vehicle_code": "F016",
+              "vehicle_name": "Mahindra Furio 7",
+              "total_milk": 2600,
+              "utilization": 100,
+              "route": [
+                "Vellaiyappan",
+                "Karuppusamy",
+                "Nalliah",
+                "Karunanidhi",
+                "Kothandaraman",
+                "Thirumalai",
+                "Veeramani",
+                "Murugan",
+                "Manickam"
+              ],
+              "distance": null,
+              "travel_time": null,
+              "is_violated": false,
+              "status": "NO DATA"
+            },
+            {
+              "id": 3,
+              "type": "C6",
+              "capacity": 1200,
+              "vehicle_number": "TN13ST7896",
+              "vehicle_code": "F002",
+              "vehicle_name": "Mahindra Jeeto",
+              "total_milk": 600,
+              "utilization": 50,
+              "route": [
+                "Karthikeyan",
+                "Veerapandi",
+                "Rajadurai"
+              ],
+              "distance": 40.09,
+              "travel_time": 42.6,
+              "is_violated": false,
+              "status": "ON TIME | WITHIN DISTANCE",
+              "total_time": 54.6,
+              "service_time": 12,
+              "cost": 1251.12,
+              "time_violation": false,
+              "distance_violation": false,
+              "time_diff": 425.4,
+              "dist_diff": 59.9,
+              "violation_type": ""
+            }
+          ],
+          "cost": 1251.12,
+          "unassigned_farmers": []
+        },
+        {
+          "name": "Viralimalai",
+          "total_milk": 2840,
+          "capacity": 9000,
+          "vehicles": [
+            {
+              "id": 1,
+              "type": "C4",
+              "capacity": 2000,
+              "vehicle_number": "TN15TV1256",
+              "vehicle_code": "F003",
+              "vehicle_name": "Tata Intra V10",
+              "total_milk": 2000,
+              "utilization": 100,
+              "route": [
+                "Muthuraman",
+                "Sivaraj",
+                "Ponnusamy",
+                "Kumarasamy",
+                "Mariappan",
+                "Arumugham"
+              ],
+              "distance": 120.05,
+              "travel_time": 123.03,
+              "is_violated": true,
+              "status": "ON TIME | DISTANCE EXCEEDED",
+              "total_time": 147,
+              "service_time": 24,
+              "cost": 1710.47,
+              "time_violation": false,
+              "distance_violation": true,
+              "time_diff": 333,
+              "dist_diff": 20,
+              "violation_type": "Distance"
+            },
+            {
+              "id": 2,
+              "type": "CAT_F013",
+              "capacity": 1200,
+              "vehicle_number": "TN12SV1902",
+              "vehicle_code": "F013",
+              "vehicle_name": "Mahindra Supro Maxitruck",
+              "total_milk": 840,
+              "utilization": 70,
+              "route": [
+                "Perumal",
+                "Venkatasamy",
+                "Ramasamy"
+              ],
+              "distance": 64.29,
+              "travel_time": 70.74,
+              "is_violated": false,
+              "status": "ON TIME | WITHIN DISTANCE",
+              "total_time": 115.7,
+              "service_time": 45,
+              "cost": 621.45,
+              "time_violation": false,
+              "distance_violation": false,
+              "time_diff": 364.3,
+              "dist_diff": 35.7,
+              "violation_type": ""
+            }
+          ],
+          "cost": 2331.93,
+          "unassigned_farmers": []
+        },
+        {
+          "name": "Melur",
+          "total_milk": 9440,
+          "capacity": 18000,
+          "vehicles": [
+            {
+              "id": 1,
+              "type": "CAT_F015",
+              "capacity": 2200,
+              "vehicle_number": "TN12SV1904",
+              "vehicle_code": "F015",
+              "vehicle_name": "Ashok Leyland Bada Dost",
+              "total_milk": 2200,
+              "utilization": 100,
+              "route": [
+                "Kamalakannan",
+                "Arulnithi",
+                "Rajendran",
+                "Ayyappan",
+                "Muthupandi",
+                "Rajalakshmi"
+              ],
+              "distance": 61.08,
+              "travel_time": 66.31,
+              "is_violated": false,
+              "status": "ON TIME | WITHIN DISTANCE",
+              "total_time": 156.3,
+              "service_time": 90,
+              "cost": 605.4,
+              "time_violation": false,
+              "distance_violation": false,
+              "time_diff": 323.7,
+              "dist_diff": 38.9,
+              "violation_type": ""
+            },
+            {
+              "id": 2,
+              "type": "C3",
+              "capacity": 1600,
+              "vehicle_number": "TN12SV1986",
+              "vehicle_code": "F001",
+              "vehicle_name": "Tata Ace Gold",
+              "total_milk": 1600,
+              "utilization": 100,
+              "route": [
+                "Marimuthu",
+                "Pugalendhi",
+                "Tharshan",
+                "Sathish",
+                "Manikavalan"
+              ],
+              "distance": 37.07,
+              "travel_time": 41,
+              "is_violated": false,
+              "status": "ON TIME | WITHIN DISTANCE",
+              "total_time": 61,
+              "service_time": 20,
+              "cost": 776.56,
+              "time_violation": false,
+              "distance_violation": false,
+              "time_diff": 419,
+              "dist_diff": 62.9,
+              "violation_type": ""
+            },
+            {
+              "id": 3,
+              "type": "CAT_F007",
+              "capacity": 1520,
+              "vehicle_number": "TN12SV1896",
+              "vehicle_code": "F007",
+              "vehicle_name": "Tata Ace Gold",
+              "total_milk": 1520,
+              "utilization": 100,
+              "route": [
+                "Gokul",
+                "Jeevan",
+                "Velan",
+                "Aravind",
+                "Karuppaiah"
+              ],
+              "distance": 39.89,
+              "travel_time": 45.76,
+              "is_violated": false,
+              "status": "ON TIME | WITHIN DISTANCE",
+              "total_time": 120.8,
+              "service_time": 75,
+              "cost": 499.45,
+              "time_violation": false,
+              "distance_violation": false,
+              "time_diff": 359.2,
+              "dist_diff": 60.1,
+              "violation_type": ""
+            },
+            {
+              "id": 4,
+              "type": "CAT_F014",
+              "capacity": 2000,
+              "vehicle_number": "TN12SV1903",
+              "vehicle_code": "F014",
+              "vehicle_name": "Tata Yodha Pickup",
+              "total_milk": 2000,
+              "utilization": 100,
+              "route": [
+                "Arokiyasamy",
+                "Balamurugan",
+                "Anand",
+                "Muthiah",
+                "Ramasubramanian",
+                "Raghuraman",
+                "Chidambaram"
+              ],
+              "distance": 49.15,
+              "travel_time": 58.88,
+              "is_violated": false,
+              "status": "ON TIME | WITHIN DISTANCE",
+              "total_time": 163.9,
+              "service_time": 105,
+              "cost": 545.75,
+              "time_violation": false,
+              "distance_violation": false,
+              "time_diff": 316.1,
+              "dist_diff": 50.9,
+              "violation_type": ""
+            },
+            {
+              "id": 5,
+              "type": "CAT_F008",
+              "capacity": 52800,
+              "vehicle_number": "TN12SV1897",
+              "vehicle_code": "F008",
+              "vehicle_name": "TN12SV1897",
+              "total_milk": 2120,
+              "utilization": 4.02,
+              "route": [
+                "Mani",
+                "Ramalingam",
+                "Sivasamy",
+                "Thanvanth",
+                "Prabhakar",
+                "Chandran",
+                "Siva",
+                "Periyasamy",
+                "Sathiya",
+                "Periyapalan"
+              ],
+              "distance": 83.03,
+              "travel_time": 104.74,
+              "is_violated": false,
+              "status": "ON TIME | WITHIN DISTANCE",
+              "total_time": 254.7,
+              "service_time": 150,
+              "cost": 715.15,
+              "time_violation": false,
+              "distance_violation": false,
+              "time_diff": 225.3,
+              "dist_diff": 17,
+              "violation_type": ""
+            }
+          ],
+          "cost": 3142.31,
+          "unassigned_farmers": []
+        },
+        {
+          "name": "Madurai",
+          "total_milk": 8080,
+          "capacity": 25000,
+          "vehicles": [
+            {
+              "id": 1,
+              "type": "CAT_F012",
+              "capacity": 64000,
+              "vehicle_number": "TN12SV1901",
+              "vehicle_code": "F012",
+              "vehicle_name": "TN12SV1901",
+              "total_milk": 8080,
+              "utilization": 12.62,
+              "route": [
+                "Karuppan",
+                "Ayyanar",
+                "Rathi",
+                "Kaliyaperumal",
+                "Mahalingam",
+                "Ramalingan",
+                "Velusamy",
+                "Ramajayan",
+                "Natarajan",
+                "Palanisamy",
+                "Selvakumar",
+                "Yogeshwaran",
+                "Krishnamoorthy",
+                "Jayanthan",
+                "Arumughan",
+                "Shankar",
+                "Karuthapandi",
+                "Kandasamy",
+                "Ramarajan",
+                "Arulkumar",
+                "Kuppusamy",
+                "Murugappan",
+                "Thavapalan",
+                "Jagadeesan",
+                "Selvaraj",
+                "Thanaraj",
+                "Venkataraman"
+              ],
+              "distance": 68.14,
+              "travel_time": 103.44,
+              "is_violated": true,
+              "status": "DEADLINE EXCEEDED | WITHIN DISTANCE",
+              "total_time": 508.4,
+              "service_time": 405,
+              "cost": 640.7,
+              "time_violation": true,
+              "distance_violation": false,
+              "time_diff": 28.4,
+              "dist_diff": 31.9,
+              "violation_type": "Time"
+            }
+          ],
+          "cost": 640.7,
+          "unassigned_farmers": []
+        },
+        {
+          "name": "Singampunari",
+          "total_milk": 5640,
+          "capacity": 20000,
+          "vehicles": [
+            {
+              "id": 1,
+              "type": "CAT_F009",
+              "capacity": 83200,
+              "vehicle_number": "TN12SV1898",
+              "vehicle_code": "F009",
+              "vehicle_name": "TN12SV1898",
+              "total_milk": 5640,
+              "utilization": 6.78,
+              "route": [
+                "Arvind",
+                "Jegan",
+                "Devarajan",
+                "Manikandan",
+                "Raja",
+                "Anbu",
+                "Jayakumar",
+                "Kasinathan",
+                "Jagannathan",
+                "Sakthivelan",
+                "Karthik",
+                "Ramachandran",
+                "Azhagan",
+                "Sundar",
+                "Muthukumar",
+                "Vaidyanathan",
+                "Rajaraman",
+                "Annamalai",
+                "Ravichandran"
+              ],
+              "distance": 94.22,
+              "travel_time": 101.73,
+              "is_violated": false,
+              "status": "ON TIME | WITHIN DISTANCE",
+              "total_time": 386.7,
+              "service_time": 285,
+              "cost": 771.1,
+              "time_violation": false,
+              "distance_violation": false,
+              "time_diff": 93.3,
+              "dist_diff": 5.8,
+              "violation_type": ""
+            }
+          ],
+          "cost": 771.1,
+          "unassigned_farmers": []
+        },
+        {
+          "name": "Ponnamaravathi Bus stand",
+          "total_milk": 4840,
+          "capacity": 30000,
+          "vehicles": [
+            {
+              "id": 1,
+              "type": "C5",
+              "capacity": 88000,
+              "vehicle_number": "TN17ST1478",
+              "vehicle_code": "F004",
+              "vehicle_name": "TN17ST1478",
+              "total_milk": 4840,
+              "utilization": 5.5,
+              "route": [
+                "Sakthivel",
+                "Pandiyan",
+                "Suthan",
+                "Subramanian",
+                "Kannan",
+                "Venkatesh",
+                "Kamaraj",
+                "Shanmugam",
+                "Suresh",
+                "Narayanan",
+                "Murali",
+                "Dhanapal",
+                "Saravanan",
+                "Vasu",
+                "Subash",
+                "Srinivasan"
+              ],
+              "distance": 106.55,
+              "travel_time": 126.97,
+              "is_violated": true,
+              "status": "ON TIME | DISTANCE EXCEEDED",
+              "total_time": 191,
+              "service_time": 64,
+              "cost": 1832.05,
+              "time_violation": false,
+              "distance_violation": true,
+              "time_diff": 289,
+              "dist_diff": 6.5,
+              "violation_type": "Distance"
+            }
+          ],
+          "cost": 1832.05,
+          "unassigned_farmers": []
+        }
+      ],
+      "violations": [
+        {
+          "cluster": "Viralimalai",
+          "vehicle": "Vehicle 1 (C4)",
+          "violation_type": "Distance",
+          "total_time": 147,
+          "exceeded_by_time": null,
+          "distance": 120.05,
+          "exceeded_by_dist": 20,
+          "farmers": 6
+        },
+        {
+          "cluster": "Madurai",
+          "vehicle": "Vehicle 1 (CAT_F012)",
+          "violation_type": "Time",
+          "total_time": 508.4,
+          "exceeded_by_time": 28.4,
+          "distance": 68.14,
+          "exceeded_by_dist": null,
+          "farmers": 27
+        },
+        {
+          "cluster": "Ponnamaravathi Bus stand",
+          "vehicle": "Vehicle 1 (C5)",
+          "violation_type": "Distance",
+          "total_time": 191,
+          "exceeded_by_time": null,
+          "distance": 106.55,
+          "exceeded_by_dist": 6.5,
+          "farmers": 16
+        }
+      ],
+      "unassigned_farmers": [],
+      "total_cost": 9969.21,
+      "total_violations": 3,
+      "configuration": {
+        "deadline_minutes": 480,
+        "max_distance_km": 100,
+        "vehicle_types": [
+          {
+            "name": "CAT_F007",
+            "capacity": 1520,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F009",
+            "capacity": 83200,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F008",
+            "capacity": 52800,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F010",
+            "capacity": 91200,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "C2",
+            "capacity": 112000,
+            "count": 1,
+            "service_time": 4,
+            "cost_per_km": 6.5,
+            "fixed_cost": 390
+          },
+          {
+            "name": "C1",
+            "capacity": 104000,
+            "count": 1,
+            "service_time": 4,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "C5",
+            "capacity": 88000,
+            "count": 1,
+            "service_time": 4,
+            "cost_per_km": 11,
+            "fixed_cost": 660
+          },
+          {
+            "name": "C6",
+            "capacity": 1200,
+            "count": 1,
+            "service_time": 4,
+            "cost_per_km": 12.5,
+            "fixed_cost": 750
+          },
+          {
+            "name": "C3",
+            "capacity": 1600,
+            "count": 1,
+            "service_time": 4,
+            "cost_per_km": 8,
+            "fixed_cost": 480
+          },
+          {
+            "name": "C4",
+            "capacity": 2000,
+            "count": 1,
+            "service_time": 4,
+            "cost_per_km": 9.5,
+            "fixed_cost": 570
+          },
+          {
+            "name": "CAT_F011",
+            "capacity": 2680,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F013",
+            "capacity": 1200,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F014",
+            "capacity": 2000,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F015",
+            "capacity": 2200,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F016",
+            "capacity": 2600,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F022",
+            "capacity": 224000,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F017",
+            "capacity": 112000,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F019",
+            "capacity": 236800,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F020",
+            "capacity": 236800,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F018",
+            "capacity": 118400,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F021",
+            "capacity": 224000,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          },
+          {
+            "name": "CAT_F012",
+            "capacity": 64000,
+            "count": 1,
+            "service_time": 15,
+            "cost_per_km": 5,
+            "fixed_cost": 300
+          }
+        ]
+      },
+      "unused_vehicles": [
+        {
+          "type": "CAT_F010",
+          "count": 1,
+          "capacity": 91200,
+          "vehicles": [
+            {
+              "vehicle_number": "TN12SV1899",
+              "vehicle_code": "F010",
+              "vehicle_name": "TN12SV1899",
+              "capacity_liters": 91200
+            }
+          ]
+        },
+        {
+          "type": "C2",
+          "count": 1,
+          "capacity": 112000,
+          "vehicles": [
+            {
+              "vehicle_number": "TN56ST1256",
+              "vehicle_code": "F006",
+              "vehicle_name": "TN56ST1256",
+              "capacity_liters": 112000
+            }
+          ]
+        },
+        {
+          "type": "C1",
+          "count": 1,
+          "capacity": 104000,
+          "vehicles": [
+            {
+              "vehicle_number": "TN12SV1485",
+              "vehicle_code": "F005",
+              "vehicle_name": "TN12SV1485",
+              "capacity_liters": 104000
+            }
+          ]
+        },
+        {
+          "type": "CAT_F022",
+          "count": 1,
+          "capacity": 224000,
+          "vehicles": [
+            {
+              "vehicle_number": "TN12SV1911",
+              "vehicle_code": "F022",
+              "vehicle_name": "TN12SV1911",
+              "capacity_liters": 224000
+            }
+          ]
+        },
+        {
+          "type": "CAT_F017",
+          "count": 1,
+          "capacity": 112000,
+          "vehicles": [
+            {
+              "vehicle_number": "TN12SV1906",
+              "vehicle_code": "F017",
+              "vehicle_name": "TN12SV1906",
+              "capacity_liters": 112000
+            }
+          ]
+        },
+        {
+          "type": "CAT_F019",
+          "count": 1,
+          "capacity": 236800,
+          "vehicles": [
+            {
+              "vehicle_number": "TN12SV1908",
+              "vehicle_code": "F019",
+              "vehicle_name": "TN12SV1908",
+              "capacity_liters": 236800
+            }
+          ]
+        },
+        {
+          "type": "CAT_F020",
+          "count": 1,
+          "capacity": 236800,
+          "vehicles": [
+            {
+              "vehicle_number": "TN12SV1909",
+              "vehicle_code": "F020",
+              "vehicle_name": "TN12SV1909",
+              "capacity_liters": 236800
+            }
+          ]
+        },
+        {
+          "type": "CAT_F018",
+          "count": 1,
+          "capacity": 118400,
+          "vehicles": [
+            {
+              "vehicle_number": "TN12SV1907",
+              "vehicle_code": "F018",
+              "vehicle_name": "TN12SV1907",
+              "capacity_liters": 118400
+            }
+          ]
+        },
+        {
+          "type": "CAT_F021",
+          "count": 1,
+          "capacity": 224000,
+          "vehicles": [
+            {
+              "vehicle_number": "TN12SV1910",
+              "vehicle_code": "F021",
+              "vehicle_name": "TN12SV1910",
+              "capacity_liters": 224000
+            }
+          ]
+        }
+      ],
+      "total_unassigned_farmers": 0,
+      "total_unassigned_milk": 0,
+      "timestamp": "2025-11-14 00:52:59",
+      "timestamp_epoch": 1763061779
+    },
+    "input_metadata": {
+      "vendors_count": 124,
+      "hubs_count": 6,
+      "vehicle_categories": 22,
+      "total_vehicles": 22,
+      "total_milk_liters": 36720,
+      "total_capacity_liters": 117000
+    },
+    "constraints": {
+      "deadline_minutes": 480,
+      "max_distance_km": 100
+    },
+    "saved_file": "optimization_history/optimization_20251114_005259.json"
+  }
+}

@@ -7,6 +7,6 @@ export const API = {
   fleet: "/fleet",
   config: "/config",
   optimization: "/optimization",
-  trips: "trips",
+  trips: "/trips",
   dashboard: "/dashboard",
 };

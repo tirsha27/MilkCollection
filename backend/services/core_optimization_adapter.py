@@ -39,6 +39,10 @@ class CoreOptimizationAdapter:
             
             logger.info("📊 Transforming database to engine format...")
             engine_input = await DataTransformer.transform_db_to_engine_input(db)
+
+            print("=== DataTransformer Output ===")
+            print(f"vehicle_types: {engine_input.get('vehicle_types')}")
+            print(f"Does it have fleetlookup? {bool(engine_input.get('fleet_lookup'))}")
             
             engine = OptimizationEngine()
             engine.set_data(
@@ -48,6 +52,9 @@ class CoreOptimizationAdapter:
                 farmers_milk=engine_input['farmers_milk']
             )
             
+            engine.fleet_lookup = engine_input.get('fleet_lookup', {})
+            engine.vehicle_types = engine_input.get('vehicle_types', [])
+
             logger.info(f"✅ Engine initialized with {engine_input['metadata']['vendors_count']} vendors")
             
             optimization_results = engine.run_optimization(
@@ -89,7 +96,8 @@ class CoreOptimizationAdapter:
         try:
             from services.data_transformer import DataTransformer
             engine_input = await DataTransformer.transform_db_to_engine_input(db)
-            
+
+
             return {
                 'status': 'SUCCESS',
                 'preview': {
@@ -101,3 +109,5 @@ class CoreOptimizationAdapter:
             }
         except Exception as e:
             return {'status': 'ERROR', 'message': str(e)}
+
+

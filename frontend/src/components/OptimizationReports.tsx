@@ -445,11 +445,14 @@
 //   );
 // }
 
+// domain/frontend/src/components/OptimizationReports.tsx
+
+// domain/frontend/src/components/OptimizationReports.tsx
 import React, { useEffect, useState } from "react";
 
 interface OptimizationRun {
   id: string;
-  trigger_type: string;
+  trigger_type: string; // "auto" | "manual"
   status: string;
   results_summary: {
     before_distance?: number;
@@ -466,6 +469,9 @@ interface OptimizationRun {
     time_saving?: number;
     capacity_utilization?: number;
     time_efficiency?: number;
+    // optional fields that might indicate an override relationship
+    overridden_machine_id?: string;
+    override_reason?: string; // optional explicit reason
   };
   created_at?: string;
 }
@@ -478,20 +484,19 @@ const randFloat = (min: number, max: number, decimals = 2) =>
 export default function OptimizationReports() {
   const [machineRuns, setMachineRuns] = useState<OptimizationRun[]>([]);
   const [manualRuns, setManualRuns] = useState<OptimizationRun[]>([]);
+  const [mergedRuns, setMergedRuns] = useState<OptimizationRun[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    // Generate machine and manual runs (dummy data similar to previous examples)
-    // ... omitted here for brevity; assume same as your previous implementation
-
+    // Dummy data generators (kept similar to your original)
     const generateDummyMachineRuns = (): OptimizationRun[] =>
       Array.from({ length: 3 }).map((_, i) => ({
         id: `MO#D0000-${i + 1}`,
         trigger_type: "auto",
         status: "completed",
-        created_at: new Date(Date.now() - i * 8600000).toISOString(),
+        created_at: new Date(Date.now() - i * 8600000).toISOString(), // spaced out
         results_summary: {
           before_distance: randInt(1100, 1300),
           after_distance: randInt(800, 1050),
@@ -509,17 +514,21 @@ export default function OptimizationReports() {
         id: `MP#D0000-${i + 1}`,
         trigger_type: "manual",
         status: "completed",
-        created_at: new Date(Date.now() - i * 7200000).toISOString(),
+        created_at: new Date(Date.now() - i * 7200000 - 1800000).toISOString(), // slight offset
         results_summary: {
-          previous_cost: randInt(60000, 90000),
-          new_cost: randInt(50000, 70000),
-          cost_saving: randInt(2000, 10000),
+          previous_cost: randInt(10, 100),
+          new_cost: randInt(10, 100),
+          cost_saving: randInt(10, 100),
           distance_saving: randInt(10, 50),
           time_saving: randInt(30, 120),
           capacity_utilization: randFloat(60, 90),
           time_efficiency: randFloat(70, 95),
-          file_saved: `manual_optimization_${i + 1}.json`,
-          insights: "Manual optimization improved cost efficiency significantly.",
+          file_saved: `manual_override_${i + 1}.json`,
+          insights: i === 0
+            ? "Override to free vehicle TN13ST7896 and route farmers to Alternate  vehicles for KM efficiency."
+            : "Manual override to reduce distance and consolidate loads.",
+          // simulate link to machine run occasionally
+          overridden_machine_id: i === 0 ? "MO#D0000-1" : undefined,
         },
       }));
 
@@ -527,9 +536,19 @@ export default function OptimizationReports() {
     setError(null);
     setTimeout(() => {
       try {
-        setMachineRuns(generateDummyMachineRuns());
-        setManualRuns(generateDummyManualRuns());
-      } catch {
+        const machines = generateDummyMachineRuns();
+        const manuals = generateDummyManualRuns();
+        setMachineRuns(machines);
+        setManualRuns(manuals);
+
+        // merge + sort by created_at descending (newest first)
+        const merged = [...machines, ...manuals].sort((a, b) => {
+          const ta = a.created_at ? new Date(a.created_at).getTime() : 0;
+          const tb = b.created_at ? new Date(b.created_at).getTime() : 0;
+          return tb - ta;
+        });
+        setMergedRuns(merged);
+      } catch (e) {
         setError("Failed to generate dummy reports.");
       } finally {
         setLoading(false);
@@ -537,19 +556,73 @@ export default function OptimizationReports() {
     }, 700);
   }, []);
 
+  // keep expand toggle
   const toggleExpand = (id: string) => {
     setExpandedIds((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
+      if (newSet.has(id)) newSet.delete(id);
+      else newSet.add(id);
       return newSet;
     });
   };
 
-  // Example difference calculation for demonstration (only sums first runs for clarity)
+  // helper formatters -> return empty string when missing
+  const formatBefore = (run: OptimizationRun) => {
+    if (run.trigger_type === "auto" || run.trigger_type === "machine") {
+      return run.results_summary?.before_distance !== undefined ? `${run.results_summary.before_distance} km` : "";
+    }
+    // manual
+    return run.results_summary?.previous_cost !== undefined ? `${run.results_summary.previous_cost}KM` : "";
+  };
+  const formatAfter = (run: OptimizationRun) => {
+    if (run.trigger_type === "auto" || run.trigger_type === "machine") {
+      return run.results_summary?.after_distance !== undefined ? `${run.results_summary.after_distance} km` : "";
+    }
+    // manual
+    return run.results_summary?.new_cost !== undefined ? `${run.results_summary.new_cost}` : "";
+  };
+
+  /**
+   * inferOverrideReason:
+   * - If explicit override_reason is present, use it.
+   * - Else check cost_saving/distance_saving/time_saving to deduce reason.
+   * - Else try to extract meaningful short reason from insights (keyword match).
+   * - Returns empty string for machine runs.
+   */
+  const inferOverrideReason = (run: OptimizationRun): string => {
+    if (run.trigger_type !== "manual") return "";
+
+    const rs = run.results_summary ?? ({} as any);
+
+    if (rs.override_reason) return rs.override_reason;
+
+    if (rs.cost_saving && Number(rs.cost_saving) > 0) {
+      return `Vehicle Reduced — 1`;
+    }
+    if (rs.distance_saving && Number(rs.distance_saving) > 0) {
+      return `Distance reduction — ${rs.distance_saving} km`;
+    }
+    if (rs.time_saving && Number(rs.time_saving) > 0) {
+      return `Time reduction — ${rs.time_saving} min`;
+    }
+
+    // fallback: keyword scan from insights
+    const insight = (rs.insights || "").toLowerCase();
+    if (insight.includes("free") && insight.includes("vehicle")) return "Free vehicle (reassigned / removed)";
+    if (insight.includes("cost")) return "Manual cost optimization";
+    if (insight.includes("distance")) return "Manual distance optimization";
+    if (insight.includes("consolidat") || insight.includes("consolidate")) return "Consolidation / load balancing";
+
+    // last fallback: use a short trimmed portion of insights if present
+    if (rs.insights && String(rs.insights).trim().length > 0) {
+      const s = String(rs.insights).trim();
+      return s.length > 60 ? s.slice(0, 60) + "…" : s;
+    }
+
+    return ""; // nothing inferred
+  };
+
+  // sample diffs (kept for display at bottom) — adapt if you want
   const machineSample = machineRuns[0];
   const manualSample = manualRuns[0];
 
@@ -562,52 +635,142 @@ export default function OptimizationReports() {
   if (error) return <p className="p-6 text-red-500">{error}</p>;
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-16">
-      <h1 className="text-3xl font-bold text-gray-800">Optimization Reports</h1>
+    <div className="p-6 max-w-7xl mx-auto space-y-8">
+      <header className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800">Optimization Reports</h1>
+          <p className="text-sm text-slate-600 mt-1">Merged view — machine & manual runs, sorted by timestamp.</p>
+        </div>
 
+        {/* Legend */}
+        <div className="flex items-center gap-4">
+          <div className="inline-flex items-center gap-2">
+            <span className="h-3 w-3 rounded-sm bg-blue-500" />
+            <span className="text-sm text-slate-700">Machine</span>
+          </div>
+          <div className="inline-flex items-center gap-2">
+            <span className="h-3 w-3 rounded-sm bg-green-600" />
+            <span className="text-sm text-slate-700">Manual (Override)</span>
+          </div>
+        </div>
+      </header>
 
-
-      {/* Machine Optimizations Table */}
-      <section>
-        <h2 className="text-2xl font-semibold text-blue-700 mb-6">🧠 Machine Optimizations</h2>
-
-        <table className="min-w-full border-collapse bg-white text-left shadow-md rounded-md overflow-hidden">
-          <thead className="bg-blue-100 border-b border-blue-300">
+      {/* Combined table with Before / After / Override Reason columns */}
+      <section className="bg-white rounded-lg shadow-md overflow-hidden">
+        <table className="min-w-full divide-y divide-slate-200">
+          <thead className="bg-slate-50">
             <tr>
-              <th className="px-6 py-3 font-semibold text-blue-800 uppercase tracking-wider">ID</th>
-              <th className="px-6 py-3 font-semibold text-blue-800 uppercase tracking-wider">Before Distance (km)</th>
-              <th className="px-6 py-3 font-semibold text-blue-800 uppercase tracking-wider">After Distance (km)</th>
-              <th className="px-6 py-3 font-semibold text-blue-800 uppercase tracking-wider">Timestamp</th>
-              <th className="px-6 py-3" />
+              <th className="px-6 py-3 text-left text-sm font-medium text-slate-600">ID</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-slate-600">Type</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-slate-600">Before</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-slate-600">After</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-slate-600">Override Reason</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-slate-600">Timestamp</th>
+              <th className="px-6 py-3 text-right text-sm font-medium text-slate-600">Actions</th>
             </tr>
           </thead>
-          <tbody>
-            {machineRuns.map((run) => {
+
+          <tbody className="bg-white divide-y divide-slate-100">
+            {mergedRuns.map((run) => {
+              const isMachine = run.trigger_type === "auto" || run.trigger_type === "machine";
+              const isManual = run.trigger_type === "manual";
               const isExpanded = expandedIds.has(run.id);
+
+              // row background for color difference (subtle)
+              const rowAccent = isMachine ? "bg-gradient-to-r from-white to-blue-50" : "bg-gradient-to-r from-white to-green-50";
+
+              const overrideReason = inferOverrideReason(run);
+
               return (
                 <React.Fragment key={run.id}>
-                  <tr className={`border-b border-blue-200 hover:bg-blue-50 cursor-pointer ${isExpanded ? "bg-blue-50" : ""}`}>
-                    <td className="px-6 py-4 font-medium text-blue-900">{run.id}</td>
-                    <td className="px-6 py-4">{run.results_summary?.before_distance ?? "-"}</td>
-                    <td className="px-6 py-4">{run.results_summary?.after_distance ?? "-"}</td>
-                    <td className="px-6 py-4 text-blue-700">{run.created_at ? new Date(run.created_at).toLocaleString() : "N/A"}</td>
-                    <td className="px-6 py-4 text-right">
+                  <tr className={`${isExpanded ? "bg-slate-50" : ""} hover:bg-slate-50 ${rowAccent}`}>
+                    <td className="px-6 py-4 align-top">
+                      <div className="font-semibold text-slate-900">{run.id}</div>
+                      <div className="text-xs text-slate-500 mt-1">Status: {run.status}</div>
+                      {isManual && run.results_summary?.overridden_machine_id && (
+                        <div className="text-xs mt-1 text-slate-500">
+                          Overrides: <span className="font-medium text-slate-700">{run.results_summary.overridden_machine_id}</span>
+                        </div>
+                      )}
+                    </td>
+
+                    <td className="px-6 py-4 align-top">
+                      <span className={`inline-flex items-center gap-2 px-2 py-1 rounded-full text-xs font-medium ${isMachine ? "bg-blue-100 text-blue-800" : "bg-green-100 text-green-800"}`}>
+                        {isMachine ? "Machine Optimization" : "Manual Override"}
+                      </span>
+                    </td>
+
+                    <td className="px-6 py-4 align-top text-slate-700">
+                      <div className="text-sm">{formatBefore(run)}</div>
+                    </td>
+
+                    <td className="px-6 py-4 align-top text-slate-700">
+                      <div className="text-sm">{formatAfter(run)}</div>
+                    </td>
+
+                    <td className="px-6 py-4 align-top">
+                      {isManual && overrideReason ? (
+                        <div className="inline-flex items-center gap-2">
+                          <span className="px-2 py-1 rounded-full bg-yellow-100 text-yellow-800 text-xs font-medium">
+                            Override
+                          </span>
+                          <span className="text-sm text-slate-700">{overrideReason}</span>
+                        </div>
+                      ) : (
+                        <div className="text-sm text-slate-400">{/* empty for machines */}</div>
+                      )}
+                    </td>
+
+                    <td className="px-6 py-4 align-top text-slate-600">
+                      {run.created_at ? new Date(run.created_at).toLocaleString() : ""}
+                    </td>
+
+                    <td className="px-6 py-4 text-right align-top">
                       <button
-                        className="text-blue-600 hover:underline"
                         onClick={() => toggleExpand(run.id)}
+                        className={`text-sm font-medium ${isMachine ? "text-blue-600" : "text-green-600"} hover:underline`}
                       >
                         {isExpanded ? "Hide Insights" : "View Insights"}
                       </button>
                     </td>
                   </tr>
+
                   {isExpanded && (
-                    <tr className="bg-blue-50">
-                      <td colSpan={5} className="px-6 py-4 text-blue-900">
-                        <p><strong>Vehicle Utilization Optimization:</strong> {run.results_summary?.vehicle_utilization_opt ?? "N/A"}</p>
-                        <p><strong>Vehicle Counts Before:</strong> {run.results_summary?.before_vehicle_counts ?? "N/A"}</p>
-                        <p><strong>Vehicle Counts After:</strong> {run.results_summary?.after_vehicle_counts ?? "N/A"}</p>
-                        <p><strong>Insights:</strong> {run.results_summary?.insights ?? "No insights available."}</p>
-                        <p className="italic text-sm mt-2">File: {run.results_summary?.file_saved ?? "N/A"}</p>
+                    <tr className={`${isMachine ? "bg-blue-50" : "bg-green-50"}`}>
+                      <td colSpan={7} className="px-6 py-4">
+                        {/* Insights content */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div>
+                            {isMachine ? (
+                              <>
+                                <p><strong>Before Distance:</strong> {run.results_summary?.before_distance !== undefined ? `${run.results_summary.before_distance} km` : ""}</p>
+                                <p><strong>After Distance:</strong> {run.results_summary?.after_distance !== undefined ? `${run.results_summary.after_distance} km` : ""}</p>
+                                <p><strong>Utilization Optim:</strong> {run.results_summary?.vehicle_utilization_opt ?? ""}</p>
+                                <p><strong>Vehicle counts (before):</strong> {run.results_summary?.before_vehicle_counts ?? ""}</p>
+                                <p><strong>Vehicle counts (after):</strong> {run.results_summary?.after_vehicle_counts ?? ""}</p>
+                              </>
+                            ) : (
+                              <>
+                                
+                              </>
+                            )}
+                          </div>
+
+                          <div>
+                            <p><strong>Capacity Utilization:</strong> {run.results_summary?.capacity_utilization !== undefined ? `${run.results_summary.capacity_utilization}%` : ""}</p>
+                            <p><strong>Time Efficiency:</strong> {run.results_summary?.time_efficiency !== undefined ? `${run.results_summary.time_efficiency}%` : ""}</p>
+                            <p className="mt-3"><strong>Insights:</strong></p>
+                            <p className="text-sm text-slate-700">{run.results_summary?.insights ?? ""}</p>
+
+                            {isManual && run.results_summary?.overridden_machine_id && (
+                              <p className="mt-3 text-xs text-slate-600">
+                                This manual override references machine run <strong>{run.results_summary.overridden_machine_id}</strong>.
+                              </p>
+                            )}
+
+                            <p className="italic text-xs mt-3">File: {run.results_summary?.file_saved ?? ""}</p>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                   )}
@@ -618,67 +781,15 @@ export default function OptimizationReports() {
         </table>
       </section>
 
-      {/* Manual Optimizations Table */}
-      <section>
-        <h2 className="text-2xl font-semibold text-green-700 mb-6">🖐️ Manual Optimizations</h2>
-
-        <table className="min-w-full border-collapse bg-white text-left shadow-md rounded-md overflow-hidden">
-          <thead className="bg-green-100 border-b border-green-300">
-            <tr>
-              <th className="px-6 py-3 font-semibold text-green-800 uppercase tracking-wider">ID</th>
-              <th className="px-6 py-3 font-semibold text-green-800 uppercase tracking-wider">Previous Cost (₹)</th>
-              <th className="px-6 py-3 font-semibold text-green-800 uppercase tracking-wider">New Cost (₹)</th>
-              <th className="px-6 py-3 font-semibold text-green-800 uppercase tracking-wider">Timestamp</th>
-              <th className="px-6 py-3" />
-            </tr>
-          </thead>
-          <tbody>
-            {manualRuns.map((run) => {
-              const isExpanded = expandedIds.has(run.id);
-              return (
-                <React.Fragment key={run.id}>
-                  <tr className={`border-b border-green-200 hover:bg-green-50 cursor-pointer ${isExpanded ? "bg-green-50" : ""}`}>
-                    <td className="px-6 py-4 font-medium text-green-900">{run.id}</td>
-                    <td className="px-6 py-4">{run.results_summary?.previous_cost ?? "-"}</td>
-                    <td className="px-6 py-4">{run.results_summary?.new_cost ?? "-"}</td>
-                    <td className="px-6 py-4 text-green-700">{run.created_at ? new Date(run.created_at).toLocaleString() : "N/A"}</td>
-                    <td className="px-6 py-4 text-right">
-                      <button
-                        className="text-green-600 hover:underline"
-                        onClick={() => toggleExpand(run.id)}
-                      >
-                        {isExpanded ? "Hide Insights" : "View Insights"}
-                      </button>
-                    </td>
-                  </tr>
-                  {isExpanded && (
-                    <tr className="bg-green-50">
-                      <td colSpan={5} className="px-6 py-4 text-green-900">
-                        <p><strong>Cost Savings:</strong> ₹{run.results_summary?.cost_saving ?? "N/A"}</p>
-                        <p><strong>Distance Reduced:</strong> {run.results_summary?.distance_saving ?? "N/A"} km</p>
-                        <p><strong>Time Savings:</strong> {run.results_summary?.time_saving ?? "N/A"} min</p>
-                        <p><strong>Capacity Utilization:</strong> {run.results_summary?.capacity_utilization ?? "N/A"}%</p>
-                        <p><strong>Time Efficiency:</strong> {run.results_summary?.time_efficiency ?? "N/A"}%</p>
-                        <p><strong>Insights:</strong> {run.results_summary?.insights ?? "No insights available."}</p>
-                        <p className="italic text-sm mt-2">File: {run.results_summary?.file_saved ?? "N/A"}</p>
-                      </td>
-                    </tr>
-                  )}
-                </React.Fragment>
-              );
-            })}
-          </tbody>
-        </table>
-      </section>
-            {/* Difference summary */}
-      {machineSample && manualSample && (
+      {/* Optional: Comparison block if you still want it */}
+      {/* {machineSample && manualSample && (
         <section className="mb-12 p-6 bg-yellow-50 rounded-md border border-yellow-300 shadow-inner max-w-3xl">
           <h2 className="text-xl font-bold mb-4 text-yellow-900">Comparison Between Machine and Manual Optimizations</h2>
           <p>
-            <strong>Distance After Machine Optimization:</strong> {machineSample.results_summary.after_distance} km
+            <strong>Distance After Machine Optimization:</strong> {machineSample.results_summary.after_distance ?? 0} km
           </p>
           <p>
-            <strong>Distance Saved by Manual Optimization:</strong> {manualSample.results_summary.distance_saving} km
+            <strong>Distance Saved by Manual Optimization:</strong> {manualSample.results_summary.distance_saving ?? 0} km
           </p>
           <p>
             <strong>Net difference (Machine after - Manual savings):</strong>{" "}
@@ -693,7 +804,7 @@ export default function OptimizationReports() {
             </span>
           </p>
         </section>
-      )}
+      )} */}
     </div>
   );
 }

@@ -74,6 +74,7 @@ class DataTransformer:
                 center_capacity[hub.hub_name] = float(hub.capacity_liters)
             
             vehicle_types = {}
+            fleet_lookup = {}
             
             # ✅ Transform fleet - Convert capacity from CANS to LITERS
             for vehicle in data['fleet']:
@@ -94,6 +95,17 @@ class DataTransformer:
                     }
                 else:
                     vehicle_types[category]['count'] += 1
+
+                # NEW: Build fleet_lookup (mapping category to actual vehicles)
+                if category not in fleet_lookup:
+                    fleet_lookup[category] = []
+                
+                fleet_lookup[category].append({
+                    'vehicle_number': vehicle.vehicle_number,
+                    'vehicle_code': vehicle.vehicle_code,
+                    'vehicle_name': vehicle.vehicle_name,
+                    'capacity_liters': cans_to_liters(int(vehicle.capacity_cans))
+                })
             
             vehicle_types_list = list(vehicle_types.values())
             
@@ -110,6 +122,7 @@ class DataTransformer:
                 'subareas': subareas,
                 'farmers_milk': farmers_milk,
                 'vehicle_types': vehicle_types_list,
+                'fleet_lookup': fleet_lookup,  # NEW: Add this line
                 'metadata': {
                     'vendors_count': len(subareas),
                     'hubs_count': len(centroids),
