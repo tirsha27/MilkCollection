@@ -518,16 +518,15 @@
 // }
 
 
-
 import { useEffect, useState } from "react";
 import { DashboardService } from "../services/dashboard.service";
 import { OptimizationService } from "../services/optimization.service";
+import { api } from "../lib/api-client";
+import { API } from "../lib/api-endpoints";
 
 import {
-  Truck,
   Users,
   Milk,
-  MapPin,
   TrendingDown,
   Clock,
   ThermometerSun,
@@ -545,24 +544,19 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
 
-  // Fleet insights
   const [fleetInsights, setFleetInsights] = useState({
     fullyLoaded: 0,
     halfLoaded: 0,
     unassigned: 0,
   });
 
-  // Modal for Unassigned Vehicle List
   const [showUnassignedModal, setShowUnassignedModal] = useState(false);
 
-  const unassignedVehiclesList = [
-    "TN15TV1256",
-    "TN55BC6556",
-    "TN05T0956",
-    "TN15V1256",
-    "TN15TF0026",
-    "TN55B9856",
-  ];
+  // dynamically updated later
+  const [unassignedVehiclesList, setUnassignedVehiclesList] = useState<string[]>([]);
+
+  const [currentUtilization, setCurrentUtilization] = useState(0);
+  const [totalCapacity, setTotalCapacity] = useState(0);
 
   /** LOAD DASHBOARD DATA **/
   useEffect(() => {
@@ -571,53 +565,103 @@ export default function Dashboard() {
     async function loadAll() {
       setLoading(true);
       try {
+        /** Base dashboard stats */
         const dashboardData = await DashboardService.getStats();
         let mergedStats: DashboardStats = { ...dashboardData };
 
-        // fetch optimization results
+        /** --- GET FLEET DATA FOR UNASSIGNED VEHICLES --- */
+        let fleetList: any[] = [];
+        try {
+          const fleetRes = await api.get(API.fleet);
+          fleetList = fleetRes?.data || [];
+        } catch (e) {
+          console.warn("Failed to load fleet:", e);
+        }
+
+        /** extract unassigned vehicles */
+        /** extract unassigned vehicles — remove duplicates */
+        const dynamicUnassignedList = Array.from(
+          new Set(
+            fleetList
+            .filter((v) => v.chilling_center_id === null)
+            .map((v) => v.vehicle_number)
+          )
+        );
+
+/** update modal list */
+if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
+
+
+        /** --- GET HUBS & CALCULATE TOTAL CAPACITY --- */
+        let hubsList: any[] = [];
+        try {
+          const hubsRes = await api.get(API.storageHubs);
+          hubsList = hubsRes?.data || [];
+        } catch (e) {
+          console.warn("Failed to load hubs:", e);
+        }
+
+        const capacity = hubsList.reduce(
+          (sum, hub) => sum + Number(hub.capacity_liters || 0),
+          0
+        );
+        if (mounted) setTotalCapacity(capacity);
+
+        /** --- GET OPTIMIZATION (FOR UTILIZATION + FLEET INSIGHTS) --- */
         let optRes: any = null;
         try {
           optRes = await OptimizationService.getLatest();
         } catch (err) {
-          console.warn("No optimization or failed to fetch optimization:", err);
-          optRes = null;
+          console.warn("No optimization or failed to fetch optimization.");
         }
 
         if (optRes && optRes.data) {
           const optData = optRes.data;
+
+          /** total milk collected (all clusters) */
+          const dynamicUtilization =
+            optData?.clusters?.reduce(
+              (sum: number, c: any) => sum + (c.total_milk || 0),
+              0
+            ) || 0;
+
+          if (mounted) setCurrentUtilization(dynamicUtilization);
+
+          /** Fleet utilization calculation */
           const optVehicles = optData.vehicles || {};
           const vehicleEntries = Object.values(optVehicles || {});
 
           const fullyLoaded = vehicleEntries.filter(
-            (v: any) => Number(v.utilization_pct ?? 0) >= 95
+            (v: any) => Number(v.utilization_pct ?? 0) >= 70
           ).length;
 
           const halfLoaded = vehicleEntries.filter((v: any) => {
             const pct = Number(v.utilization_pct ?? 0);
-            return pct >= 50 && pct < 95;
+            return pct >= 50 && pct < 70;
           }).length;
 
-          const unassigned = 6; // static for now
+          const unassigned = dynamicUnassignedList.length;
 
           if (mounted) {
             setFleetInsights({
-              fullyLoaded:13,
-              halfLoaded:5,
+              fullyLoaded,
+              halfLoaded,
               unassigned,
             });
           }
         } else {
-          if (mounted && dashboardData && dashboardData.fleet) {
+          /** fallback to dashboard stats */
+          if (mounted && dashboardData?.fleet) {
             setFleetInsights({
               fullyLoaded: dashboardData.fleet.fully_loaded ?? 0,
               halfLoaded: dashboardData.fleet.half_loaded ?? 0,
-              unassigned: dashboardData.fleet.unassigned_vehicles ?? 0,
+              unassigned: dynamicUnassignedList.length,
             });
           }
         }
 
         if (mounted) setStats(mergedStats);
-      } catch (err: any) {
+      } catch (err) {
         console.error("❌ Failed to load dashboard:", err);
         toast.error("Failed to load dashboard");
       } finally {
@@ -627,15 +671,15 @@ export default function Dashboard() {
 
     loadAll();
 
-    const handleRefresh = () => loadAll();
-    window.addEventListener("dashboard-update", handleRefresh);
+    const refresh = () => loadAll();
+    window.addEventListener("dashboard-update", refresh);
 
     const interval = setInterval(loadAll, 10000);
 
     return () => {
       mounted = false;
       clearInterval(interval);
-      window.removeEventListener("dashboard-update", handleRefresh);
+      window.removeEventListener("dashboard-update", refresh);
     };
   }, []);
 
@@ -660,7 +704,10 @@ export default function Dashboard() {
       const interval = setInterval(async () => {
         try {
           const status = await OptimizationService.getStatus(taskId);
-          if (status?.state === "completed" || status?.status === "completed") {
+          if (
+            status?.state === "completed" ||
+            status?.status === "completed"
+          ) {
             clearInterval(interval);
             await OptimizationService.getResult(taskId);
             toast.success("Optimization completed!");
@@ -678,12 +725,26 @@ export default function Dashboard() {
     } catch (err) {
       toast.dismiss();
       toast.error("Failed to start optimization");
-      console.error("❌ Error:", err);
       setIsRunning(false);
     }
   };
 
-  /** Generate CSV **/
+  /** CSV **/
+  const convertToCSV = (data: any[]) => {
+    if (!data.length) return "No data";
+    const headers = Object.keys(data[0]).join(",");
+    const rows = data.map((obj) =>
+      Object.values(obj)
+        .map((v) => {
+          if (v === null || v === undefined) return "";
+          if (typeof v === "object") return JSON.stringify(v).replace(/"/g, '""');
+          return String(v).replace(/"/g, '""');
+        })
+        .join(",")
+    );
+    return [headers, ...rows].join("\n");
+  };
+
   const handleGenerateReport = async () => {
     try {
       toast.loading("Fetching optimization history...");
@@ -715,26 +776,9 @@ export default function Dashboard() {
     } catch (err) {
       toast.dismiss();
       toast.error("Error generating report");
-      console.error("❌ Error:", err);
     }
   };
 
-  const convertToCSV = (data: any[]) => {
-    if (!data.length) return "No data";
-    const headers = Object.keys(data[0]).join(",");
-    const rows = data.map((obj) =>
-      Object.values(obj)
-        .map((v) => {
-          if (v === null || v === undefined) return "";
-          if (typeof v === "object") return JSON.stringify(v).replace(/"/g, '""');
-          return String(v).replace(/"/g, '""');
-        })
-        .join(",")
-    );
-    return [headers, ...rows].join("\n");
-  };
-
-  /** View Routes **/
   const handleViewRoutes = async () => {
     try {
       toast.loading("Fetching routes...");
@@ -751,7 +795,6 @@ export default function Dashboard() {
     } catch (err) {
       toast.dismiss();
       toast.error("Failed to load routes");
-      console.error("❌ Error:", err);
     }
   };
 
@@ -779,25 +822,22 @@ export default function Dashboard() {
     ? hubStatsRaw.length
     : hubStatsRaw?.total_hubs ?? 0;
 
-  const totalCapacity =
-    hubStatsRaw?.total_capacity_liters ?? hubStatsRaw?.total_capacity ?? 0;
-
-  const currentUtilization = 90720;
   const utilizationPercentage =
     totalCapacity > 0 ? (currentUtilization / totalCapacity) * 100 : 0;
 
   const fleetStats = {
     total_vehicles: fleetRaw.total_vehicles ?? 0,
     unassigned_vehicles:
-      fleetRaw.unassigned_vehicles ?? fleetInsights.unassigned ?? 0,
-    fully_loaded: fleetRaw.fully_loaded ?? fleetInsights.fullyLoaded ?? 0,
-    half_loaded: fleetRaw.half_loaded ?? fleetInsights.halfLoaded ?? 0,
+      fleetInsights.unassigned ?? 0,
+    fully_loaded: fleetInsights.fullyLoaded ?? 0,
+    half_loaded: fleetInsights.halfLoaded ?? 0,
     available_vehicles: fleetRaw.available_vehicles ?? 0,
     unavailable_vehicles: fleetRaw.unavailable_vehicles ?? 0,
   };
 
   return (
     <div className="space-y-6">
+
       {/* Header */}
       <div>
         <h2 className="text-3xl font-bold text-slate-900">Dashboard</h2>
@@ -806,6 +846,7 @@ export default function Dashboard() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
         {/* Vendors */}
         <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between">
@@ -846,7 +887,9 @@ export default function Dashboard() {
         <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-slate-600 mb-1">Chilling Centre Utilization</p>
+              <p className="text-sm text-slate-600 mb-1">
+                Chilling Centre Utilization
+              </p>
               <p className="text-3xl font-bold text-slate-900">
                 {utilizationPercentage.toFixed(1)}%
               </p>
@@ -864,6 +907,7 @@ export default function Dashboard() {
 
       {/* Optimization Potential & Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
         {/* Optimization Potential */}
         <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl p-6 text-white shadow-lg">
           <div className="flex items-center gap-3 mb-4">
@@ -898,7 +942,9 @@ export default function Dashboard() {
         <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
           <div className="flex items-center gap-3 mb-4">
             <Clock className="h-6 w-6 text-slate-600" />
-            <h3 className="text-lg font-semibold text-slate-900">Recent Activity</h3>
+            <h3 className="text-lg font-semibold text-slate-900">
+              Recent Activity
+            </h3>
           </div>
 
           <div className="space-y-3">
@@ -910,7 +956,9 @@ export default function Dashboard() {
             </div>
             <div className="flex items-center justify-between py-2 border-b border-slate-100">
               <span className="text-sm text-slate-600">Active Hubs</span>
-              <span className="font-semibold text-slate-900">{activeHubsCount}</span>
+              <span className="font-semibold text-slate-900">
+                {activeHubsCount}
+              </span>
             </div>
             <div className="flex items-center justify-between py-2">
               <span className="text-sm text-slate-600">Available Fleet</span>
@@ -923,14 +971,18 @@ export default function Dashboard() {
 
         {/* Quick Actions */}
         <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-          <h3 className="text-lg font-semibold text-slate-900 mb-4">Quick Actions</h3>
+          <h3 className="text-lg font-semibold text-slate-900 mb-4">
+            Quick Actions
+          </h3>
           <div className="space-y-3">
 
             <button
               onClick={handleRunOptimization}
               disabled={isRunning}
               className={`w-full px-4 py-3 text-white rounded-lg text-sm font-medium transition-colors ${
-                isRunning ? "bg-blue-300 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+                isRunning
+                  ? "bg-blue-300 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700"
               }`}
             >
               {isRunning ? "Running..." : "Run Optimization"}
@@ -961,6 +1013,7 @@ export default function Dashboard() {
         </h3>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+
           {/* Total vehicles */}
           <div className="text-center p-4 bg-slate-50 rounded-lg">
             <p className="text-2xl font-bold text-slate-900">
@@ -1002,7 +1055,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* === UNASSIGNED VEHICLES MODAL === */}
+      {/* Unassigned Modal */}
       {showUnassignedModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg w-80 shadow-xl">

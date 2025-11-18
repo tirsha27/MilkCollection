@@ -154,6 +154,21 @@ async def get_latest_optimization(db: AsyncSession = Depends(get_db)):
 
         clusters = opt_root.get("clusters", []) if isinstance(opt_root, dict) else []
 
+        # Build a quick lookup from configuration.vehicle_types if present
+        vehicle_type_capacity_map: Dict[str, float] = {}
+        config_vtypes = None
+        if isinstance(opt_root, dict):
+            config_vtypes = opt_root.get("configuration", {}).get("vehicle_types") or opt_root.get("vehicle_types")
+            if isinstance(config_vtypes, list):
+                for vt in config_vtypes:
+                    key = vt.get("name")
+                    cap = vt.get("capacity") or vt.get("capacity_liters") or vt.get("cap_liters")
+                    if key and cap is not None:
+                        try:
+                            vehicle_type_capacity_map[str(key)] = float(cap)
+                        except Exception:
+                            vehicle_type_capacity_map[str(key)] = 0.0
+
         for cluster in clusters:
             hub_id_raw = (
                 cluster.get("storage_hub_id")
@@ -175,7 +190,7 @@ async def get_latest_optimization(db: AsyncSession = Depends(get_db)):
 
             for v in cluster.get("vehicles", []) or []:
 
-                # ⭐ FIX: Extract real vehicle_number
+                # ⭐ FIX: Extract real vehicle_number (prefer vehicle_number, fallback to vehicle_code)
                 vehicle_number = (
                     v.get("vehicle_number")
                     or v.get("vehicle_code")
@@ -195,22 +210,30 @@ async def get_latest_optimization(db: AsyncSession = Depends(get_db)):
                     or 0.0
                 )
 
-                cap_l = float(
-                    v.get("capacity_liters")
-                    or v.get("capacity")
-                    or v.get("cap_liters")
-                    or 0.0
-                )
+                # Try multiple places for capacity:
+                cap_l = None
+                # vehicle record fields in different engines
+                cap_l = v.get("capacity_liters") or v.get("capacity") or v.get("cap_liters") or v.get("vehicle_capacity_liters")
+                if not cap_l:
+                    # Try to infer from vehicle type / code using configuration map
+                    vehicle_code = v.get("vehicle_code") or v.get("vehicle_type") or v.get("category")
+                    if vehicle_code and vehicle_code in vehicle_type_capacity_map:
+                        cap_l = vehicle_type_capacity_map[vehicle_code]
+
+                try:
+                    cap_l_float = float(cap_l) if cap_l is not None else 0.0
+                except Exception:
+                    cap_l_float = 0.0
 
                 utilization_pct = 0.0
-                if cap_l:
-                    utilization_pct = (used_l / cap_l) * 100.0
+                if cap_l_float:
+                    utilization_pct = (used_l / cap_l_float) * 100.0
                 utilization_pct = round(utilization_pct, 2)
 
                 vehicles[vid] = {
-                    "vehicle_number": vehicle_number,    # ⭐ FIXED
+                    "vehicle_number": vehicle_number,
                     "used_liters": round(used_l, 2),
-                    "capacity_liters": round(cap_l, 2),
+                    "capacity_liters": round(cap_l_float, 2),
                     "utilization_pct": utilization_pct,
                     "assigned_hub_id": hub_id,
                     "nearest_hub_name": hub_name,
