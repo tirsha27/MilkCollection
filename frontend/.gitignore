@@ -10,6 +10,7 @@ node_modules
 dist
 dist-ssr
 *.local
+backend/optimization_history/*.json
 
 .vscode/*
 !.vscode/extensions.json

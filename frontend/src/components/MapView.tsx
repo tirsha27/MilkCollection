@@ -1,3 +1,4 @@
+//frontend/src/components/MapView.tsx
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, LayersControl,useMap  } from "react-leaflet";
 import L from "leaflet";

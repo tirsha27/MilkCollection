@@ -1,5 +1,9 @@
+//frontend/src/components/TripSchedule.tsx
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { api } from "../lib/api-client";
+import { API } from "../lib/api-endpoints";
+
 import {
   DragDropContext,
   Droppable,
@@ -189,7 +193,8 @@ export default function TripSchedule() {
       setLoading(true);
       
       // ✅ FIX: Fetch from optimization endpoint instead of trips/schedule
-      const res = await axios.get("http://localhost:8000/api/v1/optimization/latest");
+      const res = await api.get(API.optimization + "/latest");
+
       
       // ✅ Parse the response structure
       const raw = res.data?.data?.results?.optimization_results || res.data?.data?.results || {};
@@ -424,7 +429,8 @@ export default function TripSchedule() {
   const handleSaveChanges = async () => {
     try {
       setSaving(true);
-      await axios.put("http://localhost:8000/api/v1/trips/schedule/update", data);
+      await api.put(API.trips + "/schedule/update", data);
+
       alert("✅ Schedule saved successfully!");
       setChangesMade(false);
     } catch (err) {

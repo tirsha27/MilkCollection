@@ -261,6 +261,7 @@ async def get_latest_optimization(db: AsyncSession = Depends(get_db)):
                 "summary": summary,
                 "hubs": hubs,
                 "vehicles": vehicles,
+                
             },
         }
 

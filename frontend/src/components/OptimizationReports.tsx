@@ -1,5 +1,6 @@
+//frontend/src/Components/OptimizationReports.tsx
 import React, { useEffect, useState } from "react";
-import { Clock, TrendingDown, MapPin, Calendar, ChevronDown, ChevronUp, AlertCircle } from "lucide-react";
+import { Clock, TrendingDown, MapPin, Calendar, ChevronDown, ChevronUp, AlertCircle, Component } from "lucide-react";
 import { OptimizationService } from "../services/optimization.service";
 
 interface OptimizationRun {

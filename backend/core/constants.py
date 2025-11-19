@@ -1,3 +1,4 @@
+#core/constants.py
 """
 Application Constants
 Define all constant values used across the application

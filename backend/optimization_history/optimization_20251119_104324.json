@@ -1,0 +1,1424 @@
+{
+  "clusters": [
+    {
+      "name": "Thuvarankurichi",
+      "total_milk": 5560.0,
+      "capacity": 15000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "CAT_F011",
+          "capacity": 2680.0,
+          "vehicle_number": "TN12SV1900",
+          "vehicle_code": "F011",
+          "vehicle_name": "Tata Intra V30",
+          "total_milk": 2680.0,
+          "farmers": [
+            {
+              "name": "Kalimuthu",
+              "lat": 10.26916089068438,
+              "lng": 78.37607079924145,
+              "milk_liters": 400.0
+            },
+            {
+              "name": "Gopalakrishnan",
+              "lat": 10.38280397071383,
+              "lng": 78.4932585490856,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Senthilkumar",
+              "lat": 10.39198186174978,
+              "lng": 78.42413897400344,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Ganesan",
+              "lat": 10.30476013064885,
+              "lng": 78.38414092342944,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Ramu",
+              "lat": 10.29994665732277,
+              "lng": 78.38495631497605,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Muthusamy",
+              "lat": 10.3937881503111,
+              "lng": 78.46145622372559,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Nadarajan",
+              "lat": 10.48701048631412,
+              "lng": 78.15725994216888,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Anbalagan",
+              "lat": 10.51832293639031,
+              "lng": 78.05110665917512,
+              "milk_liters": 200.0
+            }
+          ],
+          "utilization": 100.0,
+          "route": [],
+          "distance": 198.10479999999998,
+          "travel_time": 204.13666666666668,
+          "is_violated": true,
+          "status": "ON TIME | DISTANCE EXCEEDED",
+          "total_time": 324.13666666666666,
+          "service_time": 120,
+          "cost": 1290.52,
+          "time_violation": false,
+          "distance_violation": true,
+          "time_diff": 155.86333333333334,
+          "dist_diff": -98.10479999999998,
+          "violation_type": "Distance"
+        },
+        {
+          "id": 2,
+          "type": "CAT_F007",
+          "capacity": 1520.0,
+          "vehicle_number": "TN12SV1896",
+          "vehicle_code": "F007",
+          "vehicle_name": "Tata Ace Gold",
+          "total_milk": 1520.0,
+          "farmers": [
+            {
+              "name": "Nalliah",
+              "lat": 10.46371093350329,
+              "lng": 78.365701564803,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Manickam",
+              "lat": 10.33644787907383,
+              "lng": 78.38847279353487,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Thirumalai",
+              "lat": 10.31308067238553,
+              "lng": 78.37861017751034,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Murugan",
+              "lat": 10.28979254454779,
+              "lng": 78.39863836013299,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Veeramani",
+              "lat": 10.3092146390787,
+              "lng": 78.3877672700644,
+              "milk_liters": 240.0
+            }
+          ],
+          "utilization": 100.0,
+          "route": [],
+          "distance": 62.6109,
+          "travel_time": 65.98499999999999,
+          "is_violated": false,
+          "status": "ON TIME | WITHIN DISTANCE",
+          "total_time": 140.98499999999999,
+          "service_time": 75,
+          "cost": 613.05,
+          "time_violation": false,
+          "distance_violation": false,
+          "time_diff": 339.015,
+          "dist_diff": 37.3891,
+          "violation_type": ""
+        },
+        {
+          "id": 3,
+          "type": "C6",
+          "capacity": 1200.0,
+          "vehicle_number": "TN13ST7896",
+          "vehicle_code": "F002",
+          "vehicle_name": "Mahindra Jeeto",
+          "total_milk": 1160.0,
+          "farmers": [
+            {
+              "name": "Vellaiyappan",
+              "lat": 10.42999764259924,
+              "lng": 78.36874994444108,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Kothandaraman",
+              "lat": 10.31463315344115,
+              "lng": 78.35833922891608,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Karunanidhi",
+              "lat": 10.34984468646325,
+              "lng": 78.37277507267191,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Karthikeyan",
+              "lat": 10.34600775189644,
+              "lng": 78.39449818161037,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Rajadurai",
+              "lat": 10.33166215274438,
+              "lng": 78.37405220483092,
+              "milk_liters": 200.0
+            }
+          ],
+          "utilization": 96.67,
+          "route": [],
+          "distance": 53.3188,
+          "travel_time": 59.43833333333334,
+          "is_violated": false,
+          "status": "ON TIME | WITHIN DISTANCE",
+          "total_time": 79.43833333333333,
+          "service_time": 20,
+          "cost": 1416.49,
+          "time_violation": false,
+          "distance_violation": false,
+          "time_diff": 400.56166666666667,
+          "dist_diff": 46.6812,
+          "violation_type": ""
+        },
+        {
+          "id": 4,
+          "type": "CAT_F013",
+          "capacity": 1200.0,
+          "vehicle_number": "TN12SV1902",
+          "vehicle_code": "F013",
+          "vehicle_name": "Mahindra Supro Maxitruck",
+          "total_milk": 200.0,
+          "farmers": [
+            {
+              "name": "Veerapandi",
+              "lat": 10.2511706905704,
+              "lng": 78.38431535406536,
+              "milk_liters": 200.0
+            }
+          ],
+          "utilization": 16.67,
+          "route": [],
+          "distance": 33.7295,
+          "travel_time": 32.82833333333333,
+          "is_violated": false,
+          "status": "ON TIME | WITHIN DISTANCE",
+          "total_time": 47.82833333333333,
+          "service_time": 15,
+          "cost": 468.65,
+          "time_violation": false,
+          "distance_violation": false,
+          "time_diff": 432.1716666666667,
+          "dist_diff": 66.2705,
+          "violation_type": ""
+        }
+      ],
+      "cost": 3788.71,
+      "unassigned_farmers": []
+    },
+    {
+      "name": "Viralimalai",
+      "total_milk": 2560.0,
+      "capacity": 9000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "C4",
+          "capacity": 2000.0,
+          "vehicle_number": "TN15TV1256",
+          "vehicle_code": "F003",
+          "vehicle_name": "Tata Intra V10",
+          "total_milk": 2000.0,
+          "farmers": [
+            {
+              "name": "Kumarasamy",
+              "lat": 10.4675379536801,
+              "lng": 78.64993098371654,
+              "milk_liters": 400.0
+            },
+            {
+              "name": "Sivaraj",
+              "lat": 10.61143859061467,
+              "lng": 78.41447751249994,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Mariappan",
+              "lat": 10.60855509770831,
+              "lng": 78.57214705056809,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Muthuraman",
+              "lat": 10.55396978740521,
+              "lng": 78.30462948667531,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Ponnusamy",
+              "lat": 10.46242781434936,
+              "lng": 78.6984323921752,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Perumal",
+              "lat": 10.50008024836887,
+              "lng": 78.59885736812232,
+              "milk_liters": 280.0
+            }
+          ],
+          "utilization": 100.0,
+          "route": [],
+          "distance": 195.2367,
+          "travel_time": 198.47,
+          "is_violated": true,
+          "status": "ON TIME | DISTANCE EXCEEDED",
+          "total_time": 222.47,
+          "service_time": 24,
+          "cost": 2424.75,
+          "time_violation": false,
+          "distance_violation": true,
+          "time_diff": 257.53,
+          "dist_diff": -95.23670000000001,
+          "violation_type": "Distance"
+        },
+        {
+          "id": 2,
+          "type": "C3",
+          "capacity": 1600.0,
+          "vehicle_number": "TN12SV1986",
+          "vehicle_code": "F001",
+          "vehicle_name": "Tata Ace Gold",
+          "total_milk": 560.0,
+          "farmers": [
+            {
+              "name": "Ramasamy",
+              "lat": 10.48337551243099,
+              "lng": 78.44201601555893,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Venkatasamy",
+              "lat": 10.50602938356531,
+              "lng": 78.51696447912663,
+              "milk_liters": 240.0
+            }
+          ],
+          "utilization": 35.0,
+          "route": [],
+          "distance": 51.274800000000006,
+          "travel_time": 60.24166666666667,
+          "is_violated": false,
+          "status": "ON TIME | WITHIN DISTANCE",
+          "total_time": 68.24166666666667,
+          "service_time": 8,
+          "cost": 890.2,
+          "time_violation": false,
+          "distance_violation": false,
+          "time_diff": 411.7583333333333,
+          "dist_diff": 48.725199999999994,
+          "violation_type": ""
+        }
+      ],
+      "cost": 3314.95,
+      "unassigned_farmers": []
+    },
+    {
+      "name": "Melur",
+      "total_milk": 9440.0,
+      "capacity": 18000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "CAT_F015",
+          "capacity": 2200.0,
+          "vehicle_number": "TN12SV1904",
+          "vehicle_code": "F015",
+          "vehicle_name": "Ashok Leyland Bada Dost",
+          "total_milk": 2200.0,
+          "farmers": [
+            {
+              "name": "Muthupandi",
+              "lat": 10.08628005176278,
+              "lng": 78.36441844530444,
+              "milk_liters": 400.0
+            },
+            {
+              "name": "Rajalakshmi",
+              "lat": 10.0299726236623,
+              "lng": 78.2823706205312,
+              "milk_liters": 400.0
+            },
+            {
+              "name": "Rajendran",
+              "lat": 10.10926436919513,
+              "lng": 78.35497706936157,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Arulnithi",
+              "lat": 10.08174175292504,
+              "lng": 78.44551014517326,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Kamalakannan",
+              "lat": 10.03918544722173,
+              "lng": 78.3652424431494,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Ayyappan",
+              "lat": 10.10231194915478,
+              "lng": 78.35607600026336,
+              "milk_liters": 320.0
+            }
+          ],
+          "utilization": 100.0,
+          "route": [],
+          "distance": 106.132,
+          "travel_time": 109.79333333333332,
+          "is_violated": true,
+          "status": "ON TIME | DISTANCE EXCEEDED",
+          "total_time": 199.79333333333332,
+          "service_time": 90,
+          "cost": 830.66,
+          "time_violation": false,
+          "distance_violation": true,
+          "time_diff": 280.2066666666667,
+          "dist_diff": -6.132000000000005,
+          "violation_type": "Distance"
+        },
+        {
+          "id": 2,
+          "type": "CAT_F016",
+          "capacity": 2600.0,
+          "vehicle_number": "TN12SV1905",
+          "vehicle_code": "F016",
+          "vehicle_name": "Mahindra Furio 7",
+          "total_milk": 2600.0,
+          "farmers": [
+            {
+              "name": "Marimuthu",
+              "lat": 10.04235282835589,
+              "lng": 78.34114793297421,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Tharshan",
+              "lat": 10.08126779952287,
+              "lng": 78.34357346378572,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Sathish",
+              "lat": 10.0783258776435,
+              "lng": 78.35624304300963,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Manikavalan",
+              "lat": 10.07383645059376,
+              "lng": 78.41987174038651,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Karuppaiah",
+              "lat": 10.05299960441408,
+              "lng": 78.39527729462739,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Aravind",
+              "lat": 10.03202587004878,
+              "lng": 78.30167387825168,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Velan",
+              "lat": 10.03592315342296,
+              "lng": 78.30289663940283,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Gokul",
+              "lat": 10.01022639231715,
+              "lng": 78.29758588328002,
+              "milk_liters": 320.0
+            }
+          ],
+          "utilization": 100.0,
+          "route": [],
+          "distance": 61.4033,
+          "travel_time": 71.14500000000001,
+          "is_violated": false,
+          "status": "ON TIME | WITHIN DISTANCE",
+          "total_time": 191.145,
+          "service_time": 120,
+          "cost": 607.02,
+          "time_violation": false,
+          "distance_violation": false,
+          "time_diff": 288.855,
+          "dist_diff": 38.5967,
+          "violation_type": ""
+        },
+        {
+          "id": 3,
+          "type": "CAT_F014",
+          "capacity": 2000.0,
+          "vehicle_number": "TN12SV1903",
+          "vehicle_code": "F014",
+          "vehicle_name": "Tata Yodha Pickup",
+          "total_milk": 2000.0,
+          "farmers": [
+            {
+              "name": "Arokiyasamy",
+              "lat": 10.01530469499726,
+              "lng": 78.31088029266715,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Pugalendhi",
+              "lat": 10.04488478054032,
+              "lng": 78.34350839198167,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Raghuraman",
+              "lat": 10.04920640828368,
+              "lng": 78.38433770631943,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Chidambaram",
+              "lat": 10.03327887143324,
+              "lng": 78.34427254119834,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Ramasubramanian",
+              "lat": 10.03130824738723,
+              "lng": 78.33820650522664,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Muthiah",
+              "lat": 10.00130573647214,
+              "lng": 78.25533540750104,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Anand",
+              "lat": 9.995980402979429,
+              "lng": 78.22058437160406,
+              "milk_liters": 280.0
+            }
+          ],
+          "utilization": 100.0,
+          "route": [],
+          "distance": 59.7681,
+          "travel_time": 70.16333333333334,
+          "is_violated": false,
+          "status": "ON TIME | WITHIN DISTANCE",
+          "total_time": 175.16333333333336,
+          "service_time": 105,
+          "cost": 598.84,
+          "time_violation": false,
+          "distance_violation": false,
+          "time_diff": 304.83666666666664,
+          "dist_diff": 40.2319,
+          "violation_type": ""
+        },
+        {
+          "id": 4,
+          "type": "CAT_F008",
+          "capacity": 52800.0,
+          "vehicle_number": "TN12SV1897",
+          "vehicle_code": "F008",
+          "vehicle_name": "TN12SV1897",
+          "total_milk": 2640.0,
+          "farmers": [
+            {
+              "name": "Balamurugan",
+              "lat": 9.992654467974273,
+              "lng": 78.2179993667292,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Jeevan",
+              "lat": 10.01449649141285,
+              "lng": 78.29016441767152,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Thanvanth",
+              "lat": 10.00201450529933,
+              "lng": 78.25518346390139,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Sivasamy",
+              "lat": 10.0106759663655,
+              "lng": 78.23579794857716,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Chandran",
+              "lat": 10.01485499635022,
+              "lng": 78.30042240956762,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Sathiya",
+              "lat": 10.06438002215067,
+              "lng": 78.43018137105635,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Ramalingam",
+              "lat": 10.01369756444132,
+              "lng": 78.21973552348777,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Periyapalan",
+              "lat": 10.13798319950476,
+              "lng": 78.35362630904035,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Periyasamy",
+              "lat": 10.04958247248235,
+              "lng": 78.4092609483343,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Siva",
+              "lat": 10.03884442317084,
+              "lng": 78.34294256764936,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Mani",
+              "lat": 9.999058175193671,
+              "lng": 78.26043686090516,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Prabhakar",
+              "lat": 10.01549037626453,
+              "lng": 78.27877887502831,
+              "milk_liters": 200.0
+            }
+          ],
+          "utilization": 5.0,
+          "route": [],
+          "distance": 185.7455,
+          "travel_time": 212.27333333333334,
+          "is_violated": true,
+          "status": "ON TIME | DISTANCE EXCEEDED",
+          "total_time": 392.2733333333333,
+          "service_time": 180,
+          "cost": 1228.73,
+          "time_violation": false,
+          "distance_violation": true,
+          "time_diff": 87.72666666666669,
+          "dist_diff": -85.74549999999999,
+          "violation_type": "Distance"
+        }
+      ],
+      "cost": 3265.24,
+      "unassigned_farmers": []
+    },
+    {
+      "name": "Madurai",
+      "total_milk": 8080.0,
+      "capacity": 25000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "CAT_F012",
+          "capacity": 64000.0,
+          "vehicle_number": "TN12SV1901",
+          "vehicle_code": "F012",
+          "vehicle_name": "TN12SV1901",
+          "total_milk": 8080.0,
+          "farmers": [
+            {
+              "name": "Karuthapandi",
+              "lat": 9.951170846722942,
+              "lng": 78.17002817457961,
+              "milk_liters": 400.0
+            },
+            {
+              "name": "Kaliyaperumal",
+              "lat": 9.914998431778681,
+              "lng": 78.15363880573578,
+              "milk_liters": 400.0
+            },
+            {
+              "name": "Venkataraman",
+              "lat": 9.925351463823324,
+              "lng": 78.11970568394639,
+              "milk_liters": 400.0
+            },
+            {
+              "name": "Selvakumar",
+              "lat": 9.954116217188433,
+              "lng": 78.21810503262797,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Jayanthan",
+              "lat": 9.963189897251146,
+              "lng": 78.2089523678184,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Ramajayan",
+              "lat": 9.932742788309454,
+              "lng": 78.17456953866449,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Ramarajan",
+              "lat": 9.902468210472643,
+              "lng": 78.16669067767499,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Mahalingam",
+              "lat": 9.912569049824496,
+              "lng": 78.15617706863425,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Jagadeesan",
+              "lat": 9.921262092703623,
+              "lng": 78.12864908428467,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Palanisamy",
+              "lat": 9.940011455954178,
+              "lng": 78.19328829071657,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Selvaraj",
+              "lat": 9.92397809890114,
+              "lng": 78.123079302222,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Krishnamoorthy",
+              "lat": 9.989277128718554,
+              "lng": 78.19906262205859,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Shankar",
+              "lat": 9.956496785531554,
+              "lng": 78.1859068518311,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Natarajan",
+              "lat": 9.930119858875962,
+              "lng": 78.18479105235052,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Kandasamy",
+              "lat": 9.925042398795458,
+              "lng": 78.17000967694169,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Arulkumar",
+              "lat": 9.901937784362794,
+              "lng": 78.16032061948628,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Murugappan",
+              "lat": 9.910450397955511,
+              "lng": 78.14971824943498,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Rathi",
+              "lat": 9.921445485132951,
+              "lng": 78.14473126631621,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Karuppan",
+              "lat": 9.923054405504368,
+              "lng": 78.13481375333419,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Yogeshwaran",
+              "lat": 9.964721792362525,
+              "lng": 78.232761260591,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Arumughan",
+              "lat": 9.951424465048861,
+              "lng": 78.18762346552542,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Velusamy",
+              "lat": 9.917057149873562,
+              "lng": 78.17003240866316,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Ramalingan",
+              "lat": 9.906341528189822,
+              "lng": 78.1673762164783,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Kuppusamy",
+              "lat": 9.90630382833382,
+              "lng": 78.15153777730423,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Thanaraj",
+              "lat": 9.924062593430246,
+              "lng": 78.1197864190557,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Thavapalan",
+              "lat": 9.909550482703901,
+              "lng": 78.14641470973217,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Ayyanar",
+              "lat": 9.922488772297386,
+              "lng": 78.1406576964597,
+              "milk_liters": 200.0
+            }
+          ],
+          "utilization": 12.62,
+          "route": [],
+          "distance": 166.81810000000002,
+          "travel_time": 225.5983333333334,
+          "is_violated": true,
+          "status": "TIME & DISTANCE EXCEEDED",
+          "total_time": 630.5983333333334,
+          "service_time": 405,
+          "cost": 1134.09,
+          "time_violation": true,
+          "distance_violation": true,
+          "time_diff": -150.59833333333336,
+          "dist_diff": -66.81810000000002,
+          "violation_type": "Both"
+        }
+      ],
+      "cost": 1134.09,
+      "unassigned_farmers": []
+    },
+    {
+      "name": "Singampunari",
+      "total_milk": 5640.0,
+      "capacity": 20000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "CAT_F009",
+          "capacity": 83200.0,
+          "vehicle_number": "TN12SV1898",
+          "vehicle_code": "F009",
+          "vehicle_name": "TN12SV1898",
+          "total_milk": 5640.0,
+          "farmers": [
+            {
+              "name": "Ravichandran",
+              "lat": 10.15937560711124,
+              "lng": 78.51367004178607,
+              "milk_liters": 400.0
+            },
+            {
+              "name": "Annamalai",
+              "lat": 10.16165735949807,
+              "lng": 78.50190709108655,
+              "milk_liters": 400.0
+            },
+            {
+              "name": "Sakthivelan",
+              "lat": 10.11959038900087,
+              "lng": 78.46802418618311,
+              "milk_liters": 400.0
+            },
+            {
+              "name": "Manikandan",
+              "lat": 10.2395665984427,
+              "lng": 78.38812996376149,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Vaidyanathan",
+              "lat": 10.14621846465142,
+              "lng": 78.501771346095,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Karthik",
+              "lat": 10.12564547113159,
+              "lng": 78.46613059362184,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Devarajan",
+              "lat": 10.26508183646008,
+              "lng": 78.38853963600565,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Raja",
+              "lat": 10.23119469846015,
+              "lng": 78.37618190686531,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Azhagan",
+              "lat": 10.11586104363617,
+              "lng": 78.47275064138745,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Kasinathan",
+              "lat": 10.09689085889849,
+              "lng": 78.47148951463744,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Anbu",
+              "lat": 10.22333692580046,
+              "lng": 78.37109673014686,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Muthukumar",
+              "lat": 10.14043199314777,
+              "lng": 78.48226481435508,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Jayakumar",
+              "lat": 10.15918310442335,
+              "lng": 78.36077124165314,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Jagannathan",
+              "lat": 10.10830935359647,
+              "lng": 78.46096257473961,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Jegan",
+              "lat": 10.22668338306711,
+              "lng": 78.3646300569371,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Arvind",
+              "lat": 10.20429101703432,
+              "lng": 78.37873564369369,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Rajaraman",
+              "lat": 10.14944052839697,
+              "lng": 78.49868492654497,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Sundar",
+              "lat": 10.13379484238025,
+              "lng": 78.4712462677302,
+              "milk_liters": 200.0
+            },
+            {
+              "name": "Ramachandran",
+              "lat": 10.1261980774331,
+              "lng": 78.47623082547373,
+              "milk_liters": 200.0
+            }
+          ],
+          "utilization": 6.78,
+          "route": [],
+          "distance": 282.21209999999996,
+          "travel_time": 276.1316666666667,
+          "is_violated": true,
+          "status": "TIME & DISTANCE EXCEEDED",
+          "total_time": 561.1316666666667,
+          "service_time": 285,
+          "cost": 1711.06,
+          "time_violation": true,
+          "distance_violation": true,
+          "time_diff": -81.13166666666666,
+          "dist_diff": -182.21209999999996,
+          "violation_type": "Both"
+        }
+      ],
+      "cost": 1711.06,
+      "unassigned_farmers": []
+    },
+    {
+      "name": "Ponnamaravathi Bus stand",
+      "total_milk": 4840.0,
+      "capacity": 30000.0,
+      "vehicles": [
+        {
+          "id": 1,
+          "type": "C5",
+          "capacity": 88000.0,
+          "vehicle_number": "TN17ST1478",
+          "vehicle_code": "F004",
+          "vehicle_name": "TN17ST1478",
+          "total_milk": 4840.0,
+          "farmers": [
+            {
+              "name": "Subash",
+              "lat": 10.27192931971379,
+              "lng": 78.53804541805104,
+              "milk_liters": 400.0
+            },
+            {
+              "name": "Dhanapal",
+              "lat": 10.22556835357477,
+              "lng": 78.53565384095407,
+              "milk_liters": 400.0
+            },
+            {
+              "name": "Suthan",
+              "lat": 10.42153678434392,
+              "lng": 78.69578382213142,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Vasu",
+              "lat": 10.26245670354966,
+              "lng": 78.54217701139551,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Shanmugam",
+              "lat": 10.20010454413938,
+              "lng": 78.53668406958356,
+              "milk_liters": 360.0
+            },
+            {
+              "name": "Murali",
+              "lat": 10.20758597916043,
+              "lng": 78.53473403641058,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Narayanan",
+              "lat": 10.19849892359942,
+              "lng": 78.52521771055171,
+              "milk_liters": 320.0
+            },
+            {
+              "name": "Srinivasan",
+              "lat": 10.2757317530124,
+              "lng": 78.54143119029573,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Kannan",
+              "lat": 10.27634338428827,
+              "lng": 78.53900779713172,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Venkatesh",
+              "lat": 10.2536346722259,
+              "lng": 78.54499996498615,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Saravanan",
+              "lat": 10.24542156216484,
+              "lng": 78.54588657383046,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Suresh",
+              "lat": 10.18311056787024,
+              "lng": 78.52852617768261,
+              "milk_liters": 280.0
+            },
+            {
+              "name": "Subramanian",
+              "lat": 10.39828679288954,
+              "lng": 78.6877881573766,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Pandiyan",
+              "lat": 10.37325219735334,
+              "lng": 78.57749829765129,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Kamaraj",
+              "lat": 10.21565483766409,
+              "lng": 78.53318642091368,
+              "milk_liters": 240.0
+            },
+            {
+              "name": "Sakthivel",
+              "lat": 10.42912593093174,
+              "lng": 78.54278278225848,
+              "milk_liters": 200.0
+            }
+          ],
+          "utilization": 5.5,
+          "route": [],
+          "distance": 230.393,
+          "travel_time": 265.7833333333333,
+          "is_violated": true,
+          "status": "ON TIME | DISTANCE EXCEEDED",
+          "total_time": 329.7833333333333,
+          "service_time": 64,
+          "cost": 3194.32,
+          "time_violation": false,
+          "distance_violation": true,
+          "time_diff": 150.2166666666667,
+          "dist_diff": -130.393,
+          "violation_type": "Distance"
+        }
+      ],
+      "cost": 3194.32,
+      "unassigned_farmers": []
+    }
+  ],
+  "violations": [],
+  "unassigned_farmers": [],
+  "total_cost": 16408.37,
+  "total_violations": 0,
+  "configuration": {
+    "deadline_minutes": 480,
+    "max_distance_km": 100.0,
+    "vehicle_types": [
+      {
+        "name": "CAT_F007",
+        "capacity": 1520.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F009",
+        "capacity": 83200.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F008",
+        "capacity": 52800.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F010",
+        "capacity": 91200.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "C2",
+        "capacity": 112000.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 6.5,
+        "fixed_cost": 390.0
+      },
+      {
+        "name": "C1",
+        "capacity": 104000.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "C5",
+        "capacity": 88000.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 11.0,
+        "fixed_cost": 660.0
+      },
+      {
+        "name": "C6",
+        "capacity": 1200.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 12.5,
+        "fixed_cost": 750.0
+      },
+      {
+        "name": "C3",
+        "capacity": 1600.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 8.0,
+        "fixed_cost": 480.0
+      },
+      {
+        "name": "C4",
+        "capacity": 2000.0,
+        "count": 1,
+        "service_time": 4,
+        "cost_per_km": 9.5,
+        "fixed_cost": 570.0
+      },
+      {
+        "name": "CAT_F011",
+        "capacity": 2680.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F013",
+        "capacity": 1200.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F014",
+        "capacity": 2000.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F015",
+        "capacity": 2200.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F016",
+        "capacity": 2600.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F022",
+        "capacity": 224000.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F017",
+        "capacity": 112000.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F019",
+        "capacity": 236800.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F020",
+        "capacity": 236800.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F018",
+        "capacity": 118400.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F021",
+        "capacity": 224000.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      },
+      {
+        "name": "CAT_F012",
+        "capacity": 64000.0,
+        "count": 1,
+        "service_time": 15,
+        "cost_per_km": 5.0,
+        "fixed_cost": 300.0
+      }
+    ]
+  },
+  "unused_vehicles": [
+    {
+      "type": "CAT_F010",
+      "count": 1,
+      "capacity": 91200.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1899",
+          "vehicle_code": "F010",
+          "vehicle_name": "TN12SV1899",
+          "capacity_liters": 91200.0
+        }
+      ]
+    },
+    {
+      "type": "C2",
+      "count": 1,
+      "capacity": 112000.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN56ST1256",
+          "vehicle_code": "F006",
+          "vehicle_name": "TN56ST1256",
+          "capacity_liters": 112000.0
+        }
+      ]
+    },
+    {
+      "type": "C1",
+      "count": 1,
+      "capacity": 104000.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1485",
+          "vehicle_code": "F005",
+          "vehicle_name": "TN12SV1485",
+          "capacity_liters": 104000.0
+        }
+      ]
+    },
+    {
+      "type": "CAT_F022",
+      "count": 1,
+      "capacity": 224000.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1911",
+          "vehicle_code": "F022",
+          "vehicle_name": "TN12SV1911",
+          "capacity_liters": 224000.0
+        }
+      ]
+    },
+    {
+      "type": "CAT_F017",
+      "count": 1,
+      "capacity": 112000.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1906",
+          "vehicle_code": "F017",
+          "vehicle_name": "TN12SV1906",
+          "capacity_liters": 112000.0
+        }
+      ]
+    },
+    {
+      "type": "CAT_F019",
+      "count": 1,
+      "capacity": 236800.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1908",
+          "vehicle_code": "F019",
+          "vehicle_name": "TN12SV1908",
+          "capacity_liters": 236800.0
+        }
+      ]
+    },
+    {
+      "type": "CAT_F020",
+      "count": 1,
+      "capacity": 236800.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1909",
+          "vehicle_code": "F020",
+          "vehicle_name": "TN12SV1909",
+          "capacity_liters": 236800.0
+        }
+      ]
+    },
+    {
+      "type": "CAT_F018",
+      "count": 1,
+      "capacity": 118400.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1907",
+          "vehicle_code": "F018",
+          "vehicle_name": "TN12SV1907",
+          "capacity_liters": 118400.0
+        }
+      ]
+    },
+    {
+      "type": "CAT_F021",
+      "count": 1,
+      "capacity": 224000.0,
+      "vehicles": [
+        {
+          "vehicle_number": "TN12SV1910",
+          "vehicle_code": "F021",
+          "vehicle_name": "TN12SV1910",
+          "capacity_liters": 224000.0
+        }
+      ]
+    }
+  ],
+  "total_unassigned_farmers": 0,
+  "total_unassigned_milk": 0,
+  "timestamp": "2025-11-19 10:43:24",
+  "timestamp_epoch": 1763529204
+}

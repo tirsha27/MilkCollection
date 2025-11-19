@@ -1,3 +1,4 @@
+#core/config.py
 """
 Configuration Management
 Loads environment variables from .env file

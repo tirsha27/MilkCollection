@@ -1,3 +1,4 @@
+//domain/frontend/src/components/Farmers.tsx
 import { useEffect, useState } from 'react';
 import { Plus, Edit2, Trash2, Users, MapPin, Droplets } from 'lucide-react';
 import { VendorService } from '../services/vendor.service';

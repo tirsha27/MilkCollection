@@ -1,3 +1,4 @@
+#services/storage_hub_service.py
 """
 Storage Hub Service
 Business logic for storage hub operations

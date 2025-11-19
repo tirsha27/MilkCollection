@@ -1,3 +1,4 @@
+#models/fleet.py
 from sqlalchemy import Column, String, Float, Boolean, DateTime, Integer, JSON, CheckConstraint, ForeignKey
 from sqlalchemy.sql import func
 from database.session import Base

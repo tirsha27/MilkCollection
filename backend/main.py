@@ -116,17 +116,29 @@ app.add_middleware(
 
 # Include all routers with API prefix
 
-from api import vendors_router, storage_hubs_router, fleet_router
+# ============================================================
+# API ROUTERS (Correct + Clean)
+# ============================================================
+
+from api import (
+    vendors_router,
+    storage_hubs_router,
+    fleet_router,
+    dashboard_router
+)
+
 from api.endpoints.optimization import router as optimization_router
-from api.endpoints.fleet import router as fleet_router
 from api.endpoints.trips_schedule import router as trip_schedule_router
-from api.endpoints.dashboard import router as dashboard_router
-app.include_router(trip_schedule_router, prefix="/api/v1")
-app.include_router(optimization_router, prefix="/api/v1")
+
+
+# Include routers with prefix
 app.include_router(vendors_router, prefix="/api/v1")
-app.include_router(fleet_router, prefix="/api/v1")
 app.include_router(storage_hubs_router, prefix="/api/v1")
-app.include_router(dashboard_router,prefix="/api/v1")
+app.include_router(fleet_router, prefix="/api/v1")
+app.include_router(dashboard_router, prefix="/api/v1")
+app.include_router(optimization_router, prefix="/api/v1")
+app.include_router(trip_schedule_router, prefix="/api/v1")
+
 # ============================================================
 # ROOT ENDPOINT
 # ============================================================

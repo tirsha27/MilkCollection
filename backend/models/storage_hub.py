@@ -1,3 +1,4 @@
+#models/storage_hub.py
 """
 Storage Hub Model - SQLAlchemy ORM
 Database table for storage hubs/collection centers

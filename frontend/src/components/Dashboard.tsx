@@ -517,6 +517,9 @@
 //   );
 // }
 
+// domain/frontend/src/components/Dashboard.tsx
+// domain/frontend/src/components/Dashboard.tsx
+// domain/frontend/src/components/Dashboard.tsx
 
 import { useEffect, useState } from "react";
 import { DashboardService } from "../services/dashboard.service";
@@ -531,6 +534,7 @@ import {
   Clock,
   ThermometerSun,
 } from "lucide-react";
+
 import toast from "react-hot-toast";
 
 interface DashboardStats {
@@ -544,125 +548,55 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
 
+  const [currentUtilization, setCurrentUtilization] = useState(0);
+  const [totalCapacity, setTotalCapacity] = useState(0);
+
+  const [unassignedVehiclesList, setUnassignedVehiclesList] = useState<string[]>([]);
+  const [showUnassignedModal, setShowUnassignedModal] = useState(false);
+
   const [fleetInsights, setFleetInsights] = useState({
     fullyLoaded: 0,
     halfLoaded: 0,
     unassigned: 0,
   });
 
-  const [showUnassignedModal, setShowUnassignedModal] = useState(false);
-
-  // dynamically updated later
-  const [unassignedVehiclesList, setUnassignedVehiclesList] = useState<string[]>([]);
-
-  const [currentUtilization, setCurrentUtilization] = useState(0);
-  const [totalCapacity, setTotalCapacity] = useState(0);
-
-  /** LOAD DASHBOARD DATA **/
   useEffect(() => {
     let mounted = true;
 
     async function loadAll() {
       setLoading(true);
       try {
-        /** Base dashboard stats */
-        const dashboardData = await DashboardService.getStats();
-        let mergedStats: DashboardStats = { ...dashboardData };
+        /** Fetch clean stats from backend */
+        const data = await DashboardService.getStats();
 
-        /** --- GET FLEET DATA FOR UNASSIGNED VEHICLES --- */
-        let fleetList: any[] = [];
-        try {
-          const fleetRes = await api.get(API.fleet);
-          fleetList = fleetRes?.data || [];
-        } catch (e) {
-          console.warn("Failed to load fleet:", e);
+        const hubs = data?.hubs ?? {};
+        const fleet = data?.fleet ?? {};
+
+        /** Set utilization */
+        if (mounted) {
+          setCurrentUtilization(hubs.current_load_liters ?? 0);
+          setTotalCapacity(hubs.total_capacity_liters ?? 0);
         }
 
-        /** extract unassigned vehicles */
-        /** extract unassigned vehicles — remove duplicates */
-        const dynamicUnassignedList = Array.from(
-          new Set(
-            fleetList
-            .filter((v) => v.chilling_center_id === null)
-            .map((v) => v.vehicle_number)
-          )
-        );
-
-/** update modal list */
-if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
-
-
-        /** --- GET HUBS & CALCULATE TOTAL CAPACITY --- */
-        let hubsList: any[] = [];
-        try {
-          const hubsRes = await api.get(API.storageHubs);
-          hubsList = hubsRes?.data || [];
-        } catch (e) {
-          console.warn("Failed to load hubs:", e);
+        /** Set unassigned list */
+        const backendUnassignedList = fleet.unassigned_vehicle_numbers ?? [];
+        if (mounted) {
+          setUnassignedVehiclesList(backendUnassignedList);
         }
 
-        const capacity = hubsList.reduce(
-          (sum, hub) => sum + Number(hub.capacity_liters || 0),
-          0
-        );
-        if (mounted) setTotalCapacity(capacity);
-
-        /** --- GET OPTIMIZATION (FOR UTILIZATION + FLEET INSIGHTS) --- */
-        let optRes: any = null;
-        try {
-          optRes = await OptimizationService.getLatest();
-        } catch (err) {
-          console.warn("No optimization or failed to fetch optimization.");
+        /** Set fleet insights */
+        if (mounted) {
+          setFleetInsights({
+            fullyLoaded: fleet.fully_loaded ?? 0,
+            halfLoaded: fleet.half_loaded ?? 0,
+            unassigned: backendUnassignedList.length,
+          });
         }
 
-        if (optRes && optRes.data) {
-          const optData = optRes.data;
+        if (mounted) setStats(data);
 
-          /** total milk collected (all clusters) */
-          const dynamicUtilization =
-            optData?.clusters?.reduce(
-              (sum: number, c: any) => sum + (c.total_milk || 0),
-              0
-            ) || 0;
-
-          if (mounted) setCurrentUtilization(dynamicUtilization);
-
-          /** Fleet utilization calculation */
-          const optVehicles = optData.vehicles || {};
-          const vehicleEntries = Object.values(optVehicles || {});
-
-          const fullyLoaded = vehicleEntries.filter(
-            (v: any) => Number(v.utilization_pct ?? 0) >= 70
-          ).length;
-
-          const halfLoaded = vehicleEntries.filter((v: any) => {
-            const pct = Number(v.utilization_pct ?? 0);
-            return pct >= 50 && pct < 70;
-          }).length;
-
-          const unassigned = dynamicUnassignedList.length;
-
-          if (mounted) {
-            setFleetInsights({
-              fullyLoaded,
-              halfLoaded,
-              unassigned,
-            });
-          }
-        } else {
-          /** fallback to dashboard stats */
-          if (mounted && dashboardData?.fleet) {
-            setFleetInsights({
-              fullyLoaded: dashboardData.fleet.fully_loaded ?? 0,
-              halfLoaded: dashboardData.fleet.half_loaded ?? 0,
-              unassigned: dynamicUnassignedList.length,
-            });
-          }
-        }
-
-        if (mounted) setStats(mergedStats);
       } catch (err) {
-        console.error("❌ Failed to load dashboard:", err);
+        console.error("❌ Dashboard load failed:", err);
         toast.error("Failed to load dashboard");
       } finally {
         if (mounted) setLoading(false);
@@ -674,7 +608,7 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
     const refresh = () => loadAll();
     window.addEventListener("dashboard-update", refresh);
 
-    const interval = setInterval(loadAll, 10000);
+    const interval = setInterval(loadAll, 12000);
 
     return () => {
       mounted = false;
@@ -683,15 +617,17 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
     };
   }, []);
 
-  /** RUN OPTIMIZATION **/
+  /** RUN OPTIMIZATION */
   const handleRunOptimization = async () => {
     try {
       setIsRunning(true);
       toast.loading("Running optimization...");
+
       const res = await OptimizationService.runOptimization();
-      const taskId = res?.task_id ?? res?.taskId ?? res?.data?.task_id;
       toast.dismiss();
       toast.success("Optimization started!");
+
+      const taskId = res?.task_id ?? res?.taskId ?? res?.data?.task_id;
 
       if (!taskId) {
         setTimeout(() => {
@@ -704,24 +640,25 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
       const interval = setInterval(async () => {
         try {
           const status = await OptimizationService.getStatus(taskId);
-          if (
-            status?.state === "completed" ||
-            status?.status === "completed"
-          ) {
+
+          if (status?.state === "completed" || status?.status === "completed") {
             clearInterval(interval);
             await OptimizationService.getResult(taskId);
             toast.success("Optimization completed!");
             setIsRunning(false);
             window.dispatchEvent(new CustomEvent("dashboard-update"));
-          } else if (status?.state === "failed") {
+          } 
+          else if (status?.state === "failed") {
             clearInterval(interval);
             toast.error("Optimization failed!");
             setIsRunning(false);
           }
+
         } catch (err) {
           console.warn("Polling failed:", err);
         }
       }, 3000);
+
     } catch (err) {
       toast.dismiss();
       toast.error("Failed to start optimization");
@@ -729,17 +666,19 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
     }
   };
 
-  /** CSV **/
+  /** CSV Generator */
   const convertToCSV = (data: any[]) => {
     if (!data.length) return "No data";
     const headers = Object.keys(data[0]).join(",");
     const rows = data.map((obj) =>
       Object.values(obj)
-        .map((v) => {
-          if (v === null || v === undefined) return "";
-          if (typeof v === "object") return JSON.stringify(v).replace(/"/g, '""');
-          return String(v).replace(/"/g, '""');
-        })
+        .map((v) =>
+          v === null || v === undefined
+            ? ""
+            : typeof v === "object"
+            ? JSON.stringify(v).replace(/"/g, '""')
+            : String(v).replace(/"/g, '""')
+        )
         .join(",")
     );
     return [headers, ...rows].join("\n");
@@ -748,6 +687,7 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
   const handleGenerateReport = async () => {
     try {
       toast.loading("Fetching optimization history...");
+
       const history = await OptimizationService.getHistory();
       toast.dismiss();
 
@@ -767,6 +707,7 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
       const csv = convertToCSV(result.routes);
       const blob = new Blob([csv], { type: "text/csv" });
       const url = URL.createObjectURL(blob);
+
       const a = document.createElement("a");
       a.href = url;
       a.download = "optimization_report.csv";
@@ -792,12 +733,14 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
 
       const latest = history[0];
       window.location.href = `/route-map?task_id=${latest.task_id}`;
+
     } catch (err) {
       toast.dismiss();
       toast.error("Failed to load routes");
     }
   };
 
+  /** LOADING UI */
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96">
@@ -814,25 +757,22 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
     );
   }
 
+  /** Extract stats */
   const vendorStats = stats.vendors ?? {};
-  const hubStatsRaw = stats.hubs ?? {};
-  const fleetRaw = stats.fleet ?? {};
+  const hubs = stats.hubs ?? {};
+  const fleet = stats.fleet ?? {};
 
-  const activeHubsCount = Array.isArray(hubStatsRaw)
-    ? hubStatsRaw.length
-    : hubStatsRaw?.total_hubs ?? 0;
-
+  /** Computed utilization */
   const utilizationPercentage =
     totalCapacity > 0 ? (currentUtilization / totalCapacity) * 100 : 0;
 
+  /** Final fleet stats */
   const fleetStats = {
-    total_vehicles: fleetRaw.total_vehicles ?? 0,
-    unassigned_vehicles:
-      fleetInsights.unassigned ?? 0,
+    total_vehicles: fleet.total_vehicles ?? 0,
+    unassigned_vehicles: fleetInsights.unassigned ?? 0,
     fully_loaded: fleetInsights.fullyLoaded ?? 0,
     half_loaded: fleetInsights.halfLoaded ?? 0,
-    available_vehicles: fleetRaw.available_vehicles ?? 0,
-    unavailable_vehicles: fleetRaw.unavailable_vehicles ?? 0,
+    available_vehicles: fleet.available_vehicles ?? 0,
   };
 
   return (
@@ -848,13 +788,11 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         {/* Vendors */}
-        <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <div className="bg-white rounded-xl p-6 border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-slate-600 mb-1">Active Vendors</p>
-              <p className="text-3xl font-bold text-slate-900">
-                {vendorStats.active_vendors ?? 0}
-              </p>
+              <p className="text-3xl font-bold">{vendorStats.active_vendors ?? 0}</p>
               <p className="text-xs text-slate-500 mt-1">
                 of {vendorStats.total_vendors ?? 0} total
               </p>
@@ -866,15 +804,13 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
         </div>
 
         {/* Active Hubs */}
-        <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <div className="bg-white rounded-xl p-6 border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-slate-600 mb-1">Active Hubs</p>
-              <p className="text-3xl font-bold text-slate-900">
-                {activeHubsCount}
-              </p>
+              <p className="text-3xl font-bold">{hubs.total_hubs ?? 0}</p>
               <p className="text-xs text-slate-500 mt-1">
-                of {hubStatsRaw?.total_hubs ?? 0} total
+                of {hubs.total_hubs ?? 0} total
               </p>
             </div>
             <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -883,19 +819,18 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
           </div>
         </div>
 
-        {/* Chilling Centre Utilization */}
-        <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        {/* Utilization */}
+        <div className="bg-white rounded-xl p-6 border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-slate-600 mb-1">
                 Chilling Centre Utilization
               </p>
-              <p className="text-3xl font-bold text-slate-900">
+              <p className="text-3xl font-bold">
                 {utilizationPercentage.toFixed(1)}%
               </p>
               <p className="text-xs text-slate-500 mt-1">
-                {Number(currentUtilization).toLocaleString()}L /{" "}
-                {Number(totalCapacity).toLocaleString()}L
+                {currentUtilization.toLocaleString()}L / {totalCapacity.toLocaleString()}L
               </p>
             </div>
             <div className="h-12 w-12 bg-indigo-100 rounded-lg flex items-center justify-center">
@@ -903,12 +838,12 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
             </div>
           </div>
         </div>
+
       </div>
 
-      {/* Optimization Potential & Actions */}
+      {/* Optimization Potential */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-        {/* Optimization Potential */}
+        
         <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl p-6 text-white shadow-lg">
           <div className="flex items-center gap-3 mb-4">
             <TrendingDown className="h-6 w-6" />
@@ -918,20 +853,20 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
           <div className="space-y-3">
             <div>
               <p className="text-emerald-100 text-sm">Mini Vehicles</p>
-              <p className="text-2xl font-bold">{fleetRaw.mini_vehicles ?? 0}</p>
+              <p className="text-2xl font-bold">{fleet.mini_vehicles ?? 0}</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4 mt-4">
               <div>
                 <p className="text-emerald-100 text-sm">Small Vehicles</p>
                 <p className="text-lg font-semibold">
-                  {fleetRaw.small_vehicles ?? 0}
+                  {fleet.small_vehicles ?? 0}
                 </p>
               </div>
               <div>
                 <p className="text-emerald-100 text-sm">Total Capacity</p>
                 <p className="text-lg font-semibold">
-                  {fleetRaw.total_capacity_liters?.toLocaleString() ?? 0} L
+                  {fleet.total_capacity_liters?.toLocaleString() ?? 0} L
                 </p>
               </div>
             </div>
@@ -939,30 +874,26 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
         </div>
 
         {/* Recent Activity */}
-        <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <div className="bg-white rounded-xl p-6 border shadow-sm">
           <div className="flex items-center gap-3 mb-4">
             <Clock className="h-6 w-6 text-slate-600" />
-            <h3 className="text-lg font-semibold text-slate-900">
-              Recent Activity
-            </h3>
+            <h3 className="text-lg font-semibold">Recent Activity</h3>
           </div>
 
           <div className="space-y-3">
-            <div className="flex items-center justify-between py-2 border-b border-slate-100">
-              <span className="text-sm text-slate-600">Total Vendors</span>
-              <span className="font-semibold text-slate-900">
+            <div className="flex justify-between py-2 border-b">
+              <span className="text-sm">Total Vendors</span>
+              <span className="font-semibold">
                 {vendorStats.total_vendors ?? 0}
               </span>
             </div>
-            <div className="flex items-center justify-between py-2 border-b border-slate-100">
-              <span className="text-sm text-slate-600">Active Hubs</span>
-              <span className="font-semibold text-slate-900">
-                {activeHubsCount}
-              </span>
+            <div className="flex justify-between py-2 border-b">
+              <span className="text-sm">Active Hubs</span>
+              <span className="font-semibold">{hubs.total_hubs ?? 0}</span>
             </div>
-            <div className="flex items-center justify-between py-2">
-              <span className="text-sm text-slate-600">Available Fleet</span>
-              <span className="font-semibold text-slate-900">
+            <div className="flex justify-between py-2">
+              <span className="text-sm">Available Fleet</span>
+              <span className="font-semibold">
                 {fleetStats.available_vehicles}
               </span>
             </div>
@@ -970,10 +901,9 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
         </div>
 
         {/* Quick Actions */}
-        <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-          <h3 className="text-lg font-semibold text-slate-900 mb-4">
-            Quick Actions
-          </h3>
+        <div className="bg-white rounded-xl p-6 border shadow-sm">
+          <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+
           <div className="space-y-3">
 
             <button
@@ -990,14 +920,14 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
 
             <button
               onClick={handleGenerateReport}
-              className="w-full px-4 py-3 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors text-sm font-medium"
+              className="w-full px-4 py-3 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 text-sm"
             >
               Generate Report
             </button>
 
             <button
               onClick={handleViewRoutes}
-              className="w-full px-4 py-3 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors text-sm font-medium"
+              className="w-full px-4 py-3 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 text-sm"
             >
               View All Routes
             </button>
@@ -1007,27 +937,21 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
       </div>
 
       {/* Fleet Efficiency */}
-      <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-        <h3 className="text-lg font-semibold text-slate-900 mb-4">
-          Fleet Efficiency Insights
-        </h3>
+      <div className="bg-white rounded-xl p-6 border shadow-sm">
+        <h3 className="text-lg font-semibold mb-4">Fleet Efficiency Insights</h3>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-          {/* Total vehicles */}
+          {/* Total */}
           <div className="text-center p-4 bg-slate-50 rounded-lg">
-            <p className="text-2xl font-bold text-slate-900">
-              {fleetStats.total_vehicles}
-            </p>
-            <p className="text-sm text-slate-600 mt-1">Total Vehicles</p>
+            <p className="text-2xl font-bold">{fleetStats.total_vehicles}</p>
+            <p className="text-sm mt-1">Total Vehicles</p>
           </div>
 
-          {/* Unassigned vehicles */}
+          {/* Unassigned */}
           <div className="text-center p-4 bg-slate-50 rounded-lg">
-            <p className="text-2xl font-bold text-slate-900">
-              {fleetStats.unassigned_vehicles}
-            </p>
-            <p className="text-sm text-slate-600 mt-1">Unassigned Vehicles</p>
+            <p className="text-2xl font-bold">{fleetStats.unassigned_vehicles}</p>
+            <p className="text-sm mt-1">Unassigned Vehicles</p>
 
             <button
               className="mt-2 px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700"
@@ -1037,21 +961,18 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
             </button>
           </div>
 
-          {/* Fully loaded */}
+          {/* Fully Loaded */}
           <div className="text-center p-4 bg-slate-50 rounded-lg">
-            <p className="text-2xl font-bold text-slate-900">
-              {fleetStats.fully_loaded}
-            </p>
-            <p className="text-sm text-slate-600 mt-1">Fully Loaded</p>
+            <p className="text-2xl font-bold">{fleetStats.fully_loaded}</p>
+            <p className="text-sm mt-1">Fully Loaded</p>
           </div>
 
-          {/* Half loaded */}
+          {/* Half Loaded */}
           <div className="text-center p-4 bg-slate-50 rounded-lg">
-            <p className="text-2xl font-bold text-slate-900">
-              {fleetStats.half_loaded}
-            </p>
-            <p className="text-sm text-slate-600 mt-1">Half Loaded</p>
+            <p className="text-2xl font-bold">{fleetStats.half_loaded}</p>
+            <p className="text-sm mt-1">Half Loaded</p>
           </div>
+
         </div>
       </div>
 
@@ -1059,7 +980,7 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
       {showUnassignedModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg w-80 shadow-xl">
-            <h3 className="text-lg font-semibold text-slate-900 mb-4 text-center">
+            <h3 className="text-lg font-semibold text-center mb-4">
               Unassigned Vehicles
             </h3>
 
@@ -1067,7 +988,7 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
               {unassignedVehiclesList.map((v, idx) => (
                 <li
                   key={idx}
-                  className="p-2 bg-slate-100 rounded text-slate-800 text-sm text-center"
+                  className="p-2 bg-slate-100 rounded text-sm text-center"
                 >
                   {v}
                 </li>
@@ -1076,7 +997,7 @@ if (mounted) setUnassignedVehiclesList(dynamicUnassignedList);
 
             <button
               onClick={() => setShowUnassignedModal(false)}
-              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
             >
               Close
             </button>

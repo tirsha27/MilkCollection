@@ -1,0 +1,1261 @@
+{
+  "optimization_results": {
+    "clusters": [
+      {
+        "name": "Thuvarankurichi",
+        "total_milk": 5560,
+        "capacity": 15000,
+        "lat": 10.3,
+        "lng": 78.3,
+        "vehicles": [
+          {
+            "id": "droppable-0-0",
+            "type": "CAT_F011",
+            "vehicle_number": "TN12SV1900",
+            "farmers": [
+              {
+                "id": "Thuvarankurichi-v0-f123",
+                "name": "Kalimuthu",
+                "milk_liters": 335,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f124",
+                "name": "Gopalakrishnan",
+                "milk_liters": 335,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f125",
+                "name": "Senthilkumar",
+                "milk_liters": 335,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f126",
+                "name": "Ganesan",
+                "milk_liters": 335,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f127",
+                "name": "Ramu",
+                "milk_liters": 335,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f128",
+                "name": "Muthusamy",
+                "milk_liters": 335,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f129",
+                "name": "Nadarajan",
+                "milk_liters": 335,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v0-f130",
+                "name": "Anbalagan",
+                "milk_liters": 335,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 2680,
+            "capacity": 2680,
+            "distance": 198.10479999999998,
+            "travel_time": 204.13666666666668,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-0-1",
+            "type": "CAT_F007",
+            "vehicle_number": "TN12SV1896",
+            "farmers": [
+              {
+                "id": "Thuvarankurichi-v1-f131",
+                "name": "Nalliah",
+                "milk_liters": 304,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v1-f132",
+                "name": "Manickam",
+                "milk_liters": 304,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v1-f133",
+                "name": "Thirumalai",
+                "milk_liters": 304,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v1-f134",
+                "name": "Murugan",
+                "milk_liters": 304,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v1-f135",
+                "name": "Veeramani",
+                "milk_liters": 304,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 1520,
+            "capacity": 1520,
+            "distance": 62.6109,
+            "travel_time": 65.98499999999999,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-0-2",
+            "type": "C6",
+            "vehicle_number": "TN13ST7896",
+            "farmers": [
+              {
+                "id": "Thuvarankurichi-v3-f141",
+                "name": "Veerapandi",
+                "milk_liters": 200,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v2-f136",
+                "name": "Vellaiyappan",
+                "milk_liters": 232,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v2-f137",
+                "name": "Kothandaraman",
+                "milk_liters": 232,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v2-f138",
+                "name": "Karunanidhi",
+                "milk_liters": 232,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v2-f139",
+                "name": "Karthikeyan",
+                "milk_liters": 232,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Thuvarankurichi-v2-f140",
+                "name": "Rajadurai",
+                "milk_liters": 232,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 1360,
+            "capacity": 1200,
+            "distance": 63.98,
+            "travel_time": 71,
+            "utilization": 113.33
+          },
+          {
+            "id": "droppable-0-3",
+            "type": "CAT_F013",
+            "vehicle_number": "TN12SV1902",
+            "farmers": [],
+            "total_milk": 0,
+            "capacity": 1200,
+            "distance": 0,
+            "travel_time": 0,
+            "utilization": 0
+          }
+        ],
+        "stats": {
+          "vehiclesUsed": 4,
+          "totalAssignedMilk": 5560,
+          "fullnessPercent": 37.07,
+          "lowUtilized": [],
+          "unusedVehicles": [
+            "TN12SV1902"
+          ]
+        }
+      },
+      {
+        "name": "Viralimalai",
+        "total_milk": 2560,
+        "capacity": 9000,
+        "lat": 10.3,
+        "lng": 78.3,
+        "vehicles": [
+          {
+            "id": "droppable-1-0",
+            "type": "C4",
+            "vehicle_number": "TN15TV1256",
+            "farmers": [
+              {
+                "id": "Viralimalai-v0-f142",
+                "name": "Kumarasamy",
+                "milk_liters": 334,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v0-f143",
+                "name": "Sivaraj",
+                "milk_liters": 334,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v0-f144",
+                "name": "Mariappan",
+                "milk_liters": 333,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v0-f145",
+                "name": "Muthuraman",
+                "milk_liters": 333,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v0-f146",
+                "name": "Ponnusamy",
+                "milk_liters": 333,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v0-f147",
+                "name": "Perumal",
+                "milk_liters": 333,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 2000,
+            "capacity": 2000,
+            "distance": 195.2367,
+            "travel_time": 198.47,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-1-1",
+            "type": "C3",
+            "vehicle_number": "TN12SV1986",
+            "farmers": [
+              {
+                "id": "Viralimalai-v1-f148",
+                "name": "Ramasamy",
+                "milk_liters": 280,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Viralimalai-v1-f149",
+                "name": "Venkatasamy",
+                "milk_liters": 280,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 560,
+            "capacity": 1600,
+            "distance": 51.274800000000006,
+            "travel_time": 60.24166666666667,
+            "utilization": 35
+          }
+        ],
+        "stats": {
+          "vehiclesUsed": 2,
+          "totalAssignedMilk": 2560,
+          "fullnessPercent": 28.44,
+          "lowUtilized": [
+            {
+              "vehicle_number": "TN12SV1986",
+              "pct": 35
+            }
+          ],
+          "unusedVehicles": []
+        }
+      },
+      {
+        "name": "Melur",
+        "total_milk": 9440,
+        "capacity": 18000,
+        "lat": 10.3,
+        "lng": 78.3,
+        "vehicles": [
+          {
+            "id": "droppable-2-0",
+            "type": "CAT_F015",
+            "vehicle_number": "TN12SV1904",
+            "farmers": [
+              {
+                "id": "Melur-v0-f150",
+                "name": "Muthupandi",
+                "milk_liters": 367,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f151",
+                "name": "Rajalakshmi",
+                "milk_liters": 367,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f152",
+                "name": "Rajendran",
+                "milk_liters": 367,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f153",
+                "name": "Arulnithi",
+                "milk_liters": 367,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f154",
+                "name": "Kamalakannan",
+                "milk_liters": 366,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v0-f155",
+                "name": "Ayyappan",
+                "milk_liters": 366,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 2200,
+            "capacity": 2200,
+            "distance": 106.132,
+            "travel_time": 109.79333333333332,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-2-1",
+            "type": "CAT_F016",
+            "vehicle_number": "TN12SV1905",
+            "farmers": [
+              {
+                "id": "Melur-v1-f156",
+                "name": "Marimuthu",
+                "milk_liters": 325,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f157",
+                "name": "Tharshan",
+                "milk_liters": 325,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f158",
+                "name": "Sathish",
+                "milk_liters": 325,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f159",
+                "name": "Manikavalan",
+                "milk_liters": 325,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f160",
+                "name": "Karuppaiah",
+                "milk_liters": 325,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f161",
+                "name": "Aravind",
+                "milk_liters": 325,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f162",
+                "name": "Velan",
+                "milk_liters": 325,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v1-f163",
+                "name": "Gokul",
+                "milk_liters": 325,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 2600,
+            "capacity": 2600,
+            "distance": 61.4033,
+            "travel_time": 71.14500000000001,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-2-2",
+            "type": "CAT_F014",
+            "vehicle_number": "TN12SV1903",
+            "farmers": [
+              {
+                "id": "Melur-v2-f164",
+                "name": "Arokiyasamy",
+                "milk_liters": 286,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v2-f165",
+                "name": "Pugalendhi",
+                "milk_liters": 286,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v2-f166",
+                "name": "Raghuraman",
+                "milk_liters": 286,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v2-f167",
+                "name": "Chidambaram",
+                "milk_liters": 286,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v2-f168",
+                "name": "Ramasubramanian",
+                "milk_liters": 286,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v2-f169",
+                "name": "Muthiah",
+                "milk_liters": 285,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v2-f170",
+                "name": "Anand",
+                "milk_liters": 285,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 2000,
+            "capacity": 2000,
+            "distance": 0,
+            "travel_time": 0,
+            "utilization": 100
+          },
+          {
+            "id": "droppable-2-3",
+            "type": "CAT_F008",
+            "vehicle_number": "TN12SV1897",
+            "farmers": [
+              {
+                "id": "Melur-v3-f171",
+                "name": "Balamurugan",
+                "milk_liters": 220,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v3-f172",
+                "name": "Jeevan",
+                "milk_liters": 220,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v3-f173",
+                "name": "Thanvanth",
+                "milk_liters": 220,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v3-f174",
+                "name": "Sivasamy",
+                "milk_liters": 220,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v3-f175",
+                "name": "Chandran",
+                "milk_liters": 220,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v3-f176",
+                "name": "Sathiya",
+                "milk_liters": 220,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v3-f177",
+                "name": "Ramalingam",
+                "milk_liters": 220,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v3-f178",
+                "name": "Periyapalan",
+                "milk_liters": 220,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v3-f179",
+                "name": "Periyasamy",
+                "milk_liters": 220,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v3-f180",
+                "name": "Siva",
+                "milk_liters": 220,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v3-f181",
+                "name": "Mani",
+                "milk_liters": 220,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Melur-v3-f182",
+                "name": "Prabhakar",
+                "milk_liters": 220,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 2640,
+            "capacity": 52800,
+            "distance": 185.7455,
+            "travel_time": 212.27333333333334,
+            "utilization": 5
+          }
+        ],
+        "stats": {
+          "vehiclesUsed": 4,
+          "totalAssignedMilk": 9440,
+          "fullnessPercent": 52.44,
+          "lowUtilized": [
+            {
+              "vehicle_number": "TN12SV1897",
+              "pct": 5
+            }
+          ],
+          "unusedVehicles": []
+        }
+      },
+      {
+        "name": "Madurai",
+        "total_milk": 8080,
+        "capacity": 25000,
+        "lat": 10.3,
+        "lng": 78.3,
+        "vehicles": [
+          {
+            "id": "droppable-3-0",
+            "type": "CAT_F012",
+            "vehicle_number": "TN12SV1901",
+            "farmers": [
+              {
+                "id": "Madurai-v0-f183",
+                "name": "Karuthapandi",
+                "milk_liters": 300,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f184",
+                "name": "Kaliyaperumal",
+                "milk_liters": 300,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f185",
+                "name": "Venkataraman",
+                "milk_liters": 300,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f186",
+                "name": "Selvakumar",
+                "milk_liters": 300,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f187",
+                "name": "Jayanthan",
+                "milk_liters": 300,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f188",
+                "name": "Ramajayan",
+                "milk_liters": 300,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f189",
+                "name": "Ramarajan",
+                "milk_liters": 300,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f190",
+                "name": "Mahalingam",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f191",
+                "name": "Jagadeesan",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f192",
+                "name": "Palanisamy",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f193",
+                "name": "Selvaraj",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f194",
+                "name": "Krishnamoorthy",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f195",
+                "name": "Shankar",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f196",
+                "name": "Natarajan",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f197",
+                "name": "Kandasamy",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f198",
+                "name": "Arulkumar",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f199",
+                "name": "Murugappan",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f200",
+                "name": "Rathi",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f201",
+                "name": "Karuppan",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f202",
+                "name": "Yogeshwaran",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f203",
+                "name": "Arumughan",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f204",
+                "name": "Velusamy",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f205",
+                "name": "Ramalingan",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f206",
+                "name": "Kuppusamy",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f207",
+                "name": "Thanaraj",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f208",
+                "name": "Thavapalan",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Madurai-v0-f209",
+                "name": "Ayyanar",
+                "milk_liters": 299,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 8080,
+            "capacity": 64000,
+            "distance": 166.81810000000002,
+            "travel_time": 225.5983333333334,
+            "utilization": 12.63
+          }
+        ],
+        "stats": {
+          "vehiclesUsed": 1,
+          "totalAssignedMilk": 8080,
+          "fullnessPercent": 32.32,
+          "lowUtilized": [
+            {
+              "vehicle_number": "TN12SV1901",
+              "pct": 12.63
+            }
+          ],
+          "unusedVehicles": []
+        }
+      },
+      {
+        "name": "Singampunari",
+        "total_milk": 5640,
+        "capacity": 20000,
+        "lat": 10.3,
+        "lng": 78.3,
+        "vehicles": [
+          {
+            "id": "droppable-4-0",
+            "type": "CAT_F009",
+            "vehicle_number": "TN12SV1898",
+            "farmers": [
+              {
+                "id": "Singampunari-v0-f210",
+                "name": "Ravichandran",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f211",
+                "name": "Annamalai",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f212",
+                "name": "Sakthivelan",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f213",
+                "name": "Manikandan",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f214",
+                "name": "Vaidyanathan",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f215",
+                "name": "Karthik",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f216",
+                "name": "Devarajan",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f217",
+                "name": "Raja",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f218",
+                "name": "Azhagan",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f219",
+                "name": "Kasinathan",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f220",
+                "name": "Anbu",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f221",
+                "name": "Muthukumar",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f222",
+                "name": "Jayakumar",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f223",
+                "name": "Jagannathan",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f224",
+                "name": "Jegan",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f225",
+                "name": "Arvind",
+                "milk_liters": 297,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f226",
+                "name": "Rajaraman",
+                "milk_liters": 296,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f227",
+                "name": "Sundar",
+                "milk_liters": 296,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Singampunari-v0-f228",
+                "name": "Ramachandran",
+                "milk_liters": 296,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 5640,
+            "capacity": 83200,
+            "distance": 282.21209999999996,
+            "travel_time": 276.1316666666667,
+            "utilization": 6.78
+          }
+        ],
+        "stats": {
+          "vehiclesUsed": 1,
+          "totalAssignedMilk": 5640,
+          "fullnessPercent": 28.2,
+          "lowUtilized": [
+            {
+              "vehicle_number": "TN12SV1898",
+              "pct": 6.78
+            }
+          ],
+          "unusedVehicles": []
+        }
+      },
+      {
+        "name": "Ponnamaravathi Bus stand",
+        "total_milk": 4840,
+        "capacity": 30000,
+        "lat": 10.3,
+        "lng": 78.3,
+        "vehicles": [
+          {
+            "id": "droppable-5-0",
+            "type": "C5",
+            "vehicle_number": "TN17ST1478",
+            "farmers": [
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f229",
+                "name": "Subash",
+                "milk_liters": 303,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f230",
+                "name": "Dhanapal",
+                "milk_liters": 303,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f231",
+                "name": "Suthan",
+                "milk_liters": 303,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f232",
+                "name": "Vasu",
+                "milk_liters": 303,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f233",
+                "name": "Shanmugam",
+                "milk_liters": 303,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f234",
+                "name": "Murali",
+                "milk_liters": 303,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f235",
+                "name": "Narayanan",
+                "milk_liters": 303,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f236",
+                "name": "Srinivasan",
+                "milk_liters": 303,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f237",
+                "name": "Kannan",
+                "milk_liters": 302,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f238",
+                "name": "Venkatesh",
+                "milk_liters": 302,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f239",
+                "name": "Saravanan",
+                "milk_liters": 302,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f240",
+                "name": "Suresh",
+                "milk_liters": 302,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f241",
+                "name": "Subramanian",
+                "milk_liters": 302,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f242",
+                "name": "Pandiyan",
+                "milk_liters": 302,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f243",
+                "name": "Kamaraj",
+                "milk_liters": 302,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              },
+              {
+                "id": "Ponnamaravathi Bus stand-v0-f244",
+                "name": "Sakthivel",
+                "milk_liters": 302,
+                "lat": 10.3,
+                "lng": 78.3,
+                "location": "Near Dindigul, Tamil Nadu"
+              }
+            ],
+            "total_milk": 4840,
+            "capacity": 88000,
+            "distance": 230.393,
+            "travel_time": 265.7833333333333,
+            "utilization": 5.5
+          }
+        ],
+        "stats": {
+          "vehiclesUsed": 1,
+          "totalAssignedMilk": 4840,
+          "fullnessPercent": 16.13,
+          "lowUtilized": [
+            {
+              "vehicle_number": "TN17ST1478",
+              "pct": 5.5
+            }
+          ],
+          "unusedVehicles": []
+        }
+      }
+    ],
+    "timestamp": "2025-11-18T11:02:14.597682+00:00"
+  }
+}
